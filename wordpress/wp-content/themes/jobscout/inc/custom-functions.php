@@ -216,6 +216,7 @@ function jobscout_scripts() {
 
     wp_enqueue_style( 'owl-carousel', get_template_directory_uri(). '/css' . $build . '/owl.carousel' . $suffix . '.css', array(), '2.3.4' );
     wp_enqueue_style( 'jobscout', get_stylesheet_uri(), array(), JOBSCOUT_THEME_VERSION );
+    wp_enqueue_style( 'jobscout-news-page', get_template_directory_uri() . '/css/news-page.css', array( 'jobscout' ), JOBSCOUT_THEME_VERSION );
     
     wp_enqueue_script( 'all', get_template_directory_uri() . '/js' . $build . '/all' . $suffix . '.js', array( 'jquery' ), '5.6.3', true );
     wp_enqueue_script( 'v4-shims', get_template_directory_uri() . '/js' . $build . '/v4-shims' . $suffix . '.js', array( 'jquery', 'all' ), '5.6.3', true );
