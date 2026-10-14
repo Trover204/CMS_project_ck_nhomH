@@ -56,14 +56,6 @@ function jobscout_responsive_header(){
                             'container'      => false,
                             'fallback_cb'    => 'jobscout_primary_menu_fallback',
                         ) );
-
-                        wp_nav_menu( array(
-                            'theme_location' => 'secondary',
-                            'menu_class'     => 'nav-menu',
-                            'menu_id'        => 'secondary-menu',
-                            'container'      => false,
-                            'fallback_cb'    => 'jobscout_secondary_menu_fallback',
-                        ) );
                     ?>
                 
                     <?php if( $post_job_label || $post_job_url ){ ?>
@@ -99,7 +91,6 @@ if( ! function_exists( 'jobscout_header' ) ) :
 function jobscout_header(){ 
     ?>
     <header id="masthead" class="site-header header-one" itemscope itemtype="https://schema.org/WPHeader">
-        <?php if( has_nav_menu( 'secondary' ) || current_user_can( 'manage_options' ) ) jobscout_secondary_navigation(); ?>
         <div class="header-main">
             <div class="container">
                 <?php 
