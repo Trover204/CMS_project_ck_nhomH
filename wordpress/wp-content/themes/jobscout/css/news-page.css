@@ -26,23 +26,23 @@
     display: inline-block;
 }
 
-.main-navigation ul li:hover > a {
+.main-navigation ul li:hover>a {
     color: var(--pds-primary-orange);
 }
 
 /* Active Menu Item Underline */
-.main-navigation ul li.current-menu-item > a,
-.main-navigation ul li.current_page_item > a,
-.main-navigation ul li.current-menu-ancestor > a,
-body.page-template-page-news .main-navigation ul li.current-menu-item > a,
-body.page-id-news .main-navigation ul li > a.is-active,
-body.news-page .main-navigation ul li.current-menu-item > a {
+.main-navigation ul li.current-menu-item>a,
+.main-navigation ul li.current_page_item>a,
+.main-navigation ul li.current-menu-ancestor>a,
+body.page-template-page-news .main-navigation ul li.current-menu-item>a,
+body.page-id-news .main-navigation ul li>a.is-active,
+body.news-page .main-navigation ul li.current-menu-item>a {
     color: #111111 !important;
 }
 
-.main-navigation ul li.current-menu-item > a::after,
-.main-navigation ul li.current_page_item > a::after,
-body.page-template-page-news .main-navigation ul li.current-menu-item > a::after {
+.main-navigation ul li.current-menu-item>a::after,
+.main-navigation ul li.current_page_item>a::after,
+body.page-template-page-news .main-navigation ul li.current-menu-item>a::after {
     content: '';
     position: absolute;
     bottom: 12px;
@@ -81,8 +81,8 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
 .news-banner-section {
     position: relative;
     width: 100%;
-    min-height: 270px;
-    background: #0f172a url('../images/news-banner.jpg') no-repeat center center;
+    min-height: 570px;
+    background: #0f172a url('../images/view-tokyo-cityscape-night-japan.jpg') no-repeat center center;
     background-size: cover;
     display: flex;
     align-items: center;
@@ -91,6 +91,14 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
     margin: 0;
     padding: 60px 20px;
     overflow: hidden;
+
+}
+
+.news-banner-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .news-banner-overlay {
@@ -127,6 +135,7 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
         min-height: 200px;
         padding: 40px 15px;
     }
+
     .news-banner-title {
         font-size: 26px;
         letter-spacing: 1px;
@@ -137,7 +146,7 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
    3. News Main Content & Grid
    ========================================================== */
 .news-main-section {
-    background-color: var(--pds-section-bg);
+    background-color: #f5f6f8;
     padding: 60px 0 80px 0;
     width: 100%;
 }
@@ -181,7 +190,7 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
 /* Card Style */
 .news-card {
     background: var(--pds-card-bg);
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: row;
@@ -285,11 +294,13 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
     .news-card {
         flex-direction: column;
     }
+
     .news-card-thumb {
         flex: none;
         max-width: 100%;
         height: 200px;
     }
+
     .news-card-body {
         padding: 18px 20px;
     }
@@ -331,19 +342,22 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
     color: #ffffff;
     width: 100%;
     position: relative;
+ 
 }
 
 .news-newsletter-section .container {
     max-width: 1170px;
     margin: 0 auto;
     padding: 0 15px;
+   
 }
 
 .news-newsletter-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 30px;
+
     flex-wrap: wrap;
 }
 
@@ -376,10 +390,12 @@ body.page-template-page-news .main-navigation ul li.current-menu-item > a::after
         align-items: flex-start;
         gap: 20px;
     }
+
     .news-newsletter-form-wrap {
         width: 100%;
         max-width: 100%;
     }
+
     .news-newsletter-form {
         flex-direction: column;
         align-items: stretch;
