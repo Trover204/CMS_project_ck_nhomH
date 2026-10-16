@@ -114,7 +114,7 @@ if( ! function_exists( 'jobscout_breadcrumbs_bar' ) ) :
     function jobscout_breadcrumbs_bar(){
         $ed_breadcrumbs = get_theme_mod( 'ed_breadcrumbs', false );
 
-        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) ){ ?>
+        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) ){ ?>
             <section class="breadcrumb-wrap">
                 <div class="container">
                     <?php jobscout_breadcrumbs_cb(); //Breadcrumb ?>
@@ -134,7 +134,7 @@ if( ! function_exists( 'jobscout_content_start' ) ) :
 function jobscout_content_start(){       
     echo '<div id="acc-content"><!-- .site-header -->';
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) ){ //Make necessary adjust for pg template.
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) ){ //Make necessary adjust for pg template.
         echo is_404() ? '<div class="error-holder">' : '<div id="content" class="site-content">'; 
 
         if( is_archive() || is_search() || is_page_template( 'templates/portfolio.php' ) ) : ?>
@@ -465,7 +465,7 @@ if( ! function_exists( 'jobscout_content_end' ) ) :
 */
 function jobscout_content_end(){ 
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) ){ ?>            
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) ){ ?>            
         </div><!-- .container/ -->        
     </div><!-- .error-holder/site-content -->
     <?php
@@ -488,37 +488,102 @@ add_action( 'jobscout_footer', 'jobscout_footer_start', 20 );
 
 if( ! function_exists( 'jobscout_footer_top' ) ) :
 /**
- * Footer Top
+ * Footer Top - Synchronized PDS Footer across Home, News, and News Detail pages
 */
 function jobscout_footer_top(){    
-    $footer_sidebars = array( 'footer-one', 'footer-two', 'footer-three', 'footer-four' );
-    $active_sidebars = array();
-    $sidebar_count   = 0;
-    
-    foreach ( $footer_sidebars as $sidebar ) {
-        if( is_active_sidebar( $sidebar ) ){
-            array_push( $active_sidebars, $sidebar );
-            $sidebar_count++ ;
-        }
-    }
-                 
-    if( $active_sidebars ){ ?>
-        <div class="footer-t">
-    		<div class="container">
-    			<div class="grid column-<?php echo esc_attr( $sidebar_count ); ?>">
-                <?php foreach( $active_sidebars as $active ){ ?>
-    				<div class="col">
-    				   <?php dynamic_sidebar( $active ); ?>	
-    				</div>
-                <?php } ?>
+    $news_page     = get_page_by_path( 'news' );
+    $news_page_url = $news_page ? get_permalink( $news_page->ID ) : home_url( '/index.php/news/' );
+    $jobs_page     = get_page_by_path( 'jobs-2' );
+    $jobs_page_url = $jobs_page ? get_permalink( $jobs_page->ID ) : home_url( '/index.php/jobs-2/' );
+    $about_page    = get_page_by_path( 'about' );
+    $about_url     = $about_page ? get_permalink( $about_page->ID ) : home_url( '/index.php/about/' );
+    $contact_page  = get_page_by_path( 'contact' );
+    $contact_url   = $contact_page ? get_permalink( $contact_page->ID ) : home_url( '/index.php/contact/' );
+
+    // Display the Orange Newsletter Section on Home, Contact, and other pages (News & News Detail already render it before get_footer)
+    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_singular( 'post' ) ) :
+        ?>
+        <section class="news-newsletter-section">
+            <div class="container">
+                <div class="news-newsletter-inner">
+                    <div class="news-newsletter-title">
+                        <span><?php echo esc_html( get_theme_mod( 'news_newsletter_line1', 'Subscribe To' ) ); ?></span>
+                        <span><?php echo esc_html( get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' ) ); ?></span>
+                    </div>
+                    <div class="news-newsletter-form-wrap">
+                        <form class="news-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');">
+                            <div class="news-input-group">
+                                <span class="news-input-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea751e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </span>
+                                <input type="email" placeholder="<?php esc_attr_e( 'Input your email address', 'jobscout' ); ?>" required />
+                            </div>
+                            <button type="submit" class="news-newsletter-btn"><?php esc_html_e( 'SUBSCRIBE', 'jobscout' ); ?></button>
+                        </form>
+                    </div>
                 </div>
-    		</div>
-    	</div>
-        <?php 
-    }
+            </div>
+        </section>
+        <?php
+    endif;
+    ?>
+    <div class="pds-footer-top">
+        <div class="container">
+            <div class="pds-footer-branding">
+                <?php jobscout_site_branding( true ); ?>
+            </div>
+            <ul class="pds-footer-menu">
+                <li><a href="<?php echo esc_url( $jobs_page_url ); ?>"><?php esc_html_e( 'JOBS', 'jobscout' ); ?></a></li>
+                <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'COMPANIES', 'jobscout' ); ?></a></li>
+                <li><a href="<?php echo esc_url( $news_page_url ); ?>"><?php esc_html_e( 'BLOG', 'jobscout' ); ?></a></li>
+                <li><a href="<?php echo esc_url( $about_url ); ?>"><?php esc_html_e( 'ABOUT', 'jobscout' ); ?></a></li>
+                <li><a href="<?php echo esc_url( $contact_url ); ?>"><?php esc_html_e( 'CONTACT', 'jobscout' ); ?></a></li>
+            </ul>
+            <div class="pds-footer-socials">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-fb" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 320 512" fill="#ffffff"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                </a>
+                <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-gg" aria-label="Google">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                </a>
+                <a href="https://line.me" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-line" aria-label="Line">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-tw" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512" fill="#ffffff"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <?php
 }
 endif;
 add_action( 'jobscout_footer', 'jobscout_footer_top', 30 );
+
+if( ! function_exists( 'jobscout_news_menu_active_class' ) ) :
+/**
+ * Add current-menu-item class to the NEWS menu item when viewing a single post (News Detail)
+ */
+function jobscout_news_menu_active_class( $classes, $item ) {
+    if ( is_singular( 'post' ) ) {
+        $title = strtolower( trim( strip_tags( $item->title ) ) );
+        $url   = strtolower( $item->url );
+        if ( 'news' === $title || 'blog' === $title || strpos( $url, '/news' ) !== false ) {
+            $classes[] = 'current-menu-item';
+        }
+    }
+    return $classes;
+}
+endif;
+add_filter( 'nav_menu_css_class', 'jobscout_news_menu_active_class', 10, 2 );
 
 if( ! function_exists( 'jobscout_footer_bottom' ) ) :
 /**

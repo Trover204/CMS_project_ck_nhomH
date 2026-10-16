@@ -43,7 +43,7 @@ get_header();
                         $thumb_url = get_template_directory_uri() . '/images/banner-image.jpg';
                     }
                     ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-card' ); ?>>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-card' ); ?> onclick="window.location.href='<?php echo esc_url( get_permalink() ); ?>';" style="cursor: pointer;">
                         <div class="news-card-thumb">
                             <a href="<?php the_permalink(); ?>" aria-label="<?php the_title_attribute(); ?>">
                                 <img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy" />
@@ -54,7 +54,11 @@ get_header();
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                             </h3>
                             <div class="news-card-excerpt">
-                                <p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 18, '...' ) ); ?></p>
+                                <p>
+                                    <a href="<?php the_permalink(); ?>" class="news-card-excerpt-link">
+                                        <?php echo esc_html( wp_trim_words( get_the_excerpt(), 18, '...' ) ); ?>
+                                    </a>
+                                </p>
                             </div>
                             <div class="news-card-action">
                                 <a href="<?php the_permalink(); ?>" class="news-card-readmore"><?php esc_html_e( 'Read More', 'jobscout' ); ?></a>
@@ -99,7 +103,7 @@ get_header();
                 <form class="news-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');">
                     <div class="news-input-group">
                         <span class="news-input-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea751e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
