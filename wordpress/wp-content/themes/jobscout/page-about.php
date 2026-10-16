@@ -16,7 +16,6 @@ $banner_bg   = $theme_img_dir . 'photo-1493976040374-85c8e12f0c0e.jpg';
 $intro_img   = $theme_img_dir . 'photo-1524413840807-0c3cb6fa808d.jpg';
 $company_img = $theme_img_dir . 'photo-1536098561742-ca998e48cbcc.jpg';
 ?>
-
 <!-- 1. Hero Banner -->
 <section class="about-hero-section" style="background-image: url('<?php echo esc_url( $banner_bg ); ?>');">
     <div class="about-hero-overlay"></div>
