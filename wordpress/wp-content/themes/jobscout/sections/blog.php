@@ -1,78 +1,83 @@
 <?php
 /**
- * Blog Section
- * 
+ * Blog Section - NEWEST BLOG ENTRIES
+ * Matching News page style & layout per user request.
+ *
  * @package JobScout
  */
 
-$blog_heading = get_theme_mod( 'blog_section_title', __( 'Latest Articles', 'jobscout' ) );
-$sub_title    = get_theme_mod( 'blog_section_subtitle', __( 'We will help you find it. We are your first step to becoming everything you want to be.', 'jobscout' ) );
-$blog         = get_option( 'page_for_posts' );
-$label        = get_theme_mod( 'blog_view_all', __( 'See More Posts', 'jobscout' ) );
-$hide_author  = get_theme_mod( 'ed_post_author', false );
-$hide_date    = get_theme_mod( 'ed_post_date', false );
+$blog_heading = get_theme_mod( 'blog_section_title', __( 'NEWEST BLOG ENTRIES', 'jobscout' ) );
 $ed_blog      = get_theme_mod( 'ed_blog', true );
 
-$args = array(
-    'post_type'           => 'post',
-    'post_status'         => 'publish',
-    'posts_per_page'      => 3,
-    'ignore_sticky_posts' => true
-);
+if( $ed_blog ){ ?>
+<section id="blog-section" class="news-main-section home-news-section">
+    <div class="container">
+        <div class="news-header">
+            <h2 class="news-section-title"><?php echo esc_html( $blog_heading ); ?></h2>
+        </div>
 
-$qry = new WP_Query( $args );
+        <div class="news-grid">
+            <?php
+            $target_ids = array( 977, 979, 981, 982 );
+            $args = array(
+                'post_type'           => 'post',
+                'post_status'         => 'publish',
+                'posts_per_page'      => 4,
+                'ignore_sticky_posts' => 1,
+            );
+            $check_targets = get_posts( array( 'post__in' => $target_ids, 'numberposts' => 4, 'post_type' => 'post' ) );
+            if ( count( $check_targets ) === 4 ) {
+                $args['post__in'] = $target_ids;
+                $args['orderby']  = 'post__in';
+            }
 
-if( $ed_blog && ( $blog_heading || $sub_title || $qry->have_posts() ) ){ ?>
-<section id="blog-section" class="article-section">
-	<div class="container">
-        <?php 
-            if( $blog_heading ) echo '<h2 class="section-title">' . esc_html( $blog_heading ) . '</h2>';
-            if( $sub_title ) echo '<div class="section-desc">' . wpautop( wp_kses_post( $sub_title ) ) . '</div>'; 
-        ?>
-        
-        <?php if( $qry->have_posts() ){ ?>
-           <div class="article-wrap">
-    			<?php 
-                while( $qry->have_posts() ){
-                    $qry->the_post(); ?>
-                    <article class="post">
-        				<figure class="post-thumbnail">
-                            <a href="<?php the_permalink(); ?>" class="post-thumbnail">
-                            <?php 
-                                if( has_post_thumbnail() ){
-                                    the_post_thumbnail( 'jobscout-blog', array( 'itemprop' => 'image' ) );
-                                }else{ 
-                                    jobscout_fallback_svg_image( 'jobscout-blog' ); 
-                                }                            
-                            ?>                        
+            $news_query = new WP_Query( $args );
+
+            if ( $news_query->have_posts() ) :
+                $theme_img_dir = get_template_directory_uri() . '/images/';
+                $custom_post_images = array(
+                    977 => $theme_img_dir . 'photo-1528360983277-13d401cdc186.jpg',
+                    979 => $theme_img_dir . 'photo-1493976040374-85c8e12f0c0e.jpg',
+                    981 => $theme_img_dir . 'photo-1524413840807-0c3cb6fa808d.jpg',
+                    982 => $theme_img_dir . 'photo-1503899036084-c55cdd92da26.jpg',
+                );
+
+                while ( $news_query->have_posts() ) : $news_query->the_post();
+                    $pid = get_the_ID();
+                    $thumb_url = isset( $custom_post_images[ $pid ] ) ? $custom_post_images[ $pid ] : get_the_post_thumbnail_url( $pid, 'jobscout-blog' );
+                    if ( ! $thumb_url ) {
+                        $thumb_url = $theme_img_dir . 'banner-image.jpg';
+                    }
+                    ?>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-card' ); ?> onclick="window.location.href='<?php echo esc_url( get_permalink() ); ?>';" style="cursor: pointer;">
+                        <div class="news-card-thumb">
+                            <a href="<?php the_permalink(); ?>" aria-label="<?php the_title_attribute(); ?>">
+                                <img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy" />
                             </a>
-                        </figure>
-                        <header class="entry-header">
-                            <div class="entry-meta">
-                                <?php 
-                                    if( ! $hide_author ) jobscout_posted_by(); 
-                                    if( ! $hide_date ) jobscout_posted_on();
-                                ?> 
-                            </div>
-                            <h3 class="entry-title">
+                        </div>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                             </h3>
-                        </header>
-        			</article>			
-        			<?php 
-                }
+                            <div class="news-card-excerpt">
+                                <p>
+                                    <a href="<?php the_permalink(); ?>" class="news-card-excerpt-link">
+                                        <?php echo esc_html( wp_trim_words( get_the_excerpt(), 18, '...' ) ); ?>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="news-card-action">
+                                <a href="<?php the_permalink(); ?>" class="news-card-readmore"><?php esc_html_e( 'Read More', 'jobscout' ); ?></a>
+                            </div>
+                        </div>
+                    </article>
+                    <?php
+                endwhile;
                 wp_reset_postdata();
-                ?>
-    		</div><!-- .article-wrap -->
-    		
-            <?php if( $blog && $label ){ ?>
-                <div class="btn-wrap">
-        			<a href="<?php the_permalink( $blog ); ?>" class="btn"><?php echo esc_html( $label ); ?></a>
-        		</div>
-            <?php } ?>
-        
-        <?php } ?>
-	</div>
+            endif;
+            ?>
+        </div>
+    </div>
 </section>
 <?php 
 }
