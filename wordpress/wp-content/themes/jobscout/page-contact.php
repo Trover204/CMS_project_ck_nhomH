@@ -8,7 +8,7 @@
  */
 
 get_header();
-
+//contact page template
 // Determine banner background image (use page featured image if set, otherwise kimono street image)
 $banner_img = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 if ( ! $banner_img ) {

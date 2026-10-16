@@ -37,10 +37,19 @@ get_header();
             ) );
 
             if ( $news_query->have_posts() ) :
+                $theme_img_dir = get_template_directory_uri() . '/images/';
+                $custom_post_images = array(
+                    977 => $theme_img_dir . 'photo-1528360983277-13d401cdc186.jpg',
+                    979 => $theme_img_dir . 'photo-1493976040374-85c8e12f0c0e.jpg',
+                    981 => $theme_img_dir . 'photo-1524413840807-0c3cb6fa808d.jpg',
+                    982 => $theme_img_dir . 'photo-1503899036084-c55cdd92da26.jpg',
+                );
+
                 while ( $news_query->have_posts() ) : $news_query->the_post();
-                    $thumb_url = get_the_post_thumbnail_url( get_the_ID(), 'jobscout-blog' );
+                    $pid = get_the_ID();
+                    $thumb_url = isset( $custom_post_images[ $pid ] ) ? $custom_post_images[ $pid ] : get_the_post_thumbnail_url( $pid, 'jobscout-blog' );
                     if ( ! $thumb_url ) {
-                        $thumb_url = get_template_directory_uri() . '/images/banner-image.jpg';
+                        $thumb_url = $theme_img_dir . 'banner-image.jpg';
                     }
                     ?>
                     <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-card' ); ?> onclick="window.location.href='<?php echo esc_url( get_permalink() ); ?>';" style="cursor: pointer;">
