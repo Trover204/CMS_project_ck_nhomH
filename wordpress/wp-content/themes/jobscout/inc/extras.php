@@ -126,43 +126,20 @@ if (!function_exists('jobscout_site_branding')) :
      */
     function jobscout_site_branding($responsive = false)
     {
-        $site_title          = get_bloginfo('name', 'display');
-        $description         = get_bloginfo('description', 'display');
-        if ((function_exists('has_custom_logo') && has_custom_logo()) && (!empty($site_title) || !empty($description))) {
-            $branding_class = ' logo-text';
-        } else {
-            $branding_class = '';
-        }
+        $site_title  = 'Group H';
+        $description = get_bloginfo('description', 'display');
 ?>
-        <div class="site-branding<?php echo esc_attr($branding_class); ?>" itemscope itemtype="https://schema.org/Organization"> <!-- logo-text -->
-            <?php
-            if (function_exists('has_custom_logo') && has_custom_logo()) {
-                echo '<div class="site-logo">';
-                the_custom_logo();
-                echo '</div>';
-            }
-
-            echo '<div class="site-title-wrap">';
-            if ($responsive) { ?>
-                <p class="site-title" itemprop="name"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home" itemprop="url"><?php bloginfo('name'); ?></a></p>
-                <?php } else {
-                if (is_front_page()) { ?>
-                    <h1 class="site-title" itemprop="name"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home" itemprop="url"><?php bloginfo('name'); ?></a></h1>
-                <?php
-                } else { ?>
-                    <p class="site-title" itemprop="name"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home" itemprop="url"><?php bloginfo('name'); ?></a></p>
-                <?php
-                }
-            }
-
-            $description = get_bloginfo('description', 'display');
-            if ($description || is_customize_preview()) { ?>
-                <p class="site-description" itemprop="description"><?php echo $description; ?></p>
-            <?php
-
-            }
-            echo '</div><!-- .site-title-wrap -->'
-            ?>
+        <div class="site-branding" itemscope itemtype="https://schema.org/Organization">
+            <div class="site-title-wrap">
+                <?php if ($responsive || !is_front_page()) : ?>
+                    <p class="site-title" itemprop="name"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home" itemprop="url"><?php echo esc_html($site_title); ?></a></p>
+                <?php else : ?>
+                    <h1 class="site-title" itemprop="name"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home" itemprop="url"><?php echo esc_html($site_title); ?></a></h1>
+                <?php endif; ?>
+                <?php if ($description || is_customize_preview()) : ?>
+                    <p class="site-description" itemprop="description"><?php echo $description; ?></p>
+                <?php endif; ?>
+            </div><!-- .site-title-wrap -->
         </div>
     <?php
     }
