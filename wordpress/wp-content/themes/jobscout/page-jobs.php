@@ -371,31 +371,8 @@ if ( count( $rendered_jobs ) < 6 ) {
     </div>
 </section>
 
-<!-- Orange Newsletter Section -->
-<section class="news-newsletter-section">
-    <div class="container">
-        <div class="news-newsletter-inner">
-            <div class="news-newsletter-title">
-                <span><?php echo esc_html( get_theme_mod( 'news_newsletter_line1', 'Subscribe To' ) ); ?></span>
-                <span><?php echo esc_html( get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' ) ); ?></span>
-            </div>
-            <div class="news-newsletter-form-wrap">
-                <form class="news-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');">
-                    <div class="news-input-group">
-                        <span class="news-input-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea751e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                        </span>
-                        <input type="email" placeholder="<?php esc_attr_e( 'Input your email address', 'jobscout' ); ?>" required />
-                    </div>
-                    <button type="submit" class="news-newsletter-btn"><?php esc_html_e( 'SUBSCRIBE', 'jobscout' ); ?></button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+<?php // Orange Newsletter Section (Contact Form 7) ?>
+<?php get_template_part( 'template-parts/newsletter-cf7' ); ?>
 
 <script>
 function jobscoutLoadMoreJobs() {

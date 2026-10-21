@@ -1298,7 +1298,6 @@ body.post-type-archive-job_listing .main-navigation ul li.current-menu-item > a:
         transform: translateY(0);
     }
 }
-=======
 /**
  * News & News Detail Page Styles - Matching PDS News Design
  * @package JobScout
@@ -2889,5 +2888,124 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
     .about-intro-media img,
     .about-company-media img {
         height: 220px;
+    }
+}
+
+/* ==========================================================
+   Orange Newsletter Section - Contact Form 7 integration
+   (template-parts/newsletter-cf7.php)
+   ========================================================== */
+.news-newsletter-cf7 .wpcf7 {
+    margin: 0;
+}
+
+.news-newsletter-cf7 .wpcf7-form p {
+    margin: 0;
+}
+
+.news-newsletter-cf7 .wpcf7-form br {
+    display: none;
+}
+
+/* Row: email input + subscribe button */
+.news-newsletter-cf7 .news-cf7-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.news-newsletter-cf7 .news-input-group .wpcf7-form-control-wrap {
+    display: block;
+    width: 100%;
+}
+
+.news-newsletter-cf7 .news-input-icon {
+    top: 23px; /* keep icon centered on the input even when a validation tip appears below */
+    z-index: 1;
+}
+
+/* Envelope icon drawn with CSS (CF7 strips inline <svg> from form templates) */
+.news-newsletter-cf7 .news-cf7-icon {
+    width: 18px;
+    height: 18px;
+    background: no-repeat center / 18px 18px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ea751e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+}
+
+.news-newsletter-cf7 .news-input-group input[type="email"] {
+    display: block;
+    height: 46px;
+    margin: 0;
+}
+
+.news-newsletter-cf7 input.news-newsletter-btn {
+    height: 46px;
+    margin: 0;
+    line-height: 1;
+    -webkit-appearance: none;
+}
+
+/* AJAX spinner shown next to the button while submitting */
+.news-newsletter-cf7 .wpcf7-spinner {
+    align-self: center;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.news-newsletter-cf7 .wpcf7-spinner::before {
+    background-color: var(--pds-primary-orange, #ea751e);
+}
+
+/* Field validation tip under the email input */
+.news-newsletter-cf7 .wpcf7-not-valid-tip {
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.news-newsletter-cf7 .news-input-group input.wpcf7-not-valid {
+    box-shadow: 0 0 0 2px #7a1f00;
+}
+
+/* Response message (success / error) */
+.news-newsletter-cf7 .wpcf7 form .wpcf7-response-output {
+    margin: 12px 0 0;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 13.5px;
+    background: rgba(11, 187, 49, 0.8);
+}
+
+.news-newsletter-cf7 .wpcf7 form.sent .wpcf7-response-output {
+    border-color: #ffffff;
+    background: rgba(11, 187, 49, 0.8);
+}
+
+.news-newsletter-cf7 .wpcf7 form.invalid .wpcf7-response-output,
+.news-newsletter-cf7 .wpcf7 form.unaccepted .wpcf7-response-output,
+.news-newsletter-cf7 .wpcf7 form.failed .wpcf7-response-output,
+.news-newsletter-cf7 .wpcf7 form.aborted .wpcf7-response-output,
+.news-newsletter-cf7 .wpcf7 form.spam .wpcf7-response-output {
+    border-color: #7a1f00;
+    background: rgba(122, 31, 0, 0.25);
+}
+
+/* Admin-only hint when CF7 / the form is missing */
+.news-newsletter-notice {
+    max-width: 1170px;
+    margin: 20px auto;
+    padding: 12px 16px;
+    border-left: 4px solid var(--pds-primary-orange, #ea751e);
+    background: #fff7f0;
+    color: #333333;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+    .news-newsletter-cf7 .news-cf7-row {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
