@@ -680,8 +680,8 @@ body.post-type-archive-job_listing .main-navigation ul li.current-menu-item > a:
 }
 
 .news-newsletter-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: var(--pds-primary-orange, #ea751e);
+    border: 1px solid #ffffff;
     color: #ffffff;
     padding: 13px 28px;
     font-size: 13.5px;
@@ -2024,8 +2024,8 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
 }
 
 .news-newsletter-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: var(--pds-primary-orange, #ea751e);
+    border: 1px solid #ffffff;
     color: #ffffff;
     padding: 13px 28px;
     font-size: 13.5px;
@@ -2987,11 +2987,36 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
     margin: 0;
 }
 
-.news-newsletter-cf7 input.news-newsletter-btn {
+.news-newsletter-cf7 input.news-newsletter-btn,
+.news-newsletter-section input[type="submit"].news-newsletter-btn {
     height: 46px;
     margin: 0;
+    padding: 13px 28px;
     line-height: 1;
+    background: var(--pds-primary-orange, #ea751e);
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
     -webkit-appearance: none;
+}
+
+.news-newsletter-cf7 input.news-newsletter-btn:hover,
+.news-newsletter-cf7 input.news-newsletter-btn:focus,
+.news-newsletter-cf7 input.news-newsletter-btn:active,
+.news-newsletter-section input[type="submit"].news-newsletter-btn:hover,
+.news-newsletter-section input[type="submit"].news-newsletter-btn:focus,
+.news-newsletter-section input[type="submit"].news-newsletter-btn:active {
+    background: #ffffff;
+    color: var(--pds-primary-orange, #ea751e);
+    border-color: #ffffff;
+    outline: none;
 }
 
 /* AJAX spinner shown next to the button while submitting */
@@ -3039,7 +3064,7 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
 .news-newsletter-cf7 .wpcf7 form.aborted .wpcf7-response-output,
 .news-newsletter-cf7 .wpcf7 form.spam .wpcf7-response-output {
     border-color: #7a1f00;
-    background: rgba(122, 31, 0, 0.25);
+    background: rgba(122, 31, 0, 0.8);
 }
 
 /* Admin-only hint when CF7 / the form is missing */

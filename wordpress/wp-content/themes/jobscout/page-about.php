@@ -118,5 +118,9 @@ $company_img = $theme_img_dir . 'photo-1536098561742-ca998e48cbcc.jpg';
     </div>
 </section>
 
+
+<?php // Orange Newsletter Section (Contact Form 7) ?>
+<?php get_template_part( 'template-parts/newsletter-cf7' ); ?>
+
 <?php
 get_footer();

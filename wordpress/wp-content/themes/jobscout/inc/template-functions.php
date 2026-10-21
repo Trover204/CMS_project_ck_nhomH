@@ -501,7 +501,7 @@ function jobscout_footer_top(){
     $contact_url   = $contact_page ? get_permalink( $contact_page->ID ) : home_url( '/index.php/contact/' );
 
     // Display the Orange Newsletter Section on Home, Contact, and other pages (News, News Detail, and Jobs already render it before get_footer)
-    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) ) :
+    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) ) :
         ?>
         <section class="news-newsletter-section">
             <div class="container">
