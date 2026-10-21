@@ -98,5 +98,9 @@ $news_page_url = $news_page ? get_permalink( $news_page->ID ) : home_url( '/inde
     </div>
 </section>
 
+
+<?php // Orange Newsletter Section (Contact Form 7) ?>
+<?php get_template_part( 'template-parts/newsletter-cf7' ); ?>
+
 <?php
 get_footer();
