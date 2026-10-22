@@ -1133,12 +1133,30 @@ body.post-type-archive-job_listing .main-navigation ul li.current-menu-item > a:
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .job-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     border-color: #cbd5e1;
+}
+
+.job-card-stretched-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    text-indent: -9999px;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.job-card-stretched-link:focus {
+    outline: none;
 }
 
 .job-card-inner {
@@ -2946,6 +2964,588 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
     .about-company-media img {
         height: 220px;
     }
+}
+
+/* ==========================================================
+   9. Job Detail Page (single-job_listing.php / page-job-detail.php)
+   ========================================================== */
+.job-detail-page-wrapper {
+    background-color: #f7f9fa;
+    padding: 30px 0 75px 0;
+    width: 100%;
+}
+
+.job-detail-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Breadcrumb */
+.job-detail-breadcrumb-wrap {
+    margin-bottom: 22px;
+}
+
+.job-detail-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.job-detail-breadcrumb .breadcrumb-link {
+    color: #b45309;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.job-detail-breadcrumb .breadcrumb-link:hover {
+    color: var(--pds-primary-orange);
+    text-decoration: underline;
+}
+
+.job-detail-breadcrumb .breadcrumb-sep {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.job-detail-breadcrumb .breadcrumb-current {
+    color: #64748b;
+}
+
+/* Top Job Header Card */
+.job-detail-top-card {
+    background-color: #ffffff;
+    border: 1px solid #eef0f3;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.job-detail-logo {
+    flex: 0 0 84px;
+    width: 84px;
+    height: 84px;
+    border: 1px solid #eef0f2;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+.job-detail-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.job-detail-meta {
+    flex: 1;
+    min-width: 0;
+}
+
+.job-detail-title {
+    font-size: 16.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    line-height: 1.35;
+    margin: 0 0 6px 0;
+    letter-spacing: 0.3px;
+}
+
+.job-detail-date {
+    font-size: 12px;
+    color: #888888;
+    margin-bottom: 9px;
+    font-weight: 400;
+}
+
+.job-detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Actions buttons (SHARE & APPLY JOB) */
+.job-detail-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.job-btn-share {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 9px 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.job-btn-share:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.job-btn-apply {
+    background: #ffffff;
+    border: 1.5px solid var(--pds-primary-orange);
+    color: var(--pds-primary-orange);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 9px 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.job-btn-apply:hover {
+    background: var(--pds-primary-orange);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(234, 117, 30, 0.25);
+}
+
+@media (max-width: 768px) {
+    .job-detail-top-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 16px;
+    }
+    .job-detail-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+/* 2 Columns: Main Column & Sidebar */
+.job-detail-columns {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.job-detail-main-col {
+    flex: 1;
+    min-width: 0;
+}
+
+.job-detail-sidebar-col {
+    flex: 0 0 320px;
+    width: 320px;
+}
+
+@media (max-width: 900px) {
+    .job-detail-columns {
+        flex-direction: column;
+    }
+    .job-detail-sidebar-col {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* Left Content Box */
+.job-detail-content-box {
+    background-color: #ffffff;
+    border: 1px solid #eef0f3;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    padding: 32px 34px;
+}
+
+.job-detail-section-block {
+    margin-bottom: 26px;
+}
+
+.job-detail-section-block:last-child {
+    margin-bottom: 0;
+}
+
+.job-section-heading {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.2px;
+}
+
+.job-section-body p {
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: #4b5563;
+    margin: 0 0 14px 0;
+}
+
+.job-section-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Right Sidebar Widgets */
+.job-sidebar-widget {
+    background-color: #ffffff;
+    border: 1px solid #eef0f3;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+
+.job-sidebar-widget .widget-title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 14px 0;
+    letter-spacing: 0.2px;
+}
+
+/* Staff Rating */
+.rating-stars-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rating-stars .star-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rating-score {
+    font-size: 15px;
+    font-weight: 800;
+    color: #4b5563;
+}
+
+/* Company Photos Widget */
+.company-photos-media {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #1e293b;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.company-photos-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.company-photos-media:hover img {
+    transform: scale(1.08);
+}
+
+.photos-overlay-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: background 0.3s ease;
+    user-select: none;
+}
+
+.company-photos-media:hover .photos-overlay-badge {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.photos-overlay-badge .photos-badge-text {
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.photos-overlay-badge .photos-hint-text {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    opacity: 0.85;
+}
+
+/* ==========================================================
+   Company Photos Lightbox Gallery Modal
+   ========================================================== */
+.company-photos-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.company-photos-lightbox.is-open {
+    display: flex;
+    animation: pdsLightboxFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pdsLightboxFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.company-photos-lightbox .lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(12, 16, 26, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.company-photos-lightbox .lightbox-container {
+    position: relative;
+    z-index: 2;
+    width: 94%;
+    max-width: 980px;
+    display: flex;
+    flex-direction: column;
+    max-height: 94vh;
+}
+
+/* Lightbox Header */
+.company-photos-lightbox .lightbox-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 4px 14px 4px;
+    color: #ffffff;
+    user-select: none;
+}
+
+.company-photos-lightbox .lightbox-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #ea751e;
+}
+
+.company-photos-lightbox .lightbox-counter {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.company-photos-lightbox .lightbox-close-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s ease, transform 0.2s ease;
+    outline: none;
+}
+
+.company-photos-lightbox .lightbox-close-btn:hover {
+    color: #ea751e;
+    transform: scale(1.15);
+}
+
+/* Main Viewport Stage */
+.company-photos-lightbox .lightbox-main-view {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 380px;
+    max-height: 64vh;
+}
+
+.company-photos-lightbox .lightbox-image-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-height: 64vh;
+}
+
+.company-photos-lightbox #lightboxActiveImg {
+    max-width: 100%;
+    max-height: 64vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Navigation Buttons (Prev / Next) */
+.company-photos-lightbox .lightbox-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 5;
+    outline: none;
+}
+
+.company-photos-lightbox .lightbox-nav-btn:hover {
+    background: #ea751e;
+    border-color: #ea751e;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 16px rgba(234, 117, 30, 0.4);
+}
+
+.company-photos-lightbox .lightbox-prev-btn {
+    left: 8px;
+}
+
+.company-photos-lightbox .lightbox-next-btn {
+    right: 8px;
+}
+
+/* Thumbnails Strip */
+.company-photos-lightbox .lightbox-thumbs-bar {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 14px 4px 6px 4px;
+    justify-content: center;
+    scroll-behavior: smooth;
+    user-select: none;
+}
+
+.company-photos-lightbox .lightbox-thumb {
+    flex: 0 0 76px;
+    width: 76px;
+    height: 54px;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.5;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    background-color: #1e293b;
+}
+
+.company-photos-lightbox .lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.company-photos-lightbox .lightbox-thumb:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.company-photos-lightbox .lightbox-thumb.active {
+    opacity: 1;
+    border-color: #ea751e;
+    box-shadow: 0 0 12px rgba(234, 117, 30, 0.6);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .company-photos-lightbox .lightbox-main-view {
+        min-height: 260px;
+        max-height: 55vh;
+    }
+    .company-photos-lightbox #lightboxActiveImg {
+        max-height: 55vh;
+    }
+    .company-photos-lightbox .lightbox-nav-btn {
+        width: 38px;
+        height: 38px;
+    }
+    .company-photos-lightbox .lightbox-thumb {
+        flex: 0 0 58px;
+        width: 58px;
+        height: 42px;
+    }
+}
+
+/* Other Jobs Section */
+.job-detail-other-jobs {
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+.other-jobs-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #111111;
+    text-transform: uppercase;
+    margin: 0 0 35px 0;
 }
 
 /* ==========================================================

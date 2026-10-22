@@ -207,6 +207,24 @@ if ( $real_jobs_query->have_posts() ) {
 
 // If real jobs count is less than 6, backfill with demo jobs to ensure exactly 6 cards like design
 if ( count( $rendered_jobs ) < 6 ) {
+    $first_real_job = get_posts( array(
+        'post_type'      => 'job_listing',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+    ) );
+    if ( empty( $first_real_job ) ) {
+        $first_real_job = get_posts( array(
+            'post_type'      => 'job_listing',
+            'posts_per_page' => 1,
+            'post_status'    => 'any',
+        ) );
+    }
+    $demo_detail_url = ! empty( $first_real_job ) ? get_permalink( $first_real_job[0]->ID ) : home_url( '/?post_type=job_listing&p=78' );
+    $detail_pages = jobscout_get_page_id_by_template( 'page-job-detail.php' );
+    if ( ! empty( $detail_pages ) ) {
+        $demo_detail_url = get_permalink( $detail_pages[0]->ID );
+    }
+
     $existing_count = count( $rendered_jobs );
     $needed = 6 - $existing_count;
     for ( $i = 0; $i < $needed; $i++ ) {
@@ -214,7 +232,7 @@ if ( count( $rendered_jobs ) < 6 ) {
         $rendered_jobs[] = array(
             'id'       => 'demo-' . ( $i + 1 ),
             'title'    => $dj['title'],
-            'url'      => $jobs_page_url,
+            'url'      => $demo_detail_url,
             'date'     => $dj['date'],
             'type'     => $dj['type'],
             'category' => $dj['category'],
@@ -234,15 +252,19 @@ if ( count( $rendered_jobs ) < 6 ) {
 
         <div class="jobs-grid home-jobs-grid">
             <?php foreach ( $rendered_jobs as $job ) : ?>
-                <article class="job-card" onclick="window.location.href='<?php echo esc_url( $job['url'] ); ?>';">
+                <article class="job-card" onclick="window.location.href='<?php echo esc_url( $job['url'] ); ?>';" style="cursor: pointer; position: relative;">
+                    <!-- Full-card clickable link -->
+                    <a href="<?php echo esc_url( $job['url'] ); ?>" class="job-card-stretched-link" aria-label="<?php echo esc_attr( $job['title'] ); ?>"></a>
                     <div class="job-card-inner">
                         <div class="job-card-header">
                             <div class="job-card-logo">
-                                <img src="<?php echo esc_url( $job['logo'] ); ?>" alt="<?php echo esc_attr( $job['title'] ); ?>" loading="lazy" />
+                                <a href="<?php echo esc_url( $job['url'] ); ?>">
+                                    <img src="<?php echo esc_url( $job['logo'] ); ?>" alt="<?php echo esc_attr( $job['title'] ); ?>" loading="lazy" />
+                                </a>
                             </div>
                             <div class="job-card-heading">
                                 <h3 class="job-card-title">
-                                    <a href="<?php echo esc_url( $job['url'] ); ?>" onclick="event.stopPropagation();">
+                                    <a href="<?php echo esc_url( $job['url'] ); ?>">
                                         <?php echo esc_html( $job['title'] ); ?>
                                     </a>
                                 </h3>
