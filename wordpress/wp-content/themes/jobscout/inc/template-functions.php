@@ -507,8 +507,8 @@ function jobscout_footer_top(){
             <div class="container">
                 <div class="news-newsletter-inner">
                     <div class="news-newsletter-title">
-                        <span><?php echo esc_html( get_theme_mod( 'news_newsletter_line1', 'Subscribe To' ) ); ?></span>
-                        <span><?php echo esc_html( get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' ) ); ?></span>
+                        <span class="news-newsletter-line1"><?php echo esc_html( get_theme_mod( 'news_newsletter_line1', 'Subscribe To' ) ); ?></span>
+                        <span class="news-newsletter-line2"><?php echo esc_html( get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' ) ); ?></span>
                     </div>
                     <div class="news-newsletter-form-wrap">
                         <form class="news-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');">
@@ -519,9 +519,9 @@ function jobscout_footer_top(){
                                         <polyline points="22,6 12,13 2,6"></polyline>
                                     </svg>
                                 </span>
-                                <input type="email" placeholder="<?php esc_attr_e( 'Input your email address', 'jobscout' ); ?>" required />
+                                <input type="email" class="news-newsletter-email-input" placeholder="<?php echo esc_attr( get_theme_mod( 'news_newsletter_placeholder', __( 'Input your email address', 'jobscout' ) ) ); ?>" required />
                             </div>
-                            <button type="submit" class="news-newsletter-btn"><?php esc_html_e( 'SUBSCRIBE', 'jobscout' ); ?></button>
+                            <button type="submit" class="news-newsletter-btn"><?php echo esc_html( get_theme_mod( 'news_newsletter_btn_text', __( 'SUBSCRIBE', 'jobscout' ) ) ); ?></button>
                         </form>
                     </div>
                 </div>
@@ -543,10 +543,10 @@ function jobscout_footer_top(){
                 <li><a href="<?php echo esc_url( $contact_url ); ?>"><?php esc_html_e( 'CONTACT', 'jobscout' ); ?></a></li>
             </ul>
             <div class="pds-footer-socials">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-fb" aria-label="Facebook">
+                <a href="<?php echo esc_url( get_theme_mod( 'pds_social_fb', 'https://facebook.com' ) ); ?>" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-fb" aria-label="Facebook">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 320 512" fill="#ffffff"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
                 </a>
-                <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-gg" aria-label="Google">
+                <a href="<?php echo esc_url( get_theme_mod( 'pds_social_gg', 'https://google.com' ) ); ?>" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-gg" aria-label="Google">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
                         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
                         <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
@@ -554,10 +554,10 @@ function jobscout_footer_top(){
                         <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                     </svg>
                 </a>
-                <a href="https://line.me" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-line" aria-label="Line">
+                <a href="<?php echo esc_url( get_theme_mod( 'pds_social_line', 'https://line.me' ) ); ?>" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-line" aria-label="Line">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-tw" aria-label="Twitter">
+                <a href="<?php echo esc_url( get_theme_mod( 'pds_social_tw', 'https://twitter.com' ) ); ?>" target="_blank" rel="noopener noreferrer" class="pds-social-btn pds-social-tw" aria-label="Twitter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512" fill="#ffffff"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
                 </a>
             </div>

@@ -3691,3 +3691,82 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
         align-items: stretch;
     }
 }
+
+
+/* ==========================================================
+   WordPress Customizer Selective Refresh (Blue Pencil Icons)
+   ========================================================== */
+.news-banner-section .news-banner-bg-shortcut {
+    position: absolute;
+    top: 28px;
+    left: 48px;
+    z-index: 10;
+    width: 1px;
+    height: 1px;
+}
+
+.news-banner-title {
+    position: relative;
+    display: inline-block;
+}
+
+.news-header {
+    position: relative;
+}
+
+.news-header .news-grid-shortcut {
+    display: inline-block;
+    position: relative;
+    margin-left: 16px;
+    vertical-align: middle;
+}
+
+/* Ensure blue pencil icons inside News Cards & Thumbnails are never clipped */
+.news-card,
+.news-detail-header-card {
+    overflow: visible !important;
+}
+
+.news-card-thumb,
+.news-detail-header-thumb {
+    overflow: visible !important;
+    position: relative;
+}
+
+.news-card-thumb a,
+.news-detail-header-thumb img {
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.news-card-thumb > .customize-partial-edit-shortcut,
+.news-detail-header-thumb > .customize-partial-edit-shortcut {
+    top: 8px !important;
+    left: 34px !important;
+    z-index: 20 !important;
+}
+
+.news-card-title,
+.news-card-title a,
+.news-card-excerpt,
+.news-card-excerpt-link,
+.news-card-action,
+.news-card-readmore,
+.news-newsletter-line1,
+.news-newsletter-line2,
+.news-newsletter-form-wrap,
+.news-detail-breadcrumb,
+.news-detail-title,
+.news-detail-share-btn,
+.pds-footer-socials {
+    position: relative;
+}
+
+.news-card .customize-partial-edit-shortcut button,
+.news-banner-section .customize-partial-edit-shortcut button,
+.news-main-section .customize-partial-edit-shortcut button,
+.news-detail-section .customize-partial-edit-shortcut button,
+.news-newsletter-section .customize-partial-edit-shortcut button,
+.pds-footer-top .customize-partial-edit-shortcut button {
+    z-index: 9999 !important;
+}

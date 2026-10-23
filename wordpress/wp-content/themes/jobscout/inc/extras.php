@@ -126,7 +126,7 @@ if (!function_exists('jobscout_site_branding')) :
      */
     function jobscout_site_branding($responsive = false)
     {
-        $site_title  = 'Group H';
+        $site_title  = get_bloginfo('name', 'display') ? get_bloginfo('name', 'display') : 'Group H';
         $description = get_bloginfo('description', 'display');
 ?>
         <div class="site-branding" itemscope itemtype="https://schema.org/Organization">
