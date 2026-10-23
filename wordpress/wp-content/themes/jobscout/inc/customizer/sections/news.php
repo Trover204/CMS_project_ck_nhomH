@@ -579,7 +579,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
     $wp_customize->add_setting(
         'news_newsletter_placeholder',
         array(
-            'default'           => __( 'Input your email address', 'jobscout' ),
+            'default'           => 'Nhập địa chỉ email của bạn',
             'sanitize_callback' => 'sanitize_text_field',
             'transport'         => 'postMessage',
         )
@@ -597,7 +597,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
     $wp_customize->add_setting(
         'news_newsletter_btn_text',
         array(
-            'default'           => __( 'SUBSCRIBE', 'jobscout' ),
+            'default'           => 'ĐĂNG KÝ',
             'sanitize_callback' => 'sanitize_text_field',
             'transport'         => 'postMessage',
         )

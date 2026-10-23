@@ -338,8 +338,8 @@ function jobscout_news_page_metabox_callback( $post ) {
     $readmore_text    = get_theme_mod( 'news_readmore_text', 'Read More' );
     $newsletter_line1 = get_theme_mod( 'news_newsletter_line1', 'Subscribe To' );
     $newsletter_line2 = get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' );
-    $newsletter_ph    = get_theme_mod( 'news_newsletter_placeholder', 'Input your email address' );
-    $newsletter_btn   = get_theme_mod( 'news_newsletter_btn_text', 'SUBSCRIBE' );
+    $newsletter_ph    = get_theme_mod( 'news_newsletter_placeholder', 'Nhập địa chỉ email của bạn' );
+    $newsletter_btn   = get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' );
     ?>
     <table class="form-table">
         <tr>

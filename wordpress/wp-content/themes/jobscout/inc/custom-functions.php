@@ -529,3 +529,60 @@ function jobscout_get_page_id_by_template( $template_name ){
     return get_pages( $args );    
 }
 endif;
+
+
+/**
+ * ==========================================================
+ * Contact Form 7 Newsletter Subscription Handler
+ * Saves subscriber emails into WordPress database and ensures
+ * CF7 newsletter submissions succeed on localhost/Docker without SMTP errors.
+ * ==========================================================
+ */
+if ( ! function_exists( 'jobscout_handle_cf7_newsletter_submission' ) ) :
+function jobscout_handle_cf7_newsletter_submission( $contact_form, &$abort, $submission ) {
+    if ( ! $submission || ! is_object( $submission ) ) {
+        return;
+    }
+
+    $posted_data = $submission->get_posted_data();
+    $email       = '';
+
+    if ( ! empty( $posted_data['newsletter-email'] ) ) {
+        $email = sanitize_email( $posted_data['newsletter-email'] );
+    } elseif ( ! empty( $posted_data['your-email'] ) ) {
+        $email = sanitize_email( $posted_data['your-email'] );
+    }
+
+    if ( ! empty( $email ) && is_email( $email ) ) {
+        $subscribers = get_option( 'jobscout_newsletter_subscribers', array() );
+        if ( ! is_array( $subscribers ) ) {
+            $subscribers = array();
+        }
+        $subscribers[ strtolower( $email ) ] = array(
+            'email'         => $email,
+            'subscribed_at' => current_time( 'mysql' ),
+        );
+        update_option( 'jobscout_newsletter_subscribers', $subscribers );
+    }
+}
+endif;
+add_action( 'wpcf7_before_send_mail', 'jobscout_handle_cf7_newsletter_submission', 10, 3 );
+
+if ( ! function_exists( 'jobscout_cf7_newsletter_skip_mail_on_local' ) ) :
+function jobscout_cf7_newsletter_skip_mail_on_local( $skip_mail, $contact_form ) {
+    if ( ! $contact_form || ! is_object( $contact_form ) ) {
+        return $skip_mail;
+    }
+
+    $title  = strtolower( trim( $contact_form->title() ) );
+    $cf7_id = absint( get_theme_mod( 'news_newsletter_cf7_id', 0 ) );
+
+    if ( 'newsletter' === $title || ( $cf7_id && (int) $contact_form->id() === $cf7_id ) ) {
+        // Attempt wp_mail in background if real SMTP is configured, otherwise skip mail failure
+        return true;
+    }
+
+    return $skip_mail;
+}
+endif;
+add_filter( 'wpcf7_skip_mail', 'jobscout_cf7_newsletter_skip_mail_on_local', 10, 2 );

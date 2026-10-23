@@ -1,0 +1,1258 @@
+# Translation of Plugins - Contact Form 7 - Stable (latest release) in Vietnamese
+# This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-08-11 13:44:17+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.1.0\n"
+"Language: vi_VN\n"
+"Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
+
+#: modules/checkbox.php:223
+msgid "Too many items are selected."
+msgstr "Quá nhiều mục đã được chọn."
+
+#: includes/contact-form.php:574
+msgid "Invalid action URL is detected."
+msgstr "Phát hiện URL hành động không hợp lệ."
+
+#: modules/checkbox.php:304 modules/select.php:217
+msgid "Undefined value was submitted through this field."
+msgstr "Giá trị không xác định đã được gửi qua trường này."
+
+#: includes/rest-api.php:366
+msgid "There is no valid unit tag."
+msgstr "Không có thẻ đơn vị hợp lệ nào."
+
+#: modules/sendinblue/service.php:177
+msgid "Brevo integration"
+msgstr "Tích hợp Brevo"
+
+#. translators: 1: blog name, 2: blog URL
+#: includes/contact-form-template.php:113
+msgid "This email is a receipt for your contact form submission on our website (%1$s %2$s) in which your email address was used. If that was not you, please ignore this message."
+msgstr "Email này là biên nhận cho việc bạn đã gửi biểu mẫu liên hệ trên trang web của chúng tôi (%1$s %2$s) trong đó địa chỉ email của bạn đã được sử dụng. Nếu không phải bạn, vui lòng bỏ qua email này."
+
+#. translators: 1: blog name, 2: blog URL
+#: includes/contact-form-template.php:79
+msgid "This is a notification that a contact form was submitted on your website (%1$s %2$s)."
+msgstr "Đây là thông báo cho biết một biểu mẫu liên hệ đã được gửi trên trang web của bạn (%1$s %2$s)."
+
+#: includes/config-validator/mail.php:236
+#: includes/config-validator/mail.php:326
+msgid "Unsafe email config is used without sufficient protection."
+msgstr "Cấu hình email không an toàn đang được sử dụng mà không có đủ biện pháp bảo vệ."
+
+#: includes/config-validator/validator.php:239
+msgid "Configuration error is detected."
+msgstr "Phát hiện lỗi cấu hình."
+
+#: modules/sendinblue/service.php:189
+msgid "Brevo is active on this site."
+msgstr "Brevo đang hoạt động trên trang web này."
+
+#: modules/sendinblue/contact-form-properties.php:85
+#: modules/sendinblue/contact-form-properties.php:119
+#: modules/sendinblue/service.php:30
+msgid "Brevo"
+msgstr "Brevo"
+
+#: includes/contact-form-functions.php:274
+msgid "Contact form not found."
+msgstr "Không tìm thấy biểu mẫu liên hệ."
+
+#: includes/contact-form-functions.php:273 includes/contact-form.php:573
+#: includes/js/index.js:1
+msgid "Error:"
+msgstr "Lỗi:"
+
+#: includes/block-editor/block.json
+msgctxt "block keyword"
+msgid "form"
+msgstr "form"
+
+#: includes/block-editor/block.json
+msgctxt "block description"
+msgid "Insert a contact form you have created with Contact Form 7."
+msgstr "Chèn form liên hệ bạn tạo với Contact Form 7."
+
+#: includes/block-editor/block.json
+msgctxt "block title"
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: modules/select.php:88
+msgid "&#8212;Please choose an option&#8212;"
+msgstr "&#8212;Vui lòng chọn&#8212;"
+
+#: modules/akismet/service.php:77
+msgid "Akismet is active on this site."
+msgstr "Akismet đã được kích hoạt trên website này."
+
+#: modules/akismet/service.php:54
+msgid "CAPTCHAs are designed to distinguish spambots from humans, and are therefore helpless against human spammers. In contrast to CAPTCHAs, Akismet checks form submissions against the global database of spam; this means Akismet is a comprehensive solution against spam. This is why we consider Akismet to be the centerpiece of the spam prevention strategy."
+msgstr "CAPTCHAs được thiết kế để ngăn chặn bot spam, và nó giúp giảm thiểu spammer. Với mối liên hệ cùng CAPTCHAs, Akismet kiểm tra form nhập trong cơ sở dữ liệu spam toàn cầu; nên nó là phương thức bổ sung chống lại spam. Đó là lý do tại sao chúng tôi cho rằng Akismet nên trở thành phần chính trong việc ngăn chặn spam."
+
+#: modules/akismet/akismet.php:307
+msgid "Learn how your data is processed."
+msgstr "Tìm hiểu dữ liệu của bạn được sử dụng như thế nào."
+
+#: modules/akismet/akismet.php:304
+msgid "This form uses Akismet to reduce spam."
+msgstr "Form này sử dụng Akismet để hạn chế spam."
+
+#: includes/contact-form.php:647
+msgid "Contact form"
+msgstr "Form liên hệ"
+
+#: includes/config-validator/form.php:71
+msgid "Colons are used in form-tag names."
+msgstr "Dấu hai chấm được sử dụng trong tên thẻ của biểu mẫu."
+
+#: modules/text.php:195
+msgid "Please enter a telephone number."
+msgstr "Vui lòng nhập số điện thoại."
+
+#: modules/text.php:188
+msgid "Please enter a URL."
+msgstr "Vui lòng nhập URL."
+
+#: modules/text.php:181
+msgid "Please enter an email address."
+msgstr "Vui lòng nhập địa chỉ email."
+
+#: modules/number.php:189
+msgid "This field has a too large number."
+msgstr "Trường dữ liệu này có một con số quá lớn."
+
+#: modules/number.php:184
+msgid "This field has a too small number."
+msgstr "Trường dữ liệu này có một con số quá nhỏ."
+
+#: modules/number.php:179
+msgid "Please enter a number."
+msgstr "Vui lòng nhập vào một con số."
+
+#: modules/date.php:171
+msgid "This field has a too late date."
+msgstr "Trường dữ liệu này có ngày trễ hơn ngày cho phép."
+
+#: modules/date.php:166
+msgid "This field has a too early date."
+msgstr "Trường dữ liệu này có ngày sớm hơn ngày cho phép."
+
+#: modules/date.php:161
+msgid "Please enter a date in YYYY-MM-DD format."
+msgstr "Vui lòng nhập ngày tháng theo định dạng YYYY-MM-DD."
+
+#: includes/rest-api.php:340
+msgid "The request payload format is not supported."
+msgstr "Định dạng tải trọng yêu cầu không được hỗ trợ."
+
+#. translators: 1: WordPress hook name, 2: version number
+#: includes/functions.php:539
+msgid "Hook %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s with no alternative available."
+msgstr "Hook %1$s đã <strong>bị loại bỏ</strong> kể từ phiên bản Contact Form 7 %2$s và không có giải pháp thay thế nào khả dụng."
+
+#: includes/file.php:105
+msgid "The uploaded file is too large."
+msgstr "Dung lượng file được tải lên quá lớn."
+
+#: includes/contact-form-template.php:201
+msgid "This field has a too short input."
+msgstr "Trường dữ liệu có mục nhập quá ngắn."
+
+#: includes/contact-form-template.php:196
+msgid "This field has a too long input."
+msgstr "Trường dữ liệu này có mục nhập quá dài."
+
+#: includes/contact-form-template.php:191
+msgid "Please fill out this field."
+msgstr "Vui lòng nhập dữ liệu cho trường này."
+
+#. translators: 1: PHP function name, 2: version number, 3: alternative
+#. function name
+#: includes/functions.php:495
+msgid "Function %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead."
+msgstr "Hàm %1$s là <strong>không dùng nữa</strong> kể từ Contact Form 7 phiên bản %2$s! Sử dụng %3$s để thay thế."
+
+#: includes/integration.php:27
+msgid "Spam protection"
+msgstr "Chống thư rác"
+
+#. translators: Developer debugging message. 1: PHP function name, 2:
+#. Explanatory message, 3: Contact Form 7 version number.
+#: includes/functions.php:579
+msgid "Function %1$s was called incorrectly. %2$s %3$s"
+msgstr "Hàm %1$s được gọi không chính xác. %2$s %3$s"
+
+#. translators: 1: blog name, 2: confirmation link
+#: modules/sendinblue/doi.php:85
+msgid ""
+"Hello,\n"
+"\n"
+"This is a confirmation email sent from %1$s.\n"
+"\n"
+"We have received your submission to our web form, according to which you have allowed us to add you to our contact list. But, the process has not yet been completed. To complete it, please click the following link.\n"
+"\n"
+"%2$s\n"
+"\n"
+"If it was not your intention, or if you have no idea why you received this message, please do not click on the link, and ignore this message. We will never collect or use your personal data without your clear consent.\n"
+"\n"
+"Sincerely,\n"
+"%1$s"
+msgstr ""
+"Xin chào,\n"
+"\n"
+"Đây là một email xác nhận được gửi từ %1$s.\n"
+"\n"
+"Chúng tôi đã nhận được đơn gửi của bạn tới biểu mẫu web của chúng tôi, theo đó bạn đã cho phép chúng tôi thêm bạn vào danh sách liên hệ của chúng tôi. Tuy nhiên, quá trình này vẫn chưa được hoàn thành. Để hoàn thành nó, vui lòng nhấp vào liên kết sau.\n"
+"\n"
+"%2$s\n"
+"\n"
+"Nếu đó không phải là ý định của bạn, hoặc nếu bạn không biết tại sao bạn lại nhận được thông báo này, vui lòng không nhấp vào liên kết và bỏ qua thông báo này. Chúng tôi sẽ không bao giờ thu thập hoặc sử dụng dữ liệu cá nhân của bạn mà không có sự đồng ý rõ ràng của bạn.\n"
+"\n"
+"Trân trọng,\n"
+"%1$s"
+
+#. translators: %s: blog name
+#: modules/sendinblue/doi.php:79
+msgid "Opt-in confirmation from %s"
+msgstr "Xác nhận chọn tham gia từ %s"
+
+#: modules/stripe/stripe.php:382
+msgid "Complete payment"
+msgstr "Hoàn tất thanh toán"
+
+#: modules/stripe/stripe.php:367
+msgid "Proceed to checkout"
+msgstr "Tiến hành thanh toán"
+
+#: modules/stripe/stripe.php:251
+msgid "Payment is required. Please pay by credit card."
+msgstr "Thanh toán là cần thiết. Xin hãy thanh toán bằng thẻ tín dụng"
+
+#: includes/integration.php:29
+msgid "Payments"
+msgstr "Thanh toán"
+
+#: modules/stripe/service.php:252
+msgid "Publishable Key"
+msgstr "Publishable Key"
+
+#: modules/stripe/service.php:225
+msgid "Stripe is not available on this site. It requires an HTTPS-enabled site."
+msgstr "Stripekhông có sẵn trên trang web này. Nó yêu cầu một trang web hỗ trợ HTTPS."
+
+#: modules/stripe/service.php:196
+msgid "Stripe is active on this site."
+msgstr "Stripe hoạt động trên site này"
+
+#: modules/stripe/service.php:184
+msgid "Stripe integration"
+msgstr "Tích hợp Stripe"
+
+#. translators: 1: first name, 2: last name
+#: modules/sendinblue/sendinblue.php:124
+msgctxt "personal name"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: includes/rest-api.php:519
+msgid "Unique identifier for the contact form."
+msgstr "Mã định danh duy nhất cho biểu mẫu liên hệ."
+
+#: includes/config-validator/form.php:59
+msgid "Dots are used in form-tag names."
+msgstr "Dấu chấm được sử dụng trong tên thẻ biểu mẫu."
+
+#: modules/stripe/service.php:38
+msgid "Stripe"
+msgstr "Stripe"
+
+#: admin/admin.php:85 admin/integration.php:31
+msgid "Integration with External API"
+msgstr "Tích hợp với API Bên ngoài"
+
+#: modules/sendinblue/contact-form-properties.php:458
+msgid "Manage your email templates"
+msgstr "Quản lý mẫu email của bạn"
+
+#: modules/sendinblue/contact-form-properties.php:443
+msgid "You have no active email template yet."
+msgstr "Bạn chưa có mẫu email đang hoạt động."
+
+#: modules/sendinblue/contact-form-properties.php:421
+msgid "&mdash; Select &mdash;"
+msgstr "&mdash; Chọn &mdash;"
+
+#: modules/sendinblue/contact-form-properties.php:406
+msgid "Select an email template:"
+msgstr "Chọn mẫu email:"
+
+#: modules/sendinblue/contact-form-properties.php:254
+msgid "Send a welcome email to new contacts"
+msgstr "Gửi email chào mừng đến các liên hệ mới"
+
+#: modules/sendinblue/contact-form-properties.php:224
+#: modules/sendinblue/contact-form-properties.php:236
+msgid "Welcome email"
+msgstr "Email chào mừng"
+
+#: modules/sendinblue/contact-form-properties.php:366
+msgid "Manage your contact lists"
+msgstr "Quản lí danh sách liên hệ của bạn"
+
+#: modules/sendinblue/contact-form-properties.php:351
+msgid "You have no contact list yet."
+msgstr "Bạn không có sẵn danh sách liên hệ"
+
+#: modules/sendinblue/contact-form-properties.php:321
+msgid "Select lists to which contacts are added:"
+msgstr "Lựa chọn danh sách mà bạn đã thêm:"
+
+#: modules/sendinblue/contact-form-properties.php:187
+msgid "Add form submitters to your contact lists"
+msgstr "Thêm người gửi biểu mẫu vào danh sách liên hệ của bạn"
+
+#: modules/sendinblue/contact-form-properties.php:157
+#: modules/sendinblue/contact-form-properties.php:169
+msgid "Contact lists"
+msgstr "Danh sách liên hệ"
+
+#: modules/sendinblue/service.php:251
+msgid "Save changes"
+msgstr "Lưu thay đổi"
+
+#: modules/sendinblue/service.php:247
+msgctxt "API keys"
+msgid "Remove key"
+msgstr "Xóa Key"
+
+#: modules/sendinblue/service.php:226
+msgid "API key"
+msgstr "API Key"
+
+#: modules/recaptcha/service.php:331 modules/sendinblue/service.php:208
+#: modules/stripe/service.php:215 modules/turnstile/service.php:311
+msgid "Setup integration"
+msgstr "Thiết lập tích hợp"
+
+#: modules/sendinblue/service.php:166
+msgid "Store and organize your contacts while protecting user privacy on Brevo, the leading CRM & email marketing platform in Europe. Brevo offers unlimited contacts and advanced marketing features."
+msgstr "Lưu trữ và sắp xếp danh bạ của bạn đồng thời bảo vệ quyền riêng tư của người dùng trên Brevo, nền tảng CRM & tiếp thị qua email hàng đầu ở Châu Âu. Brevo cung cấp danh bạ không giới hạn và các tính năng tiếp thị nâng cao."
+
+#: modules/sendinblue/service.php:128
+msgid "You have not been authenticated. Make sure the provided API key is correct."
+msgstr "Bạn chưa được xác thực. Đảm bảo rằng khóa API được cung cấp là chính xác."
+
+#: includes/mail.php:316
+msgid "Failed to attach a file. The total file size exceeds the limit of 25 megabytes."
+msgstr "Không đính kèm tệp. Tổng kích thước tệp vượt quá giới hạn 25 megabyte."
+
+#. translators: %s: Attachment file path.
+#: includes/mail.php:296
+msgid "Failed to attach a file. %s is not a readable file."
+msgstr "Không đính kèm tệp. %s không phải là tệp có thể đọc được."
+
+#. translators: %s: Attachment file path.
+#: includes/mail.php:282
+msgid "Failed to attach a file. %s is not in the allowed directory."
+msgstr "Không đính kèm tệp. %s không nằm trong thư mục được phép."
+
+#: includes/contact-form-template.php:44
+msgid "Submit"
+msgstr "Gửi"
+
+#: includes/contact-form-template.php:39
+msgid "(optional)"
+msgstr "(không bắt buộc)"
+
+#. translators: %s: comma separated list of disallowed words
+#: modules/disallowed-list.php:43
+msgid "Disallowed words (%s) are used."
+msgstr "Các từ không được phép (%s) được sử dụng."
+
+#: modules/disallowed-list.php:39
+msgid "Disallowed words are used."
+msgstr "Các từ không được phép được sử dụng."
+
+#. translators: %s: Contact Form 7 version number.
+#: includes/functions.php:570
+msgid "(This message was added in Contact Form 7 version %s.)"
+msgstr "(Thông báo này đã được thêm vào Contact Form 7 phiên bản %s.)"
+
+#: includes/special-mail-tags.php:25 includes/special-mail-tags.php:107
+#: includes/special-mail-tags.php:173 includes/special-mail-tags.php:242
+#: modules/flamingo.php:313
+msgid "The fourth parameter ($mail_tag) must be an instance of the WPCF7_MailTag class."
+msgstr "Tham số thứ tư ($mail_tag) phải là một phiên bản của lớp WPCF7_MailTag."
+
+#. translators: time format, see https://www.php.net/date
+#: admin/includes/list-table.php:325
+msgid "g:i a"
+msgstr "g:i a"
+
+#. translators: 1: date, 2: time
+#: admin/includes/list-table.php:321
+msgid "%1$s at %2$s"
+msgstr "%1$s lúc %2$s"
+
+#: modules/sendinblue/service.php:127 modules/sendinblue/service.php:138
+msgid "Error"
+msgstr "Lỗi"
+
+#: includes/config-validator/mail.php:439
+msgid "The total size of attachment files is too large."
+msgstr "Kích thước tệp đính kèm quá lớn."
+
+#: includes/config-validator/form.php:47
+msgid "Unavailable HTML elements are used in the form template."
+msgstr "Các phần tử HTML không khả dụng được sử dụng trong form template."
+
+#: modules/recaptcha/service.php:312
+msgid "reCAPTCHA is active on this site."
+msgstr "reCAPTCHA đã kích hoạt ở trang web này."
+
+#: modules/recaptcha/recaptcha.php:150
+msgid "reCAPTCHA response token is empty."
+msgstr "reCAPTCHA response token trống."
+
+#: includes/submission.php:662
+msgid "Submitted nonce is invalid."
+msgstr "Gửi nonce không hợp lệ."
+
+#: includes/submission.php:653
+msgid "User-Agent string is unnaturally short."
+msgstr "Chuỗi User-Agent ngắn một cách bất thường."
+
+#. translators: 1: value of reCAPTCHA score 2: value of reCAPTCHA threshold
+#: modules/recaptcha/recaptcha.php:157
+msgid "reCAPTCHA score (%1$.2f) is lower than the threshold (%2$.2f)."
+msgstr "Điểm reCAPTCHA (%1$.2f) thấp hơn ngưỡng (%2$.2f)."
+
+#: modules/akismet/akismet.php:86
+msgid "Akismet returns a spam response."
+msgstr "Akismet trả về một phản hồi spam."
+
+#. translators: 1: response code, 2: message, 3: body, 4: URL
+#: includes/functions.php:623
+msgid "HTTP Response: %1$s %2$s %3$s from %4$s"
+msgstr "Phản hồi HTTP: %1$s %2$s %3$s từ %4$s"
+
+#: modules/recaptcha/service.php:397 modules/stripe/service.php:294
+#: modules/turnstile/service.php:376
+msgid "Save Changes"
+msgstr "Lưu thay đổi"
+
+#: modules/recaptcha/service.php:289
+msgid "reCAPTCHA protects you against spam and other types of automated abuse. With Contact Form 7&#8217;s reCAPTCHA integration module, you can block abusive form submissions by spam bots."
+msgstr "reCAPTCHA bảo vệ bạn khỏi thư rác và các hình thức lạm dụng tự động khác. Với mô-đun tích hợp reCAPTCHA của Contact Form 7, bạn có thể chặn các chương trình spam gửi biểu mẫu lạm dụng."
+
+#: modules/recaptcha/service.php:300
+msgid "reCAPTCHA (v3)"
+msgstr "reCAPTCHA (v3)"
+
+#: modules/constant-contact/constant-contact.php:206
+#: modules/recaptcha/service.php:392 modules/stripe/service.php:290
+#: modules/turnstile/service.php:372
+msgctxt "API keys"
+msgid "Remove Keys"
+msgstr "Xóa Key"
+
+#: modules/constant-contact/constant-contact.php:191
+msgid "App Secret"
+msgstr "Ứng dụng bí mật"
+
+#: modules/constant-contact/constant-contact.php:169
+msgid "API Key"
+msgstr "Khóa API"
+
+#: modules/constant-contact/constant-contact.php:56
+msgid "Constant Contact"
+msgstr "Constant Contact"
+
+#: includes/integration.php:28
+msgid "Email marketing"
+msgstr "Tiếp thị qua email"
+
+#: includes/config-validator/mail.php:425
+msgid "It is not allowed to use files outside the wp-content directory."
+msgstr "Bạn không thể sử dụng file nằm ngoài thư mục wp-content."
+
+#: modules/acceptance.php:328
+msgid "Condition"
+msgstr "Điều kiện"
+
+#. translators: 1: 'Consented' or 'Not consented', 2: conditions
+#: modules/acceptance.php:244
+msgctxt "mail output for acceptance checkboxes"
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#: modules/acceptance.php:228
+msgid "Not consented"
+msgstr "Không đồng ý"
+
+#: modules/acceptance.php:226
+msgid "Consented"
+msgstr "Đã đồng ý"
+
+#: includes/submission.php:122
+msgid "Sending mail has been aborted."
+msgstr "Gửi mail đã bị hủy."
+
+#: includes/contact-form.php:548 includes/contact-form.php:1071
+msgid "This contact form is available only for logged in users."
+msgstr "Form này chỉ có sẵn đối với người dùng đã đăng nhập."
+
+#: includes/config-validator/additional-settings.php:21
+msgid "Deprecated settings are used."
+msgstr "Các cài đặt đã lỗi thời."
+
+#: includes/rest-api.php:325
+msgid "There was an error deleting the contact form."
+msgstr "Xảy ra lỗi khi xoá form liên hệ."
+
+#: includes/rest-api.php:68 includes/rest-api.php:84 includes/rest-api.php:100
+msgid "You are not allowed to access the requested contact form."
+msgstr "Bạn không được phép truy cập form liên hệ này."
+
+#: includes/rest-api.php:247 includes/rest-api.php:269
+#: includes/rest-api.php:316 includes/rest-api.php:355
+#: includes/rest-api.php:427 includes/rest-api.php:446
+msgid "The requested contact form was not found."
+msgstr "Không tìm thấy form liên hệ đang yêu cầu."
+
+#: includes/rest-api.php:46
+msgid "You are not allowed to create a contact form."
+msgstr "Bạn không được phép tạo form liên hệ."
+
+#: includes/rest-api.php:199
+msgid "Cannot create existing contact form."
+msgstr "Không thể tạo form liên hệ đã tồn tại."
+
+#: includes/rest-api.php:32
+msgid "You are not allowed to access contact forms."
+msgstr "Bạn không được phép truy cập các form."
+
+#: includes/config-validator/mail.php:411
+msgid "Attachment file does not exist at %path%."
+msgstr "File đính kèm không tồn tại ở %path%."
+
+#: includes/config-validator/mail.php:312
+msgid "Invalid mailbox syntax is used in the %name% field."
+msgstr "Cú pháp không hợp lệ trong mục %name%."
+
+#. translators: %names%: a list of form control names
+#: includes/config-validator/form.php:34
+msgid "Unavailable names (%names%) are used for form controls."
+msgstr "Các biến không có sẵn (%names%) đang được sử dụng."
+
+#: includes/config-validator/mail.php:299
+msgid "There are invalid mail header fields."
+msgstr "Các mục nhập email header không hợp lệ."
+
+#: includes/config-validator/messages.php:31
+msgid "HTML tags are used in a message."
+msgstr "Các thẻ HTML được sử dụng trong nội dung."
+
+#: includes/config-validator/mail.php:200
+msgid "Sender email address does not belong to the site domain."
+msgstr "Địa chỉ gửi mail không phải của tên miền website."
+
+#: includes/config-validator/mail.php:182
+#: includes/config-validator/mail.php:219
+msgid "Invalid mailbox syntax is used."
+msgstr "Sử dụng cú pháp hộp thư không hợp lệ."
+
+#: includes/config-validator/mail.php:162
+#: includes/config-validator/mail.php:346
+msgid "There is a possible empty field."
+msgstr "Một mục không được nhập."
+
+#: admin/admin.php:550 includes/rest-api.php:211 includes/rest-api.php:280
+msgid "There was an error saving the contact form."
+msgstr "Đã xảy ra lỗi khi lưu form."
+
+#. translators: 1: WordPress hook name, 2: version number, 3: alternative hook
+#. name
+#: includes/functions.php:527
+msgid "Hook %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead."
+msgstr "Hook %1$s đã <strong>bị phản đối</strong> kể từ Contact Form 7 phiên bản %2$s! Hãy sử dụng %3$s thay thế."
+
+#: includes/config-validator/form.php:18
+msgid "Multiple form controls are in a single label element."
+msgstr "Nhiều mục đang nằm trong cùng một nhãn."
+
+#: admin/includes/config-validator.php:177
+msgid "FAQ about Configuration Validator"
+msgstr "Câu hỏi thường gặp về Xác thực Cấu hình"
+
+#: modules/quiz.php:185
+msgid "The answer to the quiz is incorrect."
+msgstr "Câu trả lời chưa đúng."
+
+#: includes/file.php:110
+msgid "There was an error uploading the file."
+msgstr "Tải file lên không thành công."
+
+#: includes/file.php:100
+msgid "You are not allowed to upload files of this type."
+msgstr "Bạn không được phép tải lên file theo định dạng này."
+
+#: includes/file.php:95
+msgid "There was an unknown error uploading the file."
+msgstr "Tải file lên không thành công."
+
+#: includes/contact-form-template.php:186
+msgid "You must accept the terms and conditions before sending your message."
+msgstr "Bạn phải chấp nhận điều khoản trước khi gửi form."
+
+#: includes/contact-form-template.php:176
+msgid "One or more fields have an error. Please check and try again."
+msgstr "Có một hoặc nhiều mục nhập có lỗi. Vui lòng kiểm tra và thử lại."
+
+#: includes/contact-form-template.php:171
+#: includes/contact-form-template.php:181
+msgid "There was an error trying to send your message. Please try again later."
+msgstr "Có lỗi xảy ra trong quá trình gửi. Xin vui lòng thử lại hoặc liên hệ người quản trị website."
+
+#: includes/contact-form-template.php:166
+msgid "Thank you for your message. It has been sent."
+msgstr "Xin cảm ơn, form đã được gửi thành công."
+
+#. translators: 1: blog name, 2: [your-subject]
+#: includes/contact-form-template.php:54 includes/contact-form-template.php:98
+msgctxt "mail subject"
+msgid "%1$s \"%2$s\""
+msgstr "%1$s \"%2$s\""
+
+#: admin/includes/config-validator.php:49
+msgid "Misconfiguration leads to mail delivery failure or other troubles. Validate your contact forms now."
+msgstr "Cấu hình sai dẫn đến lỗi gửi thư hay các lỗi khác. Hãy thử xác thực cấu hình các form liên hệ ngay bây giờ."
+
+#: admin/includes/config-validator.php:55
+msgid "Validate Contact Form 7 Configuration"
+msgstr "Xác thực Cấu hình Contact Form 7"
+
+#: admin/admin.php:568
+msgid "Configuration validation completed. No invalid contact form was found."
+msgstr "Xác thực cấu hình hoàn tất. Không tìm thấy form liên lạc nào bị lỗi."
+
+#. translators: %s: number of contact forms
+#: admin/admin.php:560
+msgid "Configuration validation completed. %s invalid contact form was found."
+msgid_plural "Configuration validation completed. %s invalid contact forms were found."
+msgstr[0] "Xác thực cấu hình hoàn tất. %s form liên hệ bị lỗi đã được tìm thấy."
+
+#: admin/includes/config-validator.php:144
+msgid "Validate Configuration"
+msgstr "Xác thực Cấu hình"
+
+#. translators: %s: number of contact forms
+#: admin/includes/config-validator.php:120
+msgid "Validate %s contact form now"
+msgid_plural "Validate %s contact forms now"
+msgstr[0] "Xác thực %s biểu mẫu liên hệ ngay bây giờ"
+
+#: admin/includes/config-validator.php:77
+msgid "You are not allowed to validate configuration."
+msgstr "Bạn không được phép xác thực cấu hình."
+
+#: modules/recaptcha/service.php:368 modules/stripe/service.php:269
+#: modules/turnstile/service.php:351
+msgid "Secret Key"
+msgstr "Secret Key"
+
+#: modules/recaptcha/service.php:351 modules/turnstile/service.php:334
+msgid "Site Key"
+msgstr "Site Key"
+
+#: modules/recaptcha/service.php:269 modules/sendinblue/service.php:147
+#: modules/stripe/service.php:153 modules/turnstile/service.php:246
+msgid "Settings saved."
+msgstr "Đã lưu mọi cài đặt."
+
+#: modules/sendinblue/service.php:139
+msgid "Invalid key values."
+msgstr "Giá trị key không hợp lệ."
+
+#: modules/recaptcha/service.php:29
+msgid "reCAPTCHA"
+msgstr "reCAPTCHA"
+
+#. Description of the plugin
+#: wp-contact-form-7.php
+msgid "Just another contact form plugin. Simple but flexible."
+msgstr "Plugin mở rộng chức năng form liên hệ cho website. Đơn giản nhưng linh hoạt."
+
+#. Plugin URI of the plugin
+#: wp-contact-form-7.php
+msgid "https://contactform7.com/"
+msgstr "https://contactform7.com/"
+
+#. translators: title of your first contact form. %d: number fixed to '1'
+#: load.php:200
+msgid "Contact form %d"
+msgstr "Form liên hệ %d"
+
+#: modules/textarea.php:145
+msgid "text area"
+msgstr "văn bản dài"
+
+#: modules/akismet/service.php:22
+msgid "Akismet"
+msgstr "Akismet"
+
+#: modules/text.php:214
+msgid "tel"
+msgstr "số điện thoại"
+
+#: modules/text.php:213
+msgid "URL"
+msgstr "URL"
+
+#: modules/text.php:212
+msgid "email"
+msgstr "email"
+
+#: modules/text.php:211
+msgid "text"
+msgstr "văn bản ngắn"
+
+#: modules/text.php:193
+msgid "Telephone number that the sender entered is invalid"
+msgstr "Số điện thoại không hợp lệ"
+
+#: modules/text.php:186
+msgid "URL that the sender entered is invalid"
+msgstr "URL không hợp lệ"
+
+#: modules/text.php:179
+msgid "Email address that the sender entered is invalid"
+msgstr "Nhập địa chỉ Email không hợp lệ"
+
+#: modules/submit.php:108
+msgid "Label"
+msgstr "Nhãn"
+
+#: modules/submit.php:60
+msgid "Submit button"
+msgstr "Nút gửi"
+
+#: modules/submit.php:51
+msgid "submit"
+msgstr "gửi"
+
+#: modules/select.php:232
+msgid "drop-down menu"
+msgstr "menu danh sách"
+
+#: modules/quiz.php:266
+msgid "Questions and answers"
+msgstr "Câu hỏi và trả lời"
+
+#: modules/quiz.php:209
+msgid "Quiz"
+msgstr "Câu hỏi"
+
+#: modules/quiz.php:200
+msgid "quiz"
+msgstr "câu hỏi"
+
+#: modules/quiz.php:183
+msgid "Sender does not enter the correct answer to the quiz"
+msgstr "Không trả lời đúng đáp án của câu hỏi"
+
+#: modules/number.php:254
+msgid "Slider"
+msgstr "Thanh trượt"
+
+#: modules/number.php:253
+msgid "Spinbox"
+msgstr "Spinbox"
+
+#: modules/number.php:202
+msgid "number"
+msgstr "số"
+
+#: modules/number.php:188
+msgid "Number is larger than maximum limit"
+msgstr "Số nhập vào vượt quá giới hạn cho phép"
+
+#: modules/number.php:183
+msgid "Number is smaller than minimum limit"
+msgstr "Số nhập vào nhỏ hơn giới hạn cho phép"
+
+#: modules/number.php:178
+msgid "Number format that the sender entered is invalid"
+msgstr "Định dạng số không hợp lệ"
+
+#. translators: %s: the path of the temporary folder
+#: includes/file.php:423
+msgid "This contact form has file uploading fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually."
+msgstr "Biểu mẫu liên hệ này có các trường tải lên tệp, nhưng thư mục tạm thời cho các tệp (%s) không tồn tại hoặc không thể ghi. Bạn có thể tạo thư mục hoặc thay đổi quyền của thư mục theo cách thủ công."
+
+#: modules/file.php:213
+msgid "Acceptable file types"
+msgstr "Các định dạng file được chấp nhận"
+
+#: modules/file.php:146
+msgid "file"
+msgstr "file"
+
+#: includes/file.php:109
+msgid "Uploading a file fails for PHP error"
+msgstr "Tải file lên gặp lỗi PHP"
+
+#: includes/file.php:104
+msgid "Uploaded file is too large"
+msgstr "Kích thước file tải lên quá lớn"
+
+#: includes/file.php:99
+msgid "Uploaded file is not allowed for file type"
+msgstr "File được tải lên không phải loại file được chấp nhận."
+
+#: includes/file.php:94
+msgid "Uploading a file fails for any reason"
+msgstr "Lỗi không xác định được khi tải file lên."
+
+#: admin/includes/tag-generator.php:412
+msgid "Max"
+msgstr "Tối đa"
+
+#: admin/includes/tag-generator.php:393
+msgid "Min"
+msgstr "Tối thiểu"
+
+#: modules/date.php:245 modules/number.php:263
+msgid "Range"
+msgstr "Phạm vi"
+
+#: admin/includes/tag-generator.php:436
+msgid "Default value"
+msgstr "Giá trị mặc định"
+
+#: modules/date.php:193
+msgid "Date field"
+msgstr "Trường ngày tháng"
+
+#: modules/date.php:184
+msgid "date"
+msgstr "ngày"
+
+#: modules/date.php:170
+msgid "Date is later than maximum limit"
+msgstr "Ngày trễ hơn khoảng thời gian giới hạn"
+
+#: modules/date.php:165
+msgid "Date is earlier than minimum limit"
+msgstr "Ngày sớm hơn khoảng thời gian giới hạn"
+
+#: modules/date.php:160
+msgid "Date format that the sender entered is invalid"
+msgstr "Định dạng ngày tháng không hợp lệ"
+
+#: admin/includes/tag-generator.php:219
+msgid "Field type"
+msgstr "Kiểu"
+
+#: modules/checkbox.php:356
+msgid "radio buttons"
+msgstr "tuỳ chọn radio"
+
+#: modules/checkbox.php:355
+msgid "checkboxes"
+msgstr "tuỳ chọn checkbox"
+
+#: modules/really-simple-captcha.php:294
+msgid "This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server."
+msgstr "Biểu mẫu này có sử dụng ô CAPTCHA, song các thư viện cần thiết như GD và FreeType không được cài đặt trên máy chủ của bạn."
+
+#. translators: %s: Path to the temporary folder
+#: modules/really-simple-captcha.php:282
+msgid "This contact form contains CAPTCHA fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually."
+msgstr "Biểu mẫu này có sử dụng ô CAPTCHA, song thư mục lưu file (%s) không tồn tại hoặc không thể ghi lên được. Bạn cần tự tạo folder đó hoặc thay đổi quyền hạn của nó."
+
+#: modules/really-simple-captcha.php:240
+msgid "Your entered code is incorrect."
+msgstr "Bạn đã nhập sai mã CAPTCHA."
+
+#: modules/really-simple-captcha.php:238
+msgid "The code that sender entered does not match the CAPTCHA"
+msgstr "Mã người gửi nhập không khớp với CAPTCHA"
+
+#: admin/includes/tag-generator.php:599
+msgid "Insert Tag"
+msgstr "Chèn vào Form"
+
+#: admin/includes/tag-generator.php:362
+msgid "Class attribute"
+msgstr "Thuộc tính Class"
+
+#: modules/acceptance.php:270
+msgid "Acceptance checkbox"
+msgstr "Ô chọn chấp nhận"
+
+#: modules/acceptance.php:261
+msgid "acceptance"
+msgstr "điều khoản chấp nhận"
+
+#. translators: 1: property name, 2: method name
+#: includes/contact-form.php:235
+msgid "<code>%1$s</code> property of a <code>WPCF7_ContactForm</code> object is <strong>no longer accessible</strong>. Use <code>%2$s</code> method instead."
+msgstr "Thuộc tính <code>%1$s</code> của một <code>WPCF7_ContactForm</code> object <strong>không thể truy cập vào nữa</strong>. Thay vào đó hãy sử dụng phương án  <code>%2$s</code>."
+
+#: includes/contact-form.php:116 includes/contact-form.php:439
+msgid "Untitled"
+msgstr "Chưa có tiêu đề"
+
+#: includes/contact-form.php:54
+msgid "Contact Form"
+msgstr "Form liên hệ"
+
+#: includes/contact-form-template.php:200
+msgid "There is a field with input that is shorter than the minimum allowed length"
+msgstr "Có mục nhập ngắn hơn số kí tự tối thiểu"
+
+#: includes/contact-form-template.php:195
+msgid "There is a field with input that is longer than the maximum allowed length"
+msgstr "Có mục nào đó nhập dài hơn số kí tự cho phép"
+
+#: includes/contact-form-template.php:190
+msgid "There is a field that the sender must fill in"
+msgstr "Có mục bắt buộc người dùng phải nhập"
+
+#: includes/contact-form-template.php:185
+msgid "There are terms that the sender must accept"
+msgstr "Có điều khoản bắt buộc người sử dụng phải xác nhận đồng ý"
+
+#: includes/contact-form-template.php:180
+msgid "Submission was referred to as spam"
+msgstr "Nội dung gửi đến được xác định giống spam"
+
+#: includes/contact-form-template.php:175
+msgid "Validation errors occurred"
+msgstr "Dữ liệu nhập vào không hợp lệ"
+
+#: includes/contact-form-template.php:74 includes/contact-form-template.php:108
+msgid "Message Body:"
+msgstr "Nội dung thông điệp:"
+
+#. translators: %s: [your-subject]
+#: includes/contact-form-template.php:71
+msgid "Subject: %s"
+msgstr "Tiêu đề: %s"
+
+#. translators: %s: [your-name] [your-email]
+#: includes/contact-form-template.php:66
+msgid "From: %s"
+msgstr "Gửi đến từ: %s"
+
+#: modules/submit.php:30
+msgid "Send"
+msgstr "Gửi đi"
+
+#: includes/contact-form-template.php:43
+msgid "Your message"
+msgstr "Tin nhắn của bạn"
+
+#: includes/contact-form-template.php:41
+msgid "Your email"
+msgstr "Email của bạn"
+
+#: includes/contact-form-template.php:40
+msgid "Your name"
+msgstr "Tên của bạn"
+
+#. translators: %s: title of form-tag
+#: admin/includes/tag-generator.php:85
+msgid "Form-tag Generator: %s"
+msgstr "Khởi tạo mục nhập mới: %s"
+
+#: admin/includes/help-tabs.php:99
+msgid "For more information:"
+msgstr "Để thêm thông tin:"
+
+#: admin/includes/help-tabs.php:91
+msgid "Any information you provide will not be shared with service providers without your authorization."
+msgstr "Bất kỳ thông tin bạn cung cấp sẽ không được chia sẻ với nhà cung cấp dịch vụ nếu thiếu sự uỷ quyền của bạn."
+
+#: admin/includes/help-tabs.php:90
+msgid "You may need to first sign up for an account with the service that you plan to use. When you do so, you would need to authorize Contact Form 7 to access the service with your account."
+msgstr "Bạn có thể cần tạo tài khoản để sử dụng gói dịch vụ. Nếu đúng, hãy xác thực với Contact Form 7 để truy cập dịch vụ kèm theo tài khoản cua bạn."
+
+#: admin/includes/help-tabs.php:89
+msgid "On this screen, you can manage services that are available through Contact Form 7. Using API will allow you to collaborate with any services that are available."
+msgstr "Trong màn hình hiện tại, bạn có thể quản lý các dịch vụ có sẵn thông qua plugin Contact Form 7. Sử dụng API sẽ cho phép bạn tương tác với các bất kỳ dịch vụ nào khả dụng."
+
+#: admin/includes/help-tabs.php:87
+msgid "There are also special mail-tags that have specific names, but do not have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page."
+msgstr "Ngoài ra còn có các thẻ thư đặc biệt có tên cụ thể nhưng không có thẻ biểu mẫu tương ứng. Chúng được sử dụng để thể hiện thông tin meta của việc gửi biểu mẫu như địa chỉ IP của người gửi hoặc URL của trang."
+
+#: admin/includes/help-tabs.php:86
+msgid "A mail-tag is also a short code enclosed in square brackets that you can use in every Mail and Mail (2) field. A mail-tag represents a user input value through an input field of a corresponding form-tag."
+msgstr "Tag Mail là các đoạn mã ngắn trong cặp dấu ngoặc vuông được sử dụng trong tab Cấu hình Mail. Tag mail thực ra là các giá trị mà người dùng nhập vào khi gửi form như địa chỉ, họ và tên, số điện thoại."
+
+#: admin/includes/help-tabs.php:84
+msgid "While form-tags have a comparatively complex syntax, you do not need to know the syntax to add form-tags because you can use the straightforward tag generator (<strong>Generate Tag</strong> button on this screen)."
+msgstr "Mặc dù các thẻ biểu mẫu có cú pháp tương đối phức tạp, bạn không cần phải biết cú pháp để thêm thẻ biểu mẫu vì bạn có thể sử dụng trình tạo thẻ đơn giản (nút <strong>Tạo thẻ</strong> trên màn hình này)."
+
+#: admin/includes/help-tabs.php:83
+msgid "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields."
+msgstr "Tag Form là các shortcode ngắn nằm trong cặp dấu vuông, ví dụ [ten-cua-ban]. Nó đại diện cho các mục nhập ngoài website, và thường chứa các thành phần: loại, tên, các tuỳ chọn và giá trị. Contact Form 7 cung cấp một vài loại nhập phổ biến như văn bản, số, ngày tháng, tuỳ chọn checkbox, tuỳ chọn radio, menu, tải file, CAPTCHA chống spam và đặt câu hỏi."
+
+#: admin/includes/help-tabs.php:81
+msgid "<strong>Additional Settings</strong> provides a place where you can customize the behavior of this contact form by adding code snippets."
+msgstr "<strong>Tuỳ chọn khác</strong> cung cấp nơi bạn nhập các thiết lập bổ sung bởi các đoạn code ngắn."
+
+#: admin/includes/help-tabs.php:80
+msgid "In <strong>Messages</strong>, you can edit various types of messages used for this contact form. These messages are relatively short messages, like a validation error message you see when you leave a required field blank."
+msgstr "Trong <strong>Thông báo và Chú ý</strong>, bạn có thể tuỳ biến các thông báo hiển thị tới người nhập form, chẳng hạn như mục nhập bắt buộc, nhập sai định dạng hoặc nhập quá dài số kí tự cho phép."
+
+#: admin/includes/help-tabs.php:79
+msgid "<strong>Mail (2)</strong> is an additional mail template that works similar to Mail. Mail (2) is different in that it is sent only when Mail has been sent successfully."
+msgstr "<strong>Cấu hình Mail kiểu 2</strong> là một kiểu cấu hình email giống mặc định, tuy nhiên nó sẽ chỉ gửi email một khi nhận được xác nhận email từ người dùng."
+
+#: admin/includes/help-tabs.php:78
+msgid "<strong>Mail</strong> manages a mail template (headers and message body) that this contact form will send when users submit it. You can use Contact Form 7&#8217;s mail-tags here."
+msgstr "<strong>Mail</strong> quản lý mẫu thư (tiêu đề và nội dung thư) mà biểu mẫu liên hệ này sẽ gửi khi người dùng gửi. Bạn có thể sử dụng thẻ thư của Contact Form 7 tại đây."
+
+#: admin/includes/help-tabs.php:77
+msgid "<strong>Form</strong> is a content of HTML form. You can use arbitrary HTML, which is allowed inside a form element. You can also use Contact Form 7&#8217;s form-tags here."
+msgstr "<strong>Biểu mẫu</strong> là nội dung của biểu mẫu HTML. Bạn có thể sử dụng HTML tùy ý, được phép bên trong phần tử biểu mẫu. Bạn cũng có thể sử dụng thẻ biểu mẫu của Contact Form 7 tại đây."
+
+#: admin/includes/help-tabs.php:76
+msgid "<strong>Title</strong> is the title of a contact form. This title is only used for labeling a contact form, and can be edited."
+msgstr "<strong>Tiêu đề</strong> là tên của form liên hệ. Nó được sử dụng để xác định và phân biệt các loại form bạn tạo (ví dụ form liên hệ trang chủ, form đặt hàng,..) và có thể thay đổi."
+
+#: admin/includes/help-tabs.php:75
+msgid "On this screen, you can edit a contact form. A contact form is comprised of the following components:"
+msgstr "Trong màn hình này, bạn có thể sửa form. Nó bao gồm các thành phần sau:"
+
+#: admin/includes/help-tabs.php:73
+msgid "<strong>Duplicate</strong> - Clones that contact form. A cloned contact form inherits all content from the original, but has a different ID."
+msgstr "<strong>Sao chép</strong> - Là thao tác tạo ra một bản sao khác của form. Nó sẽ chứa tất cả nội dung từ bản gốc, nhưng chỉ thay đổi ID."
+
+#: admin/includes/help-tabs.php:72
+msgid "<strong>Edit</strong> - Navigates to the editing screen for that contact form. You can also reach that screen by clicking on the contact form title."
+msgstr "<strong>Sửa</strong> - Nhấp chuột vào để sửa form liên hệ."
+
+#: admin/includes/help-tabs.php:71
+msgid "Hovering over a row in the contact forms list will display action links that allow you to manage your contact form. You can perform the following actions:"
+msgstr "Khi rê chuột vào một dòng trong danh sách form liên hệ, bạn có thể thực hiện các thao tác quản lý form đó như:"
+
+#: admin/includes/help-tabs.php:46
+msgid "Mail-tags"
+msgstr "Tag Mail"
+
+#: admin/includes/help-tabs.php:40
+msgid "Form-tags"
+msgstr "Tag Form"
+
+#: admin/includes/help-tabs.php:24
+msgid "Available Actions"
+msgstr "Hành động có sẵn"
+
+#: admin/includes/help-tabs.php:18 admin/includes/help-tabs.php:34
+#: admin/includes/help-tabs.php:56
+msgid "Overview"
+msgstr "Tổng quan"
+
+#: admin/includes/editor.php:435
+msgid "File attachments"
+msgstr "Tệp đính kèm"
+
+#: admin/includes/editor.php:419
+msgid "Use HTML content type"
+msgstr "Sử dụng mã HTML cho phần nội dung của thư"
+
+#: admin/includes/editor.php:362
+msgid "Message body"
+msgstr "Nội dung tin nhắn"
+
+#: admin/includes/editor.php:331
+msgid "Additional headers"
+msgstr "Tiêu đề bổ sung"
+
+#: admin/includes/editor.php:303 includes/contact-form-template.php:42
+msgid "Subject"
+msgstr "Tiêu đề:"
+
+#: admin/includes/editor.php:275
+msgid "From"
+msgstr "Mail gửi"
+
+#: admin/includes/editor.php:247
+msgid "To"
+msgstr "Mail nhận"
+
+#: admin/includes/editor.php:219
+msgid "In the following fields, you can use these mail-tags:"
+msgstr "Trong các mục nhập dữ liệu dưới đây, bạn có thể sử dụng các thẻ dữ liệu sau:"
+
+#: admin/includes/editor.php:196
+msgid "Mail (2) is an additional mail template often used as an autoresponder."
+msgstr "Kiểu cấu hình mail 2 thường được sử dụng như là trả lời tự động."
+
+#: admin/includes/editor.php:135
+msgid "Use Mail (2)"
+msgstr "Bật cấu hình Mail này"
+
+#: admin/includes/editor.php:134
+msgid "Mail (2)"
+msgstr "Cấu hình Mail kiểu 2"
+
+#. translators: date format, see https://www.php.net/date
+#: admin/includes/list-table.php:323
+msgid "Y/m/d"
+msgstr "d/m/Y"
+
+#. translators: %s: title of contact form
+#: admin/includes/list-table.php:172
+msgid "Edit &#8220;%s&#8221;"
+msgstr "Sửa &#8220;%s&#8221;"
+
+#: admin/includes/list-table.php:268
+msgid "Edit"
+msgstr "Sửa"
+
+#: admin/includes/list-table.php:74 admin/includes/list-table.php:96
+msgid "Date"
+msgstr "Ngày"
+
+#: admin/includes/list-table.php:73 admin/includes/list-table.php:90
+msgid "Author"
+msgstr "Tác giả"
+
+#: admin/includes/list-table.php:72 admin/includes/list-table.php:83
+#: includes/block-editor/index.js:1
+msgid "Title"
+msgstr "Tiêu đề"
+
+#: admin/edit-contact-form.php:385 admin/includes/editor.php:532
+msgid "Additional Settings"
+msgstr "Tuỳ chọn khác"
+
+#. translators: %d: number of additional settings
+#: admin/edit-contact-form.php:382
+msgid "Additional Settings (%d)"
+msgstr "Các tuỳ chọn khác (%d)"
+
+#: admin/edit-contact-form.php:362 admin/includes/editor.php:480
+msgid "Messages"
+msgstr "Thông báo và Chú ý"
+
+#: admin/edit-contact-form.php:358 admin/includes/editor.php:143
+msgid "Mail"
+msgstr "Cấu hình Mail"
+
+#: admin/edit-contact-form.php:354 admin/includes/editor.php:96
+msgid "Form"
+msgstr "Nội dung Form"
+
+#: admin/includes/help-tabs.php:102
+msgid "Support"
+msgstr "Hỗ trợ"
+
+#: admin/includes/help-tabs.php:101
+msgid "FAQ"
+msgstr "Câu hỏi thường gặp"
+
+#: admin/includes/help-tabs.php:100
+msgid "Docs"
+msgstr "Tài liệu hướng dẫn"
+
+#: admin/edit-contact-form.php:299 admin/edit-contact-form.php:303
+#: admin/includes/list-table.php:107
+msgid "Delete"
+msgstr "Xóa"
+
+#: admin/edit-contact-form.php:264 admin/edit-contact-form.php:268
+#: admin/includes/list-table.php:288
+msgid "Duplicate"
+msgstr "Sao chép"
+
+#: admin/edit-contact-form.php:224
+msgid "Status"
+msgstr "Trạng thái"
+
+#: admin/edit-contact-form.php:139 admin/edit-contact-form.php:140
+msgid "Enter title here"
+msgstr "Tên Form"
+
+#: admin/edit-contact-form.php:250 admin/edit-contact-form.php:254
+#: admin/edit-contact-form.php:319 admin/edit-contact-form.php:323
+msgid "Save"
+msgstr "Lưu"
+
+#: admin/admin.php:634
+msgid "You are not allowed to edit this contact form."
+msgstr "Bạn không được phép sửa form liên hệ này."
+
+#: modules/akismet/service.php:65
+msgid "Spam filtering with Akismet"
+msgstr "Lọc spam với Akismet"
+
+#. translators: 1: version of Contact Form 7, 2: version of WordPress, 3: URL
+#: admin/admin.php:612
+msgid "<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> Please <a href=\"%3$s\">update WordPress</a> first."
+msgstr "<strong>Contact Form 7 %1$s yêu cầu WordPress %2$s hoặc cao hơn.</strong> Hãy <a href=\"%3$s\">cập nhật WordPress</a> trước."
+
+#: admin/admin.php:594
+msgid "Settings"
+msgstr "Cấu hình"
+
+#: admin/admin.php:547
+msgid "Contact form deleted."
+msgstr "Form đã được xoá thành công."
+
+#: admin/admin.php:545
+msgid "Contact form saved."
+msgstr "Thay đổi đã được lưu."
+
+#: admin/admin.php:543
+msgid "Contact form created."
+msgstr "Form đã được tạo thành công."
+
+#: admin/contact-forms.php:83
+msgid "Search Contact Forms"
+msgstr "Tìm kiếm các Form Liên hệ"
+
+#: admin/admin.php:416
+msgid "Error in deleting."
+msgstr "Lỗi khi xoá."
+
+#: admin/admin.php:410
+msgid "You are not allowed to delete this item."
+msgstr "Bạn không được phép xoá mục này."
+
+#: admin/admin.php:312 admin/admin.php:365
+msgid "You are not allowed to edit this item."
+msgstr "Bạn không được phép sửa mục này."
+
+#: admin/admin.php:86
+msgid "Integration"
+msgstr "Tích hợp"
+
+#: admin/admin.php:58 admin/admin.php:59 admin/contact-forms.php:26
+#: includes/contact-form.php:53
+msgid "Contact Forms"
+msgstr "Danh sách Form"
+
+#: admin/admin.php:57 admin/edit-contact-form.php:29
+msgid "Edit Contact Form"
+msgstr "Sửa Form"
+
+#: admin/admin.php:33
+msgid "Contact"
+msgstr "Form liên hệ"
+
+#. Plugin Name of the plugin
+#: wp-contact-form-7.php modules/flamingo.php:222
+msgid "Contact Form 7"
+msgstr "Contact Form 7"

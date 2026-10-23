@@ -370,7 +370,7 @@ endif;
 
 if ( ! function_exists( 'jobscout_get_news_newsletter_btn_text' ) ) :
 function jobscout_get_news_newsletter_btn_text() {
-    return esc_html( get_theme_mod( 'news_newsletter_btn_text', __( 'SUBSCRIBE', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' ) );
 }
 endif;
 

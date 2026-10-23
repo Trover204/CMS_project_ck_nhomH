@@ -510,7 +510,7 @@ function jobscout_footer_top(){
                         <span class="news-newsletter-line1"><?php echo esc_html( get_theme_mod( 'news_newsletter_line1', 'Subscribe To' ) ); ?></span>
                         <span class="news-newsletter-line2"><?php echo esc_html( get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' ) ); ?></span>
                     </div>
-                    <div class="news-newsletter-form-wrap">
+                    <div class="news-newsletter-form-wrap news-newsletter-cf7">
                         <form class="news-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');">
                             <div class="news-input-group">
                                 <span class="news-input-icon">
@@ -519,9 +519,9 @@ function jobscout_footer_top(){
                                         <polyline points="22,6 12,13 2,6"></polyline>
                                     </svg>
                                 </span>
-                                <input type="email" class="news-newsletter-email-input" placeholder="<?php echo esc_attr( get_theme_mod( 'news_newsletter_placeholder', __( 'Input your email address', 'jobscout' ) ) ); ?>" required />
+                                <input type="email" class="news-newsletter-email-input" placeholder="<?php echo esc_attr( get_theme_mod( 'news_newsletter_placeholder', 'Nhập địa chỉ email của bạn' ) ); ?>" required />
                             </div>
-                            <button type="submit" class="news-newsletter-btn"><?php echo esc_html( get_theme_mod( 'news_newsletter_btn_text', __( 'SUBSCRIBE', 'jobscout' ) ) ); ?></button>
+                            <button type="submit" class="news-newsletter-btn"><?php echo esc_html( get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' ) ); ?></button>
                         </form>
                     </div>
                 </div>
