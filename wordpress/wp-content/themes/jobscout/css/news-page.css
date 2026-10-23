@@ -3770,3 +3770,15 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
 .pds-footer-top .customize-partial-edit-shortcut button {
     z-index: 9999 !important;
 }
+
+
+/* Hide idle Contact Form 7 spinner so it does not add empty spacing next to ĐĂNG KÝ button */
+.news-newsletter-cf7 .wpcf7 form:not(.submitting) .wpcf7-spinner {
+    display: none !important;
+}
+
+.news-newsletter-cf7 .news-cf7-row > p {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+}
