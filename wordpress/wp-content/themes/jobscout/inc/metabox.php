@@ -289,3 +289,269 @@ function jobscout_save_company_photos( $post_id ) {
     }
 }
 add_action( 'save_post', 'jobscout_save_company_photos' );
+
+
+/**
+ * ==========================================================
+ * News Page Settings Metabox (For WP Admin -> Pages -> News)
+ * Synchronized two-way with WordPress Customizer (theme_mods)
+ * ==========================================================
+ */
+function jobscout_add_news_page_metabox() {
+    global $post;
+    if ( ! $post ) {
+        return;
+    }
+    $template = get_post_meta( $post->ID, '_wp_page_template', true );
+    if ( 'page-news.php' === $template || 'news' === $post->post_name ) {
+        add_meta_box(
+            'jobscout_news_page_settings_box',
+            __( 'News Page Customize Settings (Cấu hình trang News)', 'jobscout' ),
+            'jobscout_news_page_metabox_callback',
+            'page',
+            'normal',
+            'high'
+        );
+    }
+
+    // Metabox for Individual Blog Posts (WP Admin -> Posts)
+    add_meta_box(
+        'jobscout_news_post_card_box',
+        __( 'News Card & Detail Settings (Tùy chỉnh hiển thị trên trang News)', 'jobscout' ),
+        'jobscout_news_post_card_metabox_callback',
+        'post',
+        'normal',
+        'high'
+    );
+}
+add_action( 'add_meta_boxes', 'jobscout_add_news_page_metabox' );
+
+function jobscout_news_page_metabox_callback( $post ) {
+    wp_nonce_field( 'jobscout_news_page_meta_save', 'jobscout_news_page_meta_nonce' );
+    wp_enqueue_media();
+
+    $banner_title     = get_theme_mod( 'news_banner_title', 'PDS NEWS' );
+    $banner_bg        = function_exists( 'jobscout_get_news_banner_bg_url' ) ? jobscout_get_news_banner_bg_url() : get_template_directory_uri() . '/images/view-tokyo-cityscape-night-japan.jpg';
+    $section_heading  = get_theme_mod( 'news_section_heading', 'NEWEST BLOG ENTRIES' );
+    $posts_per_page   = absint( get_theme_mod( 'news_posts_per_page', 8 ) );
+    $excerpt_length   = absint( get_theme_mod( 'news_excerpt_length', 18 ) );
+    $readmore_text    = get_theme_mod( 'news_readmore_text', 'Read More' );
+    $newsletter_line1 = get_theme_mod( 'news_newsletter_line1', 'Subscribe To' );
+    $newsletter_line2 = get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' );
+    $newsletter_ph    = get_theme_mod( 'news_newsletter_placeholder', 'Input your email address' );
+    $newsletter_btn   = get_theme_mod( 'news_newsletter_btn_text', 'SUBSCRIBE' );
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="news_banner_title"><?php esc_html_e( 'Hero Banner Title', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_banner_title" name="news_banner_title" value="<?php echo esc_attr( $banner_title ); ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_banner_bg"><?php esc_html_e( 'Hero Banner Background Image', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_banner_bg" name="news_banner_bg" value="<?php echo esc_url( $banner_bg ); ?>" class="large-text" style="margin-bottom:8px;" />
+                <button type="button" class="button" id="jobscout_select_news_banner_btn"><?php esc_html_e( 'Chọn ảnh từ Media Library', 'jobscout' ); ?></button>
+                <div style="margin-top:8px;">
+                    <img id="news_banner_bg_preview" src="<?php echo esc_url( $banner_bg ); ?>" style="max-width:280px; height:auto; border-radius:4px; border:1px solid #ccd0d4;" />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_section_heading"><?php esc_html_e( 'Section Heading', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_section_heading" name="news_section_heading" value="<?php echo esc_attr( $section_heading ); ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_posts_per_page"><?php esc_html_e( 'Posts Per Page', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="number" id="news_posts_per_page" name="news_posts_per_page" value="<?php echo esc_attr( $posts_per_page ); ?>" min="1" max="24" class="small-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_excerpt_length"><?php esc_html_e( 'Excerpt Length (Words)', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="number" id="news_excerpt_length" name="news_excerpt_length" value="<?php echo esc_attr( $excerpt_length ); ?>" min="5" max="60" class="small-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_readmore_text"><?php esc_html_e( 'Read More Button Text', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_readmore_text" name="news_readmore_text" value="<?php echo esc_attr( $readmore_text ); ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_newsletter_line1"><?php esc_html_e( 'Newsletter Heading Line 1', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_newsletter_line1" name="news_newsletter_line1" value="<?php echo esc_attr( $newsletter_line1 ); ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_newsletter_line2"><?php esc_html_e( 'Newsletter Heading Line 2', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_newsletter_line2" name="news_newsletter_line2" value="<?php echo esc_attr( $newsletter_line2 ); ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_newsletter_placeholder"><?php esc_html_e( 'Newsletter Input Placeholder', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_newsletter_placeholder" name="news_newsletter_placeholder" value="<?php echo esc_attr( $newsletter_ph ); ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_newsletter_btn_text"><?php esc_html_e( 'Newsletter Button Text', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_newsletter_btn_text" name="news_newsletter_btn_text" value="<?php echo esc_attr( $newsletter_btn ); ?>" class="regular-text" />
+            </td>
+        </tr>
+    </table>
+    <p class="description">
+        <?php
+        printf(
+            /* translators: %s: Customizer URL */
+            wp_kses_post( __( 'Bạn cũng có thể chỉnh sửa trực quan với biểu tượng bút chì màu xanh trong <a href="%s" target="_blank"><strong>Appearance &rarr; Customize (Giao diện &rarr; Tùy biến)</strong></a>.', 'jobscout' ) ),
+            esc_url( admin_url( 'customize.php?url=' . rawurlencode( get_permalink( $post->ID ) ) ) )
+        );
+        ?>
+    </p>
+    <script>
+    jQuery(document).ready(function($) {
+        var frame;
+        $('#jobscout_select_news_banner_btn').on('click', function(e) {
+            e.preventDefault();
+            if (frame) { frame.open(); return; }
+            frame = wp.media({
+                title: 'Chọn ảnh Banner cho trang News',
+                button: { text: 'Sử dụng ảnh này' },
+                multiple: false
+            });
+            frame.on('select', function() {
+                var att = frame.state().get('selection').first().toJSON();
+                $('#news_banner_bg').val(att.url);
+                $('#news_banner_bg_preview').attr('src', att.url);
+            });
+            frame.open();
+        });
+    });
+    </script>
+    <?php
+}
+
+function jobscout_save_news_page_metabox( $post_id ) {
+    if ( ! isset( $_POST['jobscout_news_page_meta_nonce'] ) || ! wp_verify_nonce( $_POST['jobscout_news_page_meta_nonce'], 'jobscout_news_page_meta_save' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_page', $post_id ) ) {
+        return;
+    }
+
+    $text_fields = array(
+        'news_banner_title',
+        'news_section_heading',
+        'news_readmore_text',
+        'news_newsletter_line1',
+        'news_newsletter_line2',
+        'news_newsletter_placeholder',
+        'news_newsletter_btn_text',
+    );
+    foreach ( $text_fields as $field ) {
+        if ( isset( $_POST[ $field ] ) ) {
+            set_theme_mod( $field, sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) );
+        }
+    }
+
+    if ( isset( $_POST['news_banner_bg'] ) ) {
+        set_theme_mod( 'news_banner_bg', esc_url_raw( wp_unslash( $_POST['news_banner_bg'] ) ) );
+    }
+    if ( isset( $_POST['news_posts_per_page'] ) ) {
+        set_theme_mod( 'news_posts_per_page', absint( $_POST['news_posts_per_page'] ) );
+    }
+    if ( isset( $_POST['news_excerpt_length'] ) ) {
+        set_theme_mod( 'news_excerpt_length', absint( $_POST['news_excerpt_length'] ) );
+    }
+}
+add_action( 'save_post_page', 'jobscout_save_news_page_metabox' );
+
+function jobscout_news_post_card_metabox_callback( $post ) {
+    wp_nonce_field( 'jobscout_news_post_card_save', 'jobscout_news_post_card_nonce' );
+    wp_enqueue_media();
+
+    $pid          = $post->ID;
+    $location     = get_post_meta( $pid, 'location', true );
+    if ( empty( $location ) ) {
+        $location = get_theme_mod( 'news_post_location_' . $pid, 'Ho Chi Minh City' );
+    }
+    $custom_thumb = function_exists( 'jobscout_get_news_post_thumb_url' ) ? jobscout_get_news_post_thumb_url( $pid ) : get_the_post_thumbnail_url( $pid, 'jobscout-blog' );
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="news_post_location"><?php esc_html_e( 'Location Badge (News Detail)', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_post_location" name="news_post_location" value="<?php echo esc_attr( $location ); ?>" class="regular-text" placeholder="Ho Chi Minh City" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="news_custom_thumb"><?php esc_html_e( 'Card Thumbnail Image', 'jobscout' ); ?></label></th>
+            <td>
+                <input type="text" id="news_custom_thumb" name="news_custom_thumb" value="<?php echo esc_url( $custom_thumb ); ?>" class="large-text" style="margin-bottom:8px;" />
+                <button type="button" class="button" id="jobscout_select_post_thumb_btn"><?php esc_html_e( 'Chọn ảnh từ Media Library', 'jobscout' ); ?></button>
+                <?php if ( $custom_thumb ) : ?>
+                    <div style="margin-top:8px;">
+                        <img id="news_custom_thumb_preview" src="<?php echo esc_url( $custom_thumb ); ?>" style="width:140px; height:140px; object-fit:cover; border-radius:4px; border:1px solid #ccd0d4;" />
+                    </div>
+                <?php endif; ?>
+            </td>
+        </tr>
+    </table>
+    <script>
+    jQuery(document).ready(function($) {
+        var postThumbFrame;
+        $('#jobscout_select_post_thumb_btn').on('click', function(e) {
+            e.preventDefault();
+            if (postThumbFrame) { postThumbFrame.open(); return; }
+            postThumbFrame = wp.media({
+                title: 'Chọn ảnh đại diện cho bài viết News',
+                button: { text: 'Sử dụng ảnh này' },
+                multiple: false
+            });
+            postThumbFrame.on('select', function() {
+                var att = postThumbFrame.state().get('selection').first().toJSON();
+                $('#news_custom_thumb').val(att.url);
+                $('#news_custom_thumb_preview').attr('src', att.url);
+            });
+            postThumbFrame.open();
+        });
+    });
+    </script>
+    <?php
+}
+
+function jobscout_save_news_post_card_metabox( $post_id ) {
+    if ( ! isset( $_POST['jobscout_news_post_card_nonce'] ) || ! wp_verify_nonce( $_POST['jobscout_news_post_card_nonce'], 'jobscout_news_post_card_save' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+
+    if ( isset( $_POST['news_post_location'] ) ) {
+        $loc = sanitize_text_field( wp_unslash( $_POST['news_post_location'] ) );
+        update_post_meta( $post_id, 'location', $loc );
+        set_theme_mod( 'news_post_location_' . $post_id, $loc );
+    }
+
+    if ( isset( $_POST['news_custom_thumb'] ) ) {
+        $thumb = esc_url_raw( wp_unslash( $_POST['news_custom_thumb'] ) );
+        update_post_meta( $post_id, '_news_custom_thumb', $thumb );
+        set_theme_mod( 'news_post_thumb_' . $post_id, $thumb );
+    }
+}
+add_action( 'save_post_post', 'jobscout_save_news_post_card_metabox', 15 );
