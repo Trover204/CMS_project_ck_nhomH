@@ -107,6 +107,22 @@ function jobscout_header(){
 endif;
 add_action( 'jobscout_header', 'jobscout_header', 20 );
 
+if( ! function_exists( 'jobscout_is_dashboard_page' ) ) :
+    /**
+     * Check if currently viewing the Job Dashboard page
+    */
+    function jobscout_is_dashboard_page() {
+        global $post;
+        if ( is_page_template( 'page-job-dashboard.php' ) || is_page( 'job-dashboard' ) ) {
+            return true;
+        }
+        if ( is_singular() && is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'job_dashboard' ) ) {
+            return true;
+        }
+        return false;
+    }
+endif;
+
 if( ! function_exists( 'jobscout_breadcrumbs_bar' ) ) :
     /**
      * Breadcrumbs
@@ -114,7 +130,7 @@ if( ! function_exists( 'jobscout_breadcrumbs_bar' ) ) :
     function jobscout_breadcrumbs_bar(){
         $ed_breadcrumbs = get_theme_mod( 'ed_breadcrumbs', false );
 
-        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>
+        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) && ! jobscout_is_dashboard_page() ){ ?>
             <section class="breadcrumb-wrap">
                 <div class="container">
                     <?php jobscout_breadcrumbs_cb(); //Breadcrumb ?>
@@ -134,7 +150,7 @@ if( ! function_exists( 'jobscout_content_start' ) ) :
 function jobscout_content_start(){       
     echo '<div id="acc-content"><!-- .site-header -->';
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ //Make necessary adjust for pg template.
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) && ! jobscout_is_dashboard_page() ){ //Make necessary adjust for pg template.
         echo is_404() ? '<div class="error-holder">' : '<div id="content" class="site-content">'; 
 
         if( is_archive() || is_search() || is_page_template( 'templates/portfolio.php' ) ) : ?>
@@ -465,7 +481,7 @@ if( ! function_exists( 'jobscout_content_end' ) ) :
 */
 function jobscout_content_end(){ 
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>            
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) && ! jobscout_is_dashboard_page() ){ ?>            
         </div><!-- .container/ -->        
     </div><!-- .error-holder/site-content -->
     <?php
@@ -501,7 +517,7 @@ function jobscout_footer_top(){
     $contact_url   = $contact_page ? get_permalink( $contact_page->ID ) : home_url( '/index.php/contact/' );
 
     // Display the Orange Newsletter Section on Home, Contact, and other pages (News, News Detail, Jobs, and Job Detail already render it before get_footer)
-    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ) :
+    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) && ! jobscout_is_dashboard_page() ) :
         ?>
         <section class="news-newsletter-section">
             <div class="container">
@@ -639,3 +655,136 @@ function jobscout_page_end(){ ?>
 }
 endif;
 add_action( 'jobscout_after_footer', 'jobscout_page_end', 20 );
+/**
+ * Automatically load page-job-dashboard.php for the job-dashboard page or pages with [job_dashboard]
+ */
+function jobscout_dashboard_template_include( $template ) {
+    if ( jobscout_is_dashboard_page() ) {
+        $custom_template = locate_template( array( 'page-job-dashboard.php' ) );
+        if ( ! empty( $custom_template ) ) {
+            return $custom_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'template_include', 'jobscout_dashboard_template_include', 99 );
+
+
+if ( ! function_exists( 'jobscout_get_job_dashboard_status_data' ) ) :
+    /**
+     * Get unified status label and CSS badge class for a job listing
+     *
+     * @param string $post_status Job post status.
+     * @param bool   $is_filled   Whether position is filled.
+     * @return array Array containing label and class.
+     */
+    function jobscout_get_job_dashboard_status_data( $post_status, $is_filled ) {
+        if ( 'pending' === $post_status || 'pending_payment' === $post_status ) {
+            return array(
+                'label' => __( 'Chờ duyệt', 'jobscout' ),
+                'class' => 'status-pending',
+                'type'  => 'pending',
+            );
+        }
+
+        if ( 'expired' === $post_status ) {
+            return array(
+                'label' => __( 'Hết hạn', 'jobscout' ),
+                'class' => 'status-expired',
+                'type'  => 'expired',
+            );
+        }
+
+        if ( 'draft' === $post_status || 'preview' === $post_status ) {
+            return array(
+                'label' => __( 'Bản nháp', 'jobscout' ),
+                'class' => 'status-draft',
+                'type'  => 'draft',
+            );
+        }
+
+        if ( 'publish' === $post_status ) {
+            if ( $is_filled ) {
+                return array(
+                    'label' => __( 'Đã tuyển', 'jobscout' ),
+                    'class' => 'status-filled',
+                    'type'  => 'filled',
+                );
+            }
+
+            return array(
+                'label' => __( 'Đang tuyển', 'jobscout' ),
+                'class' => 'status-active',
+                'type'  => 'active',
+            );
+        }
+
+        return array(
+            'label' => ucfirst( (string) $post_status ),
+            'class' => 'status-draft',
+            'type'  => 'other',
+        );
+    }
+endif;
+
+if ( ! function_exists( 'jobscout_get_job_dashboard_item_data' ) ) :
+    /**
+     * Prepare sanitized display data for a job listing item on the dashboard
+     *
+     * @param WP_Post|int $job Job post object or ID.
+     * @param string      $date_format Optional date format.
+     * @return array
+     */
+    function jobscout_get_job_dashboard_item_data( $job, $date_format = '' ) {
+        $job_post = get_post( $job );
+        if ( ! $job_post ) {
+            return array();
+        }
+
+        $job_id      = $job_post->ID;
+        $post_status = $job_post->post_status;
+        $is_filled   = function_exists( 'is_position_filled' ) ? is_position_filled( $job_post ) : (bool) get_post_meta( $job_id, '_filled', true );
+
+        if ( empty( $date_format ) ) {
+            $date_format = get_option( 'date_format' ) ?: 'M d, Y';
+        }
+
+        // Date posted
+        $post_datetime = get_post_datetime( $job_post );
+        if ( $post_datetime instanceof DateTimeInterface ) {
+            $date_posted = wp_date( $date_format, $post_datetime->getTimestamp() );
+        } else {
+            $date_posted = get_the_date( $date_format, $job_id );
+        }
+
+        // Expiration date
+        $expires = get_post_meta( $job_id, '_job_expires', true );
+        $expires_text = ! empty( $expires ) ? wp_date( $date_format, strtotime( $expires ) ) : __( 'Không thời hạn', 'jobscout' );
+
+        // Location
+        $loc = get_post_meta( $job_id, '_job_location', true );
+        if ( ! is_string( $loc ) || '' === trim( $loc ) ) {
+            $loc = __( 'Chưa cập nhật', 'jobscout' );
+        }
+
+        // Job type
+        $types = get_the_terms( $job_id, 'job_listing_type' );
+        $type_label = ( ! empty( $types ) && ! is_wp_error( $types ) ) ? $types[0]->name : __( 'Chưa phân loại', 'jobscout' );
+
+        // Status data
+        $status_data = jobscout_get_job_dashboard_status_data( $post_status, $is_filled );
+
+        return array(
+            'id'           => $job_id,
+            'title'        => get_the_title( $job_id ),
+            'permalink'    => get_permalink( $job_id ),
+            'date_posted'  => $date_posted,
+            'expires_text' => $expires_text,
+            'location'     => $loc,
+            'type_label'   => $type_label,
+            'status'       => $post_status,
+            'is_filled'    => $is_filled,
+            'status_data'  => $status_data,
+        );
+    }
+endif;
