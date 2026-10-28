@@ -2731,10 +2731,12 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
    ========================================================== */
 
 /* 1. Hero Banner */
-.about-hero-section {
+.about-hero-section,
+.about-banner-section {
     position: relative;
     width: 100%;
-    min-height: 440px;
+    min-height: 410px;
+    background-color: #1e293b;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -2742,38 +2744,38 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 20px;
     margin: 0;
+    padding: 60px 20px;
     overflow: hidden;
 }
 
-.about-hero-overlay {
+.about-hero-overlay,
+.about-banner-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.42);
+    background: rgba(15, 23, 42, 0.38);
     z-index: 1;
 }
 
-.about-hero-container {
+.about-hero-container,
+.about-banner-container {
     position: relative;
     z-index: 2;
-    max-width: 900px;
+    max-width: 1170px;
     margin: 0 auto;
+    width: 100%;
 }
 
-.about-hero-title {
+.about-hero-title,
+.about-banner-title {
     color: #ffffff;
     font-size: 34px;
-    font-weight: 800;
-    letter-spacing: 2px;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
     margin: 0;
-    line-height: 1.35;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-}
-
-.about-hero-title span {
-    display: block;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    line-height: 1.2;
 }
 
 /* 2. Intro Section (Vision, Mission, Core Value) */
@@ -2945,12 +2947,14 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
 }
 
 @media (max-width: 768px) {
-    .about-hero-section {
-        min-height: 280px;
+    .about-hero-section,
+    .about-banner-section {
+        min-height: 240px;
         padding: 40px 15px;
     }
-    .about-hero-title {
-        font-size: 24px;
+    .about-hero-title,
+    .about-banner-title {
+        font-size: 26px;
     }
     .about-intro-grid,
     .about-company-grid {
