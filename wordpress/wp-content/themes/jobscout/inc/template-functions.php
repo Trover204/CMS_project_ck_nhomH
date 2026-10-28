@@ -114,7 +114,7 @@ if( ! function_exists( 'jobscout_breadcrumbs_bar' ) ) :
     function jobscout_breadcrumbs_bar(){
         $ed_breadcrumbs = get_theme_mod( 'ed_breadcrumbs', false );
 
-        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>
+        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>
             <section class="breadcrumb-wrap">
                 <div class="container">
                     <?php jobscout_breadcrumbs_cb(); //Breadcrumb ?>
@@ -134,7 +134,7 @@ if( ! function_exists( 'jobscout_content_start' ) ) :
 function jobscout_content_start(){       
     echo '<div id="acc-content"><!-- .site-header -->';
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ //Make necessary adjust for pg template.
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ //Make necessary adjust for pg template.
         echo is_404() ? '<div class="error-holder">' : '<div id="content" class="site-content">'; 
 
         if( is_archive() || is_search() || is_page_template( 'templates/portfolio.php' ) ) : ?>
@@ -465,7 +465,7 @@ if( ! function_exists( 'jobscout_content_end' ) ) :
 */
 function jobscout_content_end(){ 
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>            
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>            
         </div><!-- .container/ -->        
     </div><!-- .error-holder/site-content -->
     <?php
