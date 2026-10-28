@@ -9,22 +9,23 @@
 
 get_header();
 
-$theme_img_dir = get_template_directory_uri() . '/images/';
+// Determine banner background image (use page featured image if set, otherwise project development image matching contact page)
+$banner_img = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+if ( ! $banner_img ) {
+    $upload_dir = wp_get_upload_dir();
+    $banner_img = $upload_dir['baseurl'] . '/2026/10/project-development.jpg';
+}
 
-// Available images in themes/jobscout/images
-$banner_bg   = $theme_img_dir . 'photo-1493976040374-85c8e12f0c0e.jpg';
+$theme_img_dir = get_template_directory_uri() . '/images/';
 $intro_img   = $theme_img_dir . 'photo-1524413840807-0c3cb6fa808d.jpg';
 $company_img = $theme_img_dir . 'photo-1536098561742-ca998e48cbcc.jpg';
 ?>
 
-<!-- 1. Hero Banner about -->
-<section class="about-hero-section" style="background-image: url('<?php echo esc_url( $banner_bg ); ?>');">
-    <div class="about-hero-overlay"></div>
-    <div class="container about-hero-container">
-        <h1 class="about-hero-title">
-            <span>SHARE “OMOTENASHI”</span>
-            <span>WITH THE WORLD</span>
-        </h1>
+<!-- About Us Hero Banner -->
+<section class="contact-banner-section about-banner-section" style="background-image: url('<?php echo esc_url( $banner_img ); ?>');">
+    <div class="contact-banner-overlay about-banner-overlay"></div>
+    <div class="container contact-banner-container about-banner-container">
+        <h1 class="contact-banner-title about-banner-title"><?php echo esc_html( get_theme_mod( 'about_banner_title', 'GIỚI THIỆU VỀ CHÚNG TÔI' ) ); ?></h1>
     </div>
 </section>
 
