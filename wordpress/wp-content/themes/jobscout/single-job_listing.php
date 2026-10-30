@@ -107,6 +107,21 @@ if ( empty( $company_gallery ) ) {
 $company_photo      = ! empty( $company_gallery[0] ) ? $company_gallery[0] : ( get_template_directory_uri() . '/images/company-photo.jpg' );
 $extra_photos_count = count( $company_gallery ) > 1 ? ( count( $company_gallery ) - 1 ) : 5;
 
+// ---- Content sections from meta (editable in wp-admin) ----
+$_company_overview  = get_post_meta( $current_job_id, '_company_overview', true );
+$_key_skills        = get_post_meta( $current_job_id, '_key_skills', true );
+$_why_work_here     = get_post_meta( $current_job_id, '_why_work_here', true );
+$_location_detail   = get_post_meta( $current_job_id, '_location_detail', true );
+$_staff_rating_raw  = get_post_meta( $current_job_id, '_staff_rating', true );
+$_staff_rating      = ( '' !== $_staff_rating_raw ) ? (float) $_staff_rating_raw : 4.0;
+$_staff_rating      = max( 0, min( 5, $_staff_rating ) );
+
+// Fallback placeholder text when field is empty
+$_overview_fallback = '<p>' . esc_html__( 'Thông tin tổng quan về công ty chưa được cập nhật. Vui lòng bổ sung trong mục chỉnh sửa tin tuyển dụng.', 'jobscout' ) . '</p>';
+$_skills_fallback   = '<p>' . esc_html__( 'Thông tin kỹ năng yêu cầu chưa được cập nhật.', 'jobscout' ) . '</p>';
+$_why_fallback      = '<p>' . esc_html__( 'Thông tin phúc lợi và môi trường làm việc chưa được cập nhật.', 'jobscout' ) . '</p>';
+$_loc_fallback      = '<p>' . esc_html__( 'Thông tin địa điểm chi tiết chưa được cập nhật.', 'jobscout' ) . '</p>';
+
 // Other jobs data (6 cards for OTHER JOBS section)
 $demo_jobs = array(
     array(
@@ -325,30 +340,28 @@ if ( count( $other_jobs ) < 6 ) {
                     <div class="job-detail-section-block">
                         <h2 class="job-section-heading"><?php esc_html_e( 'Overview about Company', 'jobscout' ); ?></h2>
                         <div class="job-section-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, at. Vivamus volutpat in nunc, porttitor dui. Ut placerat aenean accumsan a, aenean lacus eu. Aliquet urna, habitasse elit lorem id enim quam. Ea varius nulla nullam dignissim massa tempor, massa tortor. Eget auctor nulla maecenas ac tortor.</p>
-                            <p>Ornare faucibus sed vitae dolor eu eu faucibus leo enim. Tincidunt quisque sed netus nibh pharetra. Gravida venenatis, lobortis id mi. Metus, ultrices duis pellentesque aliquet amet cras blandit. Aliquet purus quam laoreet ipsum pretium. Odio quis eu nunc, diam habitant nunc massa sed. Placerat arcu quis est, magna facilisis amet. Dignissim vel adipiscing elit facilisi praesent platea. Nulla posuere feugiat turpis magna etiam. Non nec felis eu praesent cras.</p>
+                            <?php echo ! empty( $_company_overview ) ? wp_kses_post( $_company_overview ) : wp_kses_post( $_overview_fallback ); ?>
                         </div>
                     </div>
 
                     <div class="job-detail-section-block">
                         <h2 class="job-section-heading"><?php esc_html_e( 'Our Key Skills', 'jobscout' ); ?></h2>
                         <div class="job-section-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, at. Vivamus volutpat in nunc, porttitor dui. Ut placerat aenean accumsan a, aenean lacus eu. Aliquet urna, habitasse elit lorem id enim quam. Ea varius nulla nullam dignissim massa tempor, massa tortor. Eget auctor nulla maecenas ac tortor.</p>
+                            <?php echo ! empty( $_key_skills ) ? wp_kses_post( $_key_skills ) : wp_kses_post( $_skills_fallback ); ?>
                         </div>
                     </div>
 
                     <div class="job-detail-section-block">
                         <h2 class="job-section-heading"><?php esc_html_e( 'Why You\'ll Love Working Here', 'jobscout' ); ?></h2>
                         <div class="job-section-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, at. Vivamus volutpat in nunc, porttitor dui. Ut placerat aenean accumsan a, aenean lacus eu. Aliquet urna, habitasse elit lorem id enim quam. Ea varius nulla nullam dignissim massa tempor, massa tortor. Eget auctor nulla maecenas ac tortor.</p>
-                            <p>Ornare faucibus sed vitae dolor eu eu faucibus leo enim. Tincidunt quisque sed netus nibh pharetra. Gravida venenatis, lobortis id mi. Metus, ultrices duis pellentesque aliquet amet cras blandit. Aliquet purus quam laoreet ipsum pretium. Odio quis eu nunc, diam habitant nunc massa sed. Placerat arcu quis est, magna facilisis amet. Dignissim vel adipiscing elit facilisi praesent platea. Nulla posuere feugiat turpis magna etiam. Non nec felis eu praesent cras.</p>
+                            <?php echo ! empty( $_why_work_here ) ? wp_kses_post( $_why_work_here ) : wp_kses_post( $_why_fallback ); ?>
                         </div>
                     </div>
 
                     <div class="job-detail-section-block">
                         <h2 class="job-section-heading"><?php esc_html_e( 'Location', 'jobscout' ); ?></h2>
                         <div class="job-section-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, at. Vivamus volutpat in nunc, porttitor dui.</p>
+                            <?php echo ! empty( $_location_detail ) ? wp_kses_post( $_location_detail ) : wp_kses_post( $_loc_fallback ); ?>
                         </div>
                     </div>
                 </div>
@@ -357,17 +370,20 @@ if ( count( $other_jobs ) < 6 ) {
             <!-- Right Column: Sidebar -->
             <aside class="job-detail-sidebar-col">
                 <!-- Staff Rating Widget -->
+                <!-- Staff Rating Widget - driven by _staff_rating meta -->
                 <div class="job-sidebar-widget widget-staff-rating">
                     <h3 class="widget-title"><?php esc_html_e( 'Staff Rating', 'jobscout' ); ?></h3>
                     <div class="rating-stars-wrap">
-                        <span class="rating-stars" aria-label="4 out of 5 stars">
-                            <svg class="star-icon star-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ea751e" width="20" height="20"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg class="star-icon star-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ea751e" width="20" height="20"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg class="star-icon star-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ea751e" width="20" height="20"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg class="star-icon star-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ea751e" width="20" height="20"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg class="star-icon star-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ea751e" stroke-width="2" width="20" height="20"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span class="rating-stars" aria-label="<?php echo esc_attr( sprintf( '%.1f out of 5 stars', $_staff_rating ) ); ?>">
+                            <?php for ( $__star = 1; $__star <= 5; $__star++ ) : ?>
+                                <?php if ( $_staff_rating >= $__star ) : ?>
+                                    <svg class="star-icon star-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ea751e" width="20" height="20"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                <?php else : ?>
+                                    <svg class="star-icon star-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ea751e" stroke-width="2" width="20" height="20"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         </span>
-                        <span class="rating-score">4.0</span>
+                        <span class="rating-score"><?php echo esc_html( number_format( $_staff_rating, 1 ) ); ?></span>
                     </div>
                 </div>
 

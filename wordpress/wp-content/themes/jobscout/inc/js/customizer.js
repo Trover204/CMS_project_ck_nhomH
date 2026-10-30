@@ -107,4 +107,18 @@
 		} );
 	} );
 
+
+	// Jobs Page Live Preview Bindings
+	wp.customize( 'jobs_banner_title', function( value ) {
+		value.bind( function( to ) {
+			$( '.jobs-banner-title' ).text( to );
+		} );
+	} );
+
+	wp.customize( 'jobs_section_heading', function( value ) {
+		value.bind( function( to ) {
+			$( '.jobs-section-title' ).text( to );
+		} );
+	} );
+
 } )( jQuery );
