@@ -1,0 +1,105 @@
+/* JobScout Job Detail Meta Boxes — Admin Styles */
+
+.jsmb-desc {
+    color: #646970;
+    font-size: 12px;
+    margin: 0 0 8px;
+    font-style: italic;
+}
+
+.jsmb-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.jsmb-field label {
+    font-weight: 600;
+    min-width: 110px;
+}
+
+.jsmb-hint {
+    color: #646970;
+    font-size: 13px;
+}
+
+.jsmb-rating-preview {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.jsmb-stars {
+    display: inline-flex;
+    gap: 2px;
+    vertical-align: middle;
+}
+
+.jsmb-rating-val {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ea751e;
+    vertical-align: middle;
+}
+
+/* Company Photos Grid */
+.jsmb-photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+    min-height: 40px;
+}
+
+.jsmb-photo-item {
+    position: relative;
+    width: 100px;
+    height: 80px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f0f0f1;
+}
+
+.jsmb-photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.jsmb-photo-remove {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: rgba(220, 50, 47, 0.88);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.jsmb-photo-remove:hover {
+    background: #dc322f;
+}
+
+/* Meta box header accent */
+#jobscout_company_overview .postbox-header h2,
+#jobscout_key_skills .postbox-header h2,
+#jobscout_why_work_here .postbox-header h2,
+#jobscout_job_location_detail .postbox-header h2,
+#jobscout_staff_rating .postbox-header h2,
+#jobscout_company_photos .postbox-header h2 {
+    font-size: 13px;
+}

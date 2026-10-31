@@ -9,7 +9,7 @@
  * Requiring customizer panels & sections
 */
 $jobscout_panels       = array( 'appearance', 'layout', 'home', 'general');
-$jobscout_sections     = array( 'info', 'site', 'footer', 'breadcrumbs', 'news' );
+$jobscout_sections     = array( 'info', 'site', 'footer', 'breadcrumbs', 'news', 'jobs' );
 $jobscout_sub_sections = array(
     'layout'     => array( 'general' ),
     'home'       => array( 'banner', 'jobposting', 'cta', 'blog', 'testimonial', 'client' ),

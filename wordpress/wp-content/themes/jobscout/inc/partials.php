@@ -379,3 +379,16 @@ function jobscout_get_news_detail_share_label() {
     return esc_html( get_theme_mod( 'news_detail_share_label', __( 'SHARE', 'jobscout' ) ) );
 }
 endif;
+
+
+if ( ! function_exists( 'jobscout_get_jobs_banner_title' ) ) :
+function jobscout_get_jobs_banner_title() {
+    return esc_html( get_theme_mod( 'jobs_banner_title', __( 'CAREER WITH US', 'jobscout' ) ) );
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_jobs_section_heading' ) ) :
+function jobscout_get_jobs_section_heading() {
+    return esc_html( get_theme_mod( 'jobs_section_heading', __( 'ALL JOBS', 'jobscout' ) ) );
+}
+endif;

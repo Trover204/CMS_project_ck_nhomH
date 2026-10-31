@@ -9,8 +9,11 @@
 
 get_header();
 
-// Determine banner background image
-$banner_img = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+// Determine banner background image: Theme Mod -> Featured Image -> Fallback
+$banner_img = get_theme_mod( 'jobs_banner_bg', '' );
+if ( empty( $banner_img ) ) {
+    $banner_img = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+}
 if ( ! $banner_img ) {
     $banner_img = get_template_directory_uri() . '/images/career-banner.jpg';
 }
