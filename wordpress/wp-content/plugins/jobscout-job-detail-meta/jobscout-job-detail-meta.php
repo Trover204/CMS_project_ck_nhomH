@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Require Job Applications Management Module
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-job-applications.php';
+
 // ============================================================
 // 1. Enqueue Media Uploader for admin
 // ============================================================
@@ -95,6 +98,15 @@ add_action( 'add_meta_boxes', function () {
         'jobscout_render_company_photos_meta_box',
         $screens,
         'normal',
+        'default'
+    );
+
+    add_meta_box(
+        'jobscout_apply_form_shortcode',
+        __( '📋 Form ứng tuyển (Apply Form Shortcode)', 'jobscout' ),
+        'jobscout_render_apply_form_meta_box',
+        $screens,
+        'side',
         'default'
     );
 } );
@@ -258,6 +270,31 @@ function jobscout_render_company_photos_meta_box( $post ) {
 }
 
 // ============================================================
+// 8b. Render: Apply Form Shortcode
+// ============================================================
+function jobscout_render_apply_form_meta_box( $post ) {
+    $shortcode = get_post_meta( $post->ID, '_apply_form_shortcode', true );
+    ?>
+    <p class="jsmb-desc">
+        <?php esc_html_e( 'Nhập shortcode form ứng tuyển (Contact Form 7). Để trống sẽ dùng form mặc định từ Customizer.', 'jobscout' ); ?>
+    </p>
+    <div class="jsmb-field">
+        <input
+            type="text"
+            id="jsmb_apply_form_shortcode"
+            name="_apply_form_shortcode"
+            value="<?php echo esc_attr( $shortcode ); ?>"
+            class="widefat"
+            placeholder='[contact-form-7 id="xxx" title="Apply Form"]'
+        />
+    </div>
+    <p class="jsmb-hint" style="margin-top:6px;color:#666;font-size:12px;">
+        <?php esc_html_e( 'Ví dụ: [contact-form-7 id="123" title="Ứng tuyển"]', 'jobscout' ); ?>
+    </p>
+    <?php
+}
+
+// ============================================================
 // 9. Save all meta
 // ============================================================
 add_action( 'save_post_job_listing', function ( $post_id ) {
@@ -302,6 +339,15 @@ add_action( 'save_post_job_listing', function ( $post_id ) {
         $rating = (float) $_POST['_staff_rating'];
         $rating = max( 0, min( 5, $rating ) );
         update_post_meta( $post_id, '_staff_rating', $rating );
+    }
+
+    // --- Apply Form Shortcode ---
+    if ( isset( $_POST['_apply_form_shortcode'] ) ) {
+        update_post_meta(
+            $post_id,
+            '_apply_form_shortcode',
+            sanitize_text_field( wp_unslash( $_POST['_apply_form_shortcode'] ) )
+        );
     }
 
     // --- Company Photos (JSON array of URLs) ---
