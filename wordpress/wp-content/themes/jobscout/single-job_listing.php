@@ -324,10 +324,10 @@ if ( count( $other_jobs ) < 6 ) {
             </div>
             <div class="job-detail-actions">
                 <button type="button" class="job-btn-share" onclick="jobscoutShareJob()">
-                    <?php esc_html_e( 'SHARE', 'jobscout' ); ?>
+                    <?php esc_html_e( 'CHIA SẺ', 'jobscout' ); ?>
                 </button>
                 <button type="button" class="job-btn-apply" onclick="jobscoutApplyJob()">
-                    <?php esc_html_e( 'APPLY JOB', 'jobscout' ); ?>
+                    <?php esc_html_e( 'ỨNG TUYỂN NGAY', 'jobscout' ); ?>
                 </button>
             </div>
         </div>
@@ -445,6 +445,9 @@ if ( count( $other_jobs ) < 6 ) {
 
 <?php // Orange Newsletter Section (Contact Form 7) ?>
 <?php get_template_part( 'template-parts/newsletter-cf7' ); ?>
+
+<?php // Apply Job Popup Modal ?>
+<?php get_template_part( 'template-parts/apply-job-modal' ); ?>
 
 <!-- Company Photos Lightbox Modal -->
 <div id="companyPhotosModal" class="company-photos-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Company Photos Gallery', 'jobscout' ); ?>">
@@ -566,9 +569,7 @@ function jobscoutShareJob() {
     }
 }
 
-function jobscoutApplyJob() {
-    alert('Thank you for your interest! The application form is currently accepting submissions.');
-}
+// jobscoutApplyJob is defined in template-parts/apply-job-modal.php
 </script>
 
 <?php

@@ -112,6 +112,38 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
     );
 
     /* ==========================================================
+     * 3. Section: Job Detail & Apply Form Settings
+     * ========================================================== */
+    $wp_customize->add_section(
+        'jobs_apply_modal_section',
+        array(
+            'title'       => __( '3. Apply Form Settings', 'jobscout' ),
+            'priority'    => 30,
+            'panel'       => 'jobs_page_panel',
+            'description' => __( 'Cấu hình Form ứng tuyển hiển thị trong Popup Modal khi bấm nút "ỨNG TUYỂN NGAY".', 'jobscout' ),
+        )
+    );
+
+    // Apply Form Shortcode
+    $wp_customize->add_setting(
+        'jobscout_apply_form_shortcode',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'jobscout_apply_form_shortcode',
+        array(
+            'label'       => __( 'Mã Shortcode Form Ứng Tuyển Mặc Định', 'jobscout' ),
+            'description' => __( 'Nhập mã shortcode của Contact Form 7, WPForms hoặc Fluent Forms. Ví dụ: [contact-form-7 id="123" title="Form ứng tuyển"]. Quản trị viên cũng có thể nhập shortcode riêng cho từng Job trong trang chỉnh sửa bài viết.', 'jobscout' ),
+            'section'     => 'jobs_apply_modal_section',
+            'type'        => 'text',
+        )
+    );
+
+    /* ==========================================================
      * Selective Refresh Partials (Hiển thị icon bút chì xanh)
      * ========================================================== */
     if ( isset( $wp_customize->selective_refresh ) ) {
