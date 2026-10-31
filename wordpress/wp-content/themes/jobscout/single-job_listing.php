@@ -449,6 +449,9 @@ if ( count( $other_jobs ) < 6 ) {
 <?php // Apply Job Popup Modal ?>
 <?php get_template_part( 'template-parts/apply-job-modal' ); ?>
 
+<?php // Share Job Modal ?>
+<?php get_template_part( 'template-parts/share-job-modal' ); ?>
+
 <!-- Company Photos Lightbox Modal -->
 <div id="companyPhotosModal" class="company-photos-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Company Photos Gallery', 'jobscout' ); ?>">
     <div class="lightbox-overlay" onclick="closeCompanyPhotos()"></div>
@@ -554,20 +557,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-function jobscoutShareJob() {
-    if (navigator.share) {
-        navigator.share({
-            title: document.title,
-            url: window.location.href
-        }).catch(function(err) {});
-    } else {
-        navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Job URL copied to clipboard!');
-        }).catch(function() {
-            prompt('Copy job link:', window.location.href);
-        });
-    }
-}
+// jobscoutShareJob is defined in template-parts/share-job-modal.php
 
 // jobscoutApplyJob is defined in template-parts/apply-job-modal.php
 </script>

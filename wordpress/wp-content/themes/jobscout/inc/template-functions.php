@@ -639,3 +639,66 @@ function jobscout_page_end(){ ?>
 }
 endif;
 add_action( 'jobscout_after_footer', 'jobscout_page_end', 20 );
+
+
+if ( ! function_exists( 'jobscout_job_open_graph_meta_tags' ) ) :
+/**
+ * Add Open Graph & Twitter Card Meta Tags for Job Detail Pages
+ */
+function jobscout_job_open_graph_meta_tags() {
+    if ( ! is_singular( 'job_listing' ) ) {
+        return;
+    }
+
+    $job_id      = get_the_ID();
+    $job_title   = get_the_title( $job_id );
+    $job_url     = get_permalink( $job_id );
+    $site_name   = get_bloginfo( 'name' );
+
+    // Description: Company overview or excerpt or fallback
+    $desc = get_post_meta( $job_id, '_company_overview', true );
+    if ( empty( $desc ) ) {
+        $desc = get_the_excerpt( $job_id );
+    }
+    if ( empty( $desc ) ) {
+        $desc = sprintf( __( 'Tin tuyển dụng vị trí %s tại %s. Đăng ký ứng tuyển ngay hôm nay!', 'jobscout' ), $job_title, $site_name );
+    }
+    $desc = wp_strip_all_tags( $desc );
+    $desc = mb_substr( $desc, 0, 160, 'UTF-8' );
+
+    // Image: Company Logo > Featured Image > Fallback Banner
+    $image_url = '';
+    if ( function_exists( 'get_the_company_logo' ) ) {
+        $image_url = get_the_company_logo( $job_id );
+    }
+    if ( empty( $image_url ) ) {
+        $image_url = get_post_meta( $job_id, '_company_logo', true );
+    }
+    if ( empty( $image_url ) && has_post_thumbnail( $job_id ) ) {
+        $image_url = get_the_post_thumbnail_url( $job_id, 'large' );
+    }
+    if ( empty( $image_url ) ) {
+        $image_url = get_template_directory_uri() . '/images/career-banner.jpg';
+    }
+
+    ?>
+    <!-- JobScout Open Graph & Social Preview Meta Tags -->
+    <meta property="og:locale" content="<?php echo esc_attr( get_locale() ); ?>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<?php echo esc_attr( $job_title . ' — ' . $site_name ); ?>" />
+    <meta property="og:description" content="<?php echo esc_attr( $desc ); ?>" />
+    <meta property="og:url" content="<?php echo esc_url( $job_url ); ?>" />
+    <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>" />
+    <meta property="og:image" content="<?php echo esc_url( $image_url ); ?>" />
+    <meta property="og:image:alt" content="<?php echo esc_attr( $job_title ); ?>" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<?php echo esc_attr( $job_title . ' — ' . $site_name ); ?>" />
+    <meta name="twitter:description" content="<?php echo esc_attr( $desc ); ?>" />
+    <meta name="twitter:image" content="<?php echo esc_url( $image_url ); ?>" />
+    <!-- End JobScout Social Meta Tags -->
+    <?php
+}
+endif;
+add_action( 'wp_head', 'jobscout_job_open_graph_meta_tags', 2 );
