@@ -66,8 +66,17 @@ if ( 'date-asc' === $sort_mode ) {
 
             if ( $news_query->have_posts() ) :
                 while ( $news_query->have_posts() ) : $news_query->the_post();
-                    $pid          = get_the_ID();
-                    $thumb_url    = function_exists( 'jobscout_get_news_post_thumb_url' ) ? jobscout_get_news_post_thumb_url( $pid ) : get_the_post_thumbnail_url( $pid, 'jobscout-blog' );
+                    $pid       = get_the_ID();
+                    $thumb_url = get_the_post_thumbnail_url( $pid, 'jobscout-blog' );
+                    if ( ! $thumb_url ) {
+                        $thumb_url = get_the_post_thumbnail_url( $pid, 'full' );
+                    }
+                    if ( ! $thumb_url && function_exists( 'jobscout_get_news_post_thumb_url' ) ) {
+                        $thumb_url = jobscout_get_news_post_thumb_url( $pid );
+                    }
+                    if ( ! $thumb_url ) {
+                        $thumb_url = get_template_directory_uri() . '/images/banner-image.jpg';
+                    }
                     $card_title   = function_exists( 'jobscout_get_news_post_title' ) ? jobscout_get_news_post_title( $pid ) : get_the_title();
                     $card_excerpt = function_exists( 'jobscout_get_news_post_excerpt' ) ? jobscout_get_news_post_excerpt( $pid ) : wp_trim_words( get_the_excerpt(), 18, '...' );
                     ?>

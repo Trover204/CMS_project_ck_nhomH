@@ -1050,12 +1050,15 @@ function jobscout_sync_db_post_to_customizer( $post_id, $post, $update ) {
         remove_theme_mod( 'news_post_excerpt_' . $post_id );
     }
 
-    $meta_thumb = get_post_meta( $post_id, '_news_custom_thumb', true );
     $feat_thumb = get_the_post_thumbnail_url( $post_id, 'jobscout-blog' );
-    if ( ! empty( $meta_thumb ) ) {
-        set_theme_mod( 'news_post_thumb_' . $post_id, $meta_thumb );
-    } elseif ( ! empty( $feat_thumb ) && strpos( $feat_thumb, 'banner-image.jpg' ) === false ) {
+    if ( ! $feat_thumb ) {
+        $feat_thumb = get_the_post_thumbnail_url( $post_id, 'full' );
+    }
+    $meta_thumb = get_post_meta( $post_id, '_news_custom_thumb', true );
+    if ( ! empty( $feat_thumb ) && strpos( $feat_thumb, 'banner-image.jpg' ) === false ) {
         set_theme_mod( 'news_post_thumb_' . $post_id, $feat_thumb );
+    } elseif ( ! empty( $meta_thumb ) && strpos( $meta_thumb, 'banner-image.jpg' ) === false ) {
+        set_theme_mod( 'news_post_thumb_' . $post_id, $meta_thumb );
     }
 
     $meta_cat = get_post_meta( $post_id, '_news_category_label', true );

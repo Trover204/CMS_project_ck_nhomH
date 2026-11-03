@@ -38,7 +38,13 @@ if ( $newest_count < 1 ) {
         <?php while ( have_posts() ) : the_post(); ?>
             <?php
             $current_post_id = get_the_ID();
-            $thumb_url       = function_exists( 'jobscout_get_news_post_thumb_url' ) ? jobscout_get_news_post_thumb_url( $current_post_id ) : get_the_post_thumbnail_url( $current_post_id, 'jobscout-blog' );
+            $thumb_url       = get_the_post_thumbnail_url( $current_post_id, 'jobscout-blog' );
+            if ( ! $thumb_url ) {
+                $thumb_url = get_the_post_thumbnail_url( $current_post_id, 'full' );
+            }
+            if ( ! $thumb_url && function_exists( 'jobscout_get_news_post_thumb_url' ) ) {
+                $thumb_url = jobscout_get_news_post_thumb_url( $current_post_id );
+            }
             if ( ! $thumb_url ) {
                 $thumb_url = get_template_directory_uri() . '/images/banner-image.jpg';
             }
@@ -120,7 +126,13 @@ if ( $newest_count < 1 ) {
                 if ( $newest_query->have_posts() ) :
                     while ( $newest_query->have_posts() ) : $newest_query->the_post();
                         $card_pid       = get_the_ID();
-                        $card_thumb_url = function_exists( 'jobscout_get_news_post_thumb_url' ) ? jobscout_get_news_post_thumb_url( $card_pid ) : get_the_post_thumbnail_url( $card_pid, 'jobscout-blog' );
+                        $card_thumb_url = get_the_post_thumbnail_url( $card_pid, 'jobscout-blog' );
+                        if ( ! $card_thumb_url ) {
+                            $card_thumb_url = get_the_post_thumbnail_url( $card_pid, 'full' );
+                        }
+                        if ( ! $card_thumb_url && function_exists( 'jobscout_get_news_post_thumb_url' ) ) {
+                            $card_thumb_url = jobscout_get_news_post_thumb_url( $card_pid );
+                        }
                         if ( ! $card_thumb_url ) {
                             $card_thumb_url = get_template_directory_uri() . '/images/banner-image.jpg';
                         }

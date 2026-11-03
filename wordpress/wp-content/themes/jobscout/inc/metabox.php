@@ -550,7 +550,13 @@ function jobscout_news_post_card_metabox_callback( $post ) {
         $display_date = get_theme_mod( 'news_post_date_' . $pid, get_the_date( 'M d, Y', $pid ) );
     }
     $excerpt_val  = function_exists( 'jobscout_get_news_post_excerpt' ) ? jobscout_get_news_post_excerpt( $pid ) : $post->post_excerpt;
-    $custom_thumb = function_exists( 'jobscout_get_news_post_thumb_url' ) ? jobscout_get_news_post_thumb_url( $pid ) : get_the_post_thumbnail_url( $pid, 'jobscout-blog' );
+    $custom_thumb = get_the_post_thumbnail_url( $pid, 'full' );
+    if ( ! $custom_thumb ) {
+        $meta_t = get_post_meta( $pid, '_news_custom_thumb', true );
+        if ( ! empty( $meta_t ) && strpos( $meta_t, 'banner-image.jpg' ) === false ) {
+            $custom_thumb = $meta_t;
+        }
+    }
     $content_img1 = get_theme_mod( 'news_post_content_img1_' . $pid, get_post_meta( $pid, '_news_content_img1', true ) );
     $content_img2 = get_theme_mod( 'news_post_content_img2_' . $pid, get_post_meta( $pid, '_news_content_img2', true ) );
     ?>
@@ -701,8 +707,27 @@ function jobscout_save_news_post_card_metabox( $post_id ) {
 
     if ( isset( $_POST['news_custom_thumb'] ) ) {
         $thumb = esc_url_raw( wp_unslash( $_POST['news_custom_thumb'] ) );
-        update_post_meta( $post_id, '_news_custom_thumb', $thumb );
-        set_theme_mod( 'news_post_thumb_' . $post_id, $thumb );
+        if ( strpos( $thumb, 'banner-image.jpg' ) !== false ) {
+            $thumb = '';
+        }
+        if ( has_post_thumbnail( $post_id ) ) {
+            $feat_url = get_the_post_thumbnail_url( $post_id, 'jobscout-blog' );
+            if ( ! $feat_url ) {
+                $feat_url = get_the_post_thumbnail_url( $post_id, 'full' );
+            }
+            delete_post_meta( $post_id, '_news_custom_thumb' );
+            set_theme_mod( 'news_post_thumb_' . $post_id, $feat_url );
+        } elseif ( ! empty( $thumb ) ) {
+            update_post_meta( $post_id, '_news_custom_thumb', $thumb );
+            set_theme_mod( 'news_post_thumb_' . $post_id, $thumb );
+            $att_id = attachment_url_to_postid( $thumb );
+            if ( $att_id ) {
+                set_post_thumbnail( $post_id, $att_id );
+            }
+        } else {
+            delete_post_meta( $post_id, '_news_custom_thumb' );
+            remove_theme_mod( 'news_post_thumb_' . $post_id );
+        }
     }
 
     if ( isset( $_POST['news_content_img1'] ) ) {
