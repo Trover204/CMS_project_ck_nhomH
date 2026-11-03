@@ -519,9 +519,9 @@ function jobscout_footer_top(){
                                         <polyline points="22,6 12,13 2,6"></polyline>
                                     </svg>
                                 </span>
-                                <input type="email" class="news-newsletter-email-input" placeholder="<?php echo esc_attr( get_theme_mod( 'news_newsletter_placeholder', 'Nhập địa chỉ email của bạn' ) ); ?>" required />
+                                <input type="email" class="news-newsletter-email-input" placeholder="<?php echo esc_attr( get_theme_mod( 'news_newsletter_placeholder', 'Input your email address' ) ); ?>" required />
                             </div>
-                            <button type="submit" class="news-newsletter-btn"><?php echo esc_html( get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' ) ); ?></button>
+                            <button type="submit" class="news-newsletter-btn"><?php echo esc_html( get_theme_mod( 'news_newsletter_btn_text', 'SUBSCRIBE' ) ); ?></button>
                         </form>
                     </div>
                 </div>

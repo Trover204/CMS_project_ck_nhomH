@@ -321,6 +321,108 @@ function jobscout_get_news_post_excerpt( $post_id ) {
 }
 endif;
 
+if ( ! function_exists( 'jobscout_get_news_post_category' ) ) :
+function jobscout_get_news_post_category( $post_id ) {
+    $post_id = absint( $post_id );
+
+    $mod_cat = get_theme_mod( 'news_post_category_' . $post_id, '' );
+    if ( '' !== trim( (string) $mod_cat ) ) {
+        return $mod_cat;
+    }
+
+    $meta_cat = get_post_meta( $post_id, '_news_category_label', true );
+    if ( ! empty( $meta_cat ) ) {
+        return $meta_cat;
+    }
+
+    $categories = get_the_category( $post_id );
+    if ( ! empty( $categories ) ) {
+        foreach ( $categories as $cat ) {
+            if ( ! in_array( $cat->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                return $cat->name;
+            }
+        }
+    }
+
+    return 'Category Name';
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_news_post_location' ) ) :
+function jobscout_get_news_post_location( $post_id ) {
+    $post_id = absint( $post_id );
+    $mod_loc = get_theme_mod( 'news_post_location_' . $post_id, '' );
+    if ( '' !== trim( (string) $mod_loc ) ) {
+        return $mod_loc;
+    }
+
+    $meta_loc = get_post_meta( $post_id, 'location', true );
+    if ( ! empty( $meta_loc ) ) {
+        return $meta_loc;
+    }
+
+    return 'Ho Chi Minh City';
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_news_post_date_display' ) ) :
+function jobscout_get_news_post_date_display( $post_id ) {
+    $post_id = absint( $post_id );
+    $prefix  = get_theme_mod( 'news_detail_posted_prefix', 'Posted: ' );
+
+    $mod_date = get_theme_mod( 'news_post_date_' . $post_id, '' );
+    if ( '' !== trim( (string) $mod_date ) ) {
+        if ( stripos( $mod_date, 'Posted' ) === 0 || stripos( $mod_date, 'Ngày' ) === 0 ) {
+            return $mod_date;
+        }
+        return $prefix . $mod_date;
+    }
+
+    $meta_date = get_post_meta( $post_id, '_news_display_date', true );
+    if ( ! empty( $meta_date ) ) {
+        if ( stripos( $meta_date, 'Posted' ) === 0 || stripos( $meta_date, 'Ngày' ) === 0 ) {
+            return $meta_date;
+        }
+        return $prefix . $meta_date;
+    }
+
+    return $prefix . get_the_date( 'M d, Y', $post_id );
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_news_post_content' ) ) :
+function jobscout_get_news_post_content( $post_id ) {
+    $post_id = absint( $post_id );
+    if ( ! $post_id ) {
+        return '';
+    }
+
+    $post_obj    = get_post( $post_id );
+    $raw_content = $post_obj ? $post_obj->post_content : '';
+
+    $mod_content = get_theme_mod( 'news_post_content_' . $post_id, null );
+    if ( null !== $mod_content && '' !== trim( (string) $mod_content ) ) {
+        $raw_content = $mod_content;
+    }
+
+    $rendered = apply_filters( 'the_content', $raw_content );
+
+    // Optional inline images configured in Customizer or WP Admin Metabox
+    $img1 = get_theme_mod( 'news_post_content_img1_' . $post_id, get_post_meta( $post_id, '_news_content_img1', true ) );
+    $img2 = get_theme_mod( 'news_post_content_img2_' . $post_id, get_post_meta( $post_id, '_news_content_img2', true ) );
+    $alt  = jobscout_get_news_post_title( $post_id );
+
+    if ( ! empty( $img1 ) && strpos( $rendered, $img1 ) === false ) {
+        $rendered .= '<figure class="news-detail-inline-figure"><img src="' . esc_url( $img1 ) . '" alt="' . esc_attr( $alt ) . '" /></figure>';
+    }
+    if ( ! empty( $img2 ) && strpos( $rendered, $img2 ) === false ) {
+        $rendered .= '<figure class="news-detail-inline-figure"><img src="' . esc_url( $img2 ) . '" alt="' . esc_attr( $alt ) . '" /></figure>';
+    }
+
+    return $rendered;
+}
+endif;
+
 if ( ! function_exists( 'jobscout_get_news_banner_bg_url' ) ) :
 function jobscout_get_news_banner_bg_url() {
     $bg = get_theme_mod( 'news_banner_bg', '' );
@@ -370,7 +472,25 @@ endif;
 
 if ( ! function_exists( 'jobscout_get_news_newsletter_btn_text' ) ) :
 function jobscout_get_news_newsletter_btn_text() {
-    return esc_html( get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' ) );
+    return esc_html( get_theme_mod( 'news_newsletter_btn_text', 'SUBSCRIBE' ) );
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_news_breadcrumb_home' ) ) :
+function jobscout_get_news_breadcrumb_home() {
+    return esc_html( get_theme_mod( 'news_breadcrumb_home', __( 'Home', 'jobscout' ) ) );
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_news_breadcrumb_all' ) ) :
+function jobscout_get_news_breadcrumb_all() {
+    return esc_html( get_theme_mod( 'news_breadcrumb_all', __( 'All News', 'jobscout' ) ) );
+}
+endif;
+
+if ( ! function_exists( 'jobscout_get_news_breadcrumb_detail' ) ) :
+function jobscout_get_news_breadcrumb_detail() {
+    return esc_html( get_theme_mod( 'news_breadcrumb_detail', __( 'News Detail', 'jobscout' ) ) );
 }
 endif;
 
