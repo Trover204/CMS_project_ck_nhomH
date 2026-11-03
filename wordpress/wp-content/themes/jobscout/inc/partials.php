@@ -252,33 +252,33 @@ function jobscout_get_news_post_thumb_url( $post_id ) {
         return get_template_directory_uri() . '/images/banner-image.jpg';
     }
 
-    // 1. Check Customizer theme_mod override for this post
+    // 1. Prioritize Featured Image set on the Post (WP Admin -> Posts -> Featured Image)
+    if ( has_post_thumbnail( $post_id ) ) {
+        $featured_url = get_the_post_thumbnail_url( $post_id, 'jobscout-blog' );
+        if ( ! $featured_url ) {
+            $featured_url = get_the_post_thumbnail_url( $post_id, 'full' );
+        }
+        if ( ! empty( $featured_url ) ) {
+            return $featured_url;
+        }
+    }
+
+    // 2. Check Customizer theme_mod override (ignoring default banner-image.jpg fallback)
     $mod_thumb = get_theme_mod( 'news_post_thumb_' . $post_id, '' );
-    if ( ! empty( $mod_thumb ) ) {
+    if ( ! empty( $mod_thumb ) && strpos( $mod_thumb, 'banner-image.jpg' ) === false ) {
         return $mod_thumb;
     }
 
-    // 2. Check custom meta set via Post editor metabox
+    // 3. Check custom meta set via Post editor metabox (ignoring default banner-image.jpg fallback)
     $meta_thumb = get_post_meta( $post_id, '_news_custom_thumb', true );
-    if ( ! empty( $meta_thumb ) ) {
+    if ( ! empty( $meta_thumb ) && strpos( $meta_thumb, 'banner-image.jpg' ) === false ) {
         return $meta_thumb;
     }
 
-    // 3. Check Featured Image set in WP Admin -> Posts
-    $featured_url = get_the_post_thumbnail_url( $post_id, 'jobscout-blog' );
-    $default_map  = jobscout_get_news_default_post_images();
-
-    if ( $featured_url && strpos( $featured_url, 'banner-image.jpg' ) === false ) {
-        return $featured_url;
-    }
-
     // 4. Fallback to predefined PDS demo images for initial posts
+    $default_map = jobscout_get_news_default_post_images();
     if ( isset( $default_map[ $post_id ] ) ) {
         return $default_map[ $post_id ];
-    }
-
-    if ( $featured_url ) {
-        return $featured_url;
     }
 
     return get_template_directory_uri() . '/images/banner-image.jpg';
