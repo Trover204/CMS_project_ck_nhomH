@@ -1,7 +1,7 @@
 <?php
 /**
  * Frontend Vietnamese Translation for Nhom H Website
- * Only applied to frontend, keeping wp-admin completely in original English.
+ * Only applied to non-News frontend pages, keeping wp-admin and News pages/blocks in English.
  *
  * @package JobScout
  */
@@ -36,7 +36,6 @@ function nhomh_get_translation_dictionary() {
         'Job Dashboard'             => 'Bảng Điều Khiển',
         'Post a Job'                => 'Đăng Tin Tuyển Dụng',
         'Post Jobs'                 => 'Đăng Tin Tuyển Dụng',
-        'NEWS'                      => 'Tin Tức',
         'About'                     => 'Giới Thiệu',
         'Contact'                   => 'Liên Hệ',
         'Mobile'                    => 'Menu',
@@ -60,8 +59,6 @@ function nhomh_get_translation_dictionary() {
         'Created: %s'               => 'Ngày đăng: %s',
         'CAREER WITH US'            => 'CƠ HỘI NGHỀ NGHIỆP',
         'MORE ABOUT US'             => 'TÌM HIỂU THÊM VỀ CHÚNG TÔI',
-        'Latest Articles'           => 'Bài Viết Mới Nhất',
-        'See More Posts'            => 'Xem Thêm Bài Viết',
         'Clients Testimonials'      => 'Ý Kiến Khách Hàng / Đối Tác',
 
         // Jobs Page
@@ -112,25 +109,6 @@ function nhomh_get_translation_dictionary() {
         'Ho Chi Minh'               => 'Hồ Chí Minh',
         'Ha Noi'                    => 'Hà Nội',
         'Da Nang'                   => 'Đà Nẵng',
-
-        // News Page
-        'PDS NEWS'                  => 'TIN TỨC & BÀI VIẾT',
-        'NEWEST BLOG ENTRIES'       => 'BÀI VIẾT MỚI NHẤT',
-        'Older Posts'               => 'Bài viết cũ hơn',
-        'Newer Posts'               => 'Bài viết mới hơn',
-        'Read More'                 => 'Xem chi tiết',
-
-        // Footer & Newsletter
-        'Subscribe To'              => 'Đăng Ký',
-        'Our Newsletter'            => 'Nhận Bản Tin',
-        'Input your email address'  => 'Nhập địa chỉ email của bạn',
-        'SUBSCRIBE'                 => 'ĐĂNG KÝ',
-        'JOBS'                      => 'VIỆC LÀM',
-        'COMPANIES'                 => 'CÔNG TY',
-        'BLOG'                      => 'TIN TỨC',
-        'ABOUT'                     => 'GIỚI THIỆU',
-        'CONTACT'                   => 'LIÊN HỆ',
-        'All Rights Reserved'       => 'Bảo lưu mọi quyền',
     );
 
     return $dict;
@@ -138,6 +116,11 @@ function nhomh_get_translation_dictionary() {
 
 function nhomh_translate_frontend_strings( $translation, $text, $domain ) {
     if ( is_admin() && ! wp_doing_ajax() ) {
+        return $translation;
+    }
+
+    // Keep News page and News Detail page (single post) completely in English
+    if ( function_exists( 'is_singular' ) && ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) ) ) {
         return $translation;
     }
 

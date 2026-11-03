@@ -4905,3 +4905,44 @@ body.job-apply-modal-open {
         gap: 0;
     }
 }
+
+
+/* ==========================================================
+   News Detail Page - Customizer Blue Pencil Icons Positioning
+   ========================================================== */
+.news-detail-body-card,
+.news-detail-entry-content,
+.news-detail-date,
+.news-detail-badge,
+.news-detail-share-wrap,
+.breadcrumb-home-link,
+.breadcrumb-all-link,
+.breadcrumb-detail-text {
+    position: relative;
+    overflow: visible !important;
+}
+
+.news-detail-badges {
+    gap: 14px;
+}
+
+.news-detail-entry-content > .customize-partial-edit-shortcut {
+    top: -12px !important;
+    left: -12px !important;
+    z-index: 25 !important;
+}
+
+.news-detail-share-wrap > .customize-partial-edit-shortcut {
+    top: -10px !important;
+    left: 16px !important;
+    z-index: 25 !important;
+}
+
+.news-detail-newest-grid-shortcut {
+    display: inline-block;
+    width: 1px;
+    height: 1px;
+    position: relative;
+    margin-left: 12px;
+    vertical-align: middle;
+}

@@ -258,7 +258,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
     }
 
     /* ==========================================================
-     * 3. Section: Individual News Post Cards (Direct Edit)
+     * 3. Section: Individual News Post Cards & Detail Content (Direct Edit)
      * ========================================================== */
     $wp_customize->add_section(
         'news_cards_section',
@@ -266,7 +266,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
             'title'       => __( '3. Edit Individual News Posts', 'jobscout' ),
             'priority'    => 30,
             'panel'       => 'news_page_panel',
-            'description' => __( 'Click any pencil icon on a News Card in the preview (or edit below) to customize its Thumbnail Image, Title, Excerpt, and Location. Saving also updates the Post in WordPress Admin -> Posts.', 'jobscout' ),
+            'description' => __( 'Click any blue pencil icon on a News Card or News Detail Page to customize its Image, Title, Date, Category Badge, Location Badge, Excerpt, and Full Content. Saving also updates the Post in WordPress Admin -> Posts.', 'jobscout' ),
         )
     );
 
@@ -290,12 +290,35 @@ function jobscout_customize_register_news_page( $wp_customize ) {
             $def_thumb = isset( $default_images[ $pid ] ) ? $default_images[ $pid ] : ( $def_thumb ? $def_thumb : get_template_directory_uri() . '/images/banner-image.jpg' );
         }
         $raw_excerpt = has_excerpt( $pid ) ? $post_item->post_excerpt : wp_trim_words( strip_shortcodes( wp_strip_all_tags( $post_item->post_content ) ), 18, '...' );
-        $def_loc     = get_post_meta( $pid, 'location', true );
+
+        // Default Category Badge
+        $def_cat    = get_post_meta( $pid, '_news_category_label', true );
+        if ( empty( $def_cat ) ) {
+            $def_cat = 'Category Name';
+            $cats    = get_the_category( $pid );
+            if ( ! empty( $cats ) ) {
+                foreach ( $cats as $c ) {
+                    if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                        $def_cat = $c->name;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Default Location Badge
+        $def_loc = get_post_meta( $pid, 'location', true );
         if ( empty( $def_loc ) ) {
             $def_loc = 'Ho Chi Minh City';
         }
 
-        // Post Title
+        // Default Date Display
+        $def_date = get_post_meta( $pid, '_news_display_date', true );
+        if ( empty( $def_date ) ) {
+            $def_date = get_the_date( 'M d, Y', $pid );
+        }
+
+        // 1. Post Title
         $wp_customize->add_setting(
             'news_post_title_' . $pid,
             array(
@@ -314,7 +337,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
             )
         );
 
-        // Post Thumbnail Image
+        // 2. Post Thumbnail Image
         $wp_customize->add_setting(
             'news_post_thumb_' . $pid,
             array(
@@ -335,26 +358,46 @@ function jobscout_customize_register_news_page( $wp_customize ) {
             )
         );
 
-        // Post Excerpt
+        // 3. Post Date Display (News Detail)
         $wp_customize->add_setting(
-            'news_post_excerpt_' . $pid,
+            'news_post_date_' . $pid,
             array(
-                'default'           => $raw_excerpt,
-                'sanitize_callback' => 'sanitize_textarea_field',
+                'default'           => $def_date,
+                'sanitize_callback' => 'sanitize_text_field',
                 'transport'         => 'postMessage',
             )
         );
 
         $wp_customize->add_control(
-            'news_post_excerpt_' . $pid,
+            'news_post_date_' . $pid,
             array(
-                'label'   => sprintf( __( 'Post #%1$d Excerpt (ID: %2$d)', 'jobscout' ), $num, $pid ),
-                'section' => 'news_cards_section',
-                'type'    => 'textarea',
+                'label'       => sprintf( __( 'Post #%1$d Date (News Detail)', 'jobscout' ), $num ),
+                'description' => __( 'Example: Oct 14, 2026', 'jobscout' ),
+                'section'     => 'news_cards_section',
+                'type'        => 'text',
             )
         );
 
-        // Post Location Badge (for News Detail page)
+        // 4. Post Category Badge (News Detail)
+        $wp_customize->add_setting(
+            'news_post_category_' . $pid,
+            array(
+                'default'           => $def_cat,
+                'sanitize_callback' => 'sanitize_text_field',
+                'transport'         => 'postMessage',
+            )
+        );
+
+        $wp_customize->add_control(
+            'news_post_category_' . $pid,
+            array(
+                'label'   => sprintf( __( 'Post #%1$d Category Badge (News Detail)', 'jobscout' ), $num ),
+                'section' => 'news_cards_section',
+                'type'    => 'text',
+            )
+        );
+
+        // 5. Post Location Badge (News Detail)
         $wp_customize->add_setting(
             'news_post_location_' . $pid,
             array(
@@ -367,9 +410,92 @@ function jobscout_customize_register_news_page( $wp_customize ) {
         $wp_customize->add_control(
             'news_post_location_' . $pid,
             array(
-                'label'   => sprintf( __( 'Post #%1$d Location Badge', 'jobscout' ), $num ),
+                'label'   => sprintf( __( 'Post #%1$d Location Badge (News Detail)', 'jobscout' ), $num ),
                 'section' => 'news_cards_section',
                 'type'    => 'text',
+            )
+        );
+
+        // 6. Post Excerpt (News Grid Card)
+        $wp_customize->add_setting(
+            'news_post_excerpt_' . $pid,
+            array(
+                'default'           => $raw_excerpt,
+                'sanitize_callback' => 'sanitize_textarea_field',
+                'transport'         => 'postMessage',
+            )
+        );
+
+        $wp_customize->add_control(
+            'news_post_excerpt_' . $pid,
+            array(
+                'label'   => sprintf( __( 'Post #%1$d Card Excerpt (ID: %2$d)', 'jobscout' ), $num, $pid ),
+                'section' => 'news_cards_section',
+                'type'    => 'textarea',
+            )
+        );
+
+        // 7. Post Full Content (News Detail Article Body)
+        $wp_customize->add_setting(
+            'news_post_content_' . $pid,
+            array(
+                'default'           => $post_item->post_content,
+                'sanitize_callback' => 'wp_kses_post',
+                'transport'         => 'postMessage',
+            )
+        );
+
+        $wp_customize->add_control(
+            'news_post_content_' . $pid,
+            array(
+                'label'       => sprintf( __( 'Post #%1$d Detail Content (ID: %2$d)', 'jobscout' ), $num, $pid ),
+                'description' => __( 'Full article content displayed on the News Detail page (supports text & HTML, synced two-way with WP Admin Posts).', 'jobscout' ),
+                'section'     => 'news_cards_section',
+                'type'        => 'textarea',
+            )
+        );
+
+        // 8. Optional Content Inline Image 1
+        $wp_customize->add_setting(
+            'news_post_content_img1_' . $pid,
+            array(
+                'default'           => get_post_meta( $pid, '_news_content_img1', true ),
+                'sanitize_callback' => 'esc_url_raw',
+                'transport'         => 'refresh',
+            )
+        );
+
+        $wp_customize->add_control(
+            new WP_Customize_Image_Control(
+                $wp_customize,
+                'news_post_content_img1_' . $pid,
+                array(
+                    'label'       => sprintf( __( 'Post #%1$d Content Image 1 (Optional)', 'jobscout' ), $num ),
+                    'description' => __( 'Optional inline image displayed inside the article content.', 'jobscout' ),
+                    'section'     => 'news_cards_section',
+                )
+            )
+        );
+
+        // 9. Optional Content Inline Image 2
+        $wp_customize->add_setting(
+            'news_post_content_img2_' . $pid,
+            array(
+                'default'           => get_post_meta( $pid, '_news_content_img2', true ),
+                'sanitize_callback' => 'esc_url_raw',
+                'transport'         => 'refresh',
+            )
+        );
+
+        $wp_customize->add_control(
+            new WP_Customize_Image_Control(
+                $wp_customize,
+                'news_post_content_img2_' . $pid,
+                array(
+                    'label'       => sprintf( __( 'Post #%1$d Content Image 2 (Optional)', 'jobscout' ), $num ),
+                    'description' => __( 'Second optional inline image displayed inside the article content.', 'jobscout' ),
+                    'section'     => 'news_cards_section',
+                )
             )
         );
 
@@ -400,6 +526,42 @@ function jobscout_customize_register_news_page( $wp_customize ) {
             );
 
             $wp_customize->selective_refresh->add_partial(
+                'news_post_date_' . $pid,
+                array(
+                    'selector'            => '.post-id-' . $pid . '-detail-date',
+                    'render_callback'     => function() use ( $pid ) {
+                        return esc_html( jobscout_get_news_post_date_display( $pid ) );
+                    },
+                    'container_inclusive' => false,
+                    'fallback_refresh'    => false,
+                )
+            );
+
+            $wp_customize->selective_refresh->add_partial(
+                'news_post_category_' . $pid,
+                array(
+                    'selector'            => '.post-id-' . $pid . '-category-badge',
+                    'render_callback'     => function() use ( $pid ) {
+                        return esc_html( jobscout_get_news_post_category( $pid ) );
+                    },
+                    'container_inclusive' => false,
+                    'fallback_refresh'    => false,
+                )
+            );
+
+            $wp_customize->selective_refresh->add_partial(
+                'news_post_location_' . $pid,
+                array(
+                    'selector'            => '.post-id-' . $pid . '-location-badge',
+                    'render_callback'     => function() use ( $pid ) {
+                        return esc_html( jobscout_get_news_post_location( $pid ) );
+                    },
+                    'container_inclusive' => false,
+                    'fallback_refresh'    => false,
+                )
+            );
+
+            $wp_customize->selective_refresh->add_partial(
                 'news_post_excerpt_' . $pid,
                 array(
                     'selector'            => '#post-' . $pid . ' .news-card-excerpt-link',
@@ -412,11 +574,11 @@ function jobscout_customize_register_news_page( $wp_customize ) {
             );
 
             $wp_customize->selective_refresh->add_partial(
-                'news_post_location_' . $pid,
+                'news_post_content_' . $pid,
                 array(
-                    'selector'            => '.post-id-' . $pid . '-location-badge',
+                    'selector'            => '.post-id-' . $pid . '-detail-content',
                     'render_callback'     => function() use ( $pid ) {
-                        return esc_html( get_theme_mod( 'news_post_location_' . $pid, get_post_meta( $pid, 'location', true ) ?: 'Ho Chi Minh City' ) );
+                        return jobscout_get_news_post_content( $pid );
                     },
                     'container_inclusive' => false,
                     'fallback_refresh'    => false,
@@ -489,6 +651,23 @@ function jobscout_customize_register_news_page( $wp_customize ) {
     );
 
     $wp_customize->add_setting(
+        'news_detail_posted_prefix',
+        array(
+            'default'           => 'Posted: ',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        )
+    );
+    $wp_customize->add_control(
+        'news_detail_posted_prefix',
+        array(
+            'label'   => __( 'Date Prefix Text (e.g. "Posted: ")', 'jobscout' ),
+            'section' => 'news_detail_customizer_section',
+            'type'    => 'text',
+        )
+    );
+
+    $wp_customize->add_setting(
         'news_detail_share_label',
         array(
             'default'           => __( 'SHARE', 'jobscout' ),
@@ -505,24 +684,79 @@ function jobscout_customize_register_news_page( $wp_customize ) {
         )
     );
 
+    $wp_customize->add_setting(
+        'news_detail_newest_count',
+        array(
+            'default'           => 6,
+            'sanitize_callback' => 'absint',
+            'transport'         => 'refresh',
+        )
+    );
+    $wp_customize->add_control(
+        'news_detail_newest_count',
+        array(
+            'label'       => __( 'Number of Newest Blog Entries on Detail Page', 'jobscout' ),
+            'section'     => 'news_detail_customizer_section',
+            'type'        => 'number',
+            'input_attrs' => array(
+                'min'  => 1,
+                'max'  => 12,
+                'step' => 1,
+            ),
+        )
+    );
+
     if ( isset( $wp_customize->selective_refresh ) ) {
+        $wp_customize->selective_refresh->add_partial(
+            'news_breadcrumb_home',
+            array(
+                'selector'            => '.breadcrumb-home-link',
+                'render_callback'     => 'jobscout_get_news_breadcrumb_home',
+                'container_inclusive' => false,
+                'fallback_refresh'    => false,
+            )
+        );
+
         $wp_customize->selective_refresh->add_partial(
             'news_breadcrumb_all',
             array(
-                'selector'            => '.news-detail-breadcrumb',
-                'render_callback'     => '__return_false',
+                'selector'            => '.breadcrumb-all-link',
+                'render_callback'     => 'jobscout_get_news_breadcrumb_all',
                 'container_inclusive' => false,
-                'fallback_refresh'    => true,
+                'fallback_refresh'    => false,
+            )
+        );
+
+        $wp_customize->selective_refresh->add_partial(
+            'news_breadcrumb_detail',
+            array(
+                'selector'            => '.breadcrumb-detail-text',
+                'render_callback'     => 'jobscout_get_news_breadcrumb_detail',
+                'container_inclusive' => false,
+                'fallback_refresh'    => false,
             )
         );
 
         $wp_customize->selective_refresh->add_partial(
             'news_detail_share_label',
             array(
-                'selector'            => '.news-detail-share-btn',
-                'render_callback'     => 'jobscout_get_news_detail_share_label',
+                'selector'            => '.news-detail-share-wrap',
+                'render_callback'     => function() {
+                    $label = jobscout_get_news_detail_share_label();
+                    return '<button type="button" class="news-detail-share-btn" onclick="if(event.target.closest(\'.customize-partial-edit-shortcut\'))return;if(window.jobscoutOpenNewsShareModal){window.jobscoutOpenNewsShareModal();}"><span class="news-detail-share-text">' . $label . '</span></button>';
+                },
                 'container_inclusive' => false,
                 'fallback_refresh'    => false,
+            )
+        );
+
+        $wp_customize->selective_refresh->add_partial(
+            'news_detail_newest_count',
+            array(
+                'selector'            => '.news-detail-newest-grid-shortcut',
+                'render_callback'     => '__return_empty_string',
+                'container_inclusive' => false,
+                'fallback_refresh'    => true,
             )
         );
     }
@@ -579,7 +813,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
     $wp_customize->add_setting(
         'news_newsletter_placeholder',
         array(
-            'default'           => 'Nhập địa chỉ email của bạn',
+            'default'           => 'Input your email address',
             'sanitize_callback' => 'sanitize_text_field',
             'transport'         => 'postMessage',
         )
@@ -597,7 +831,7 @@ function jobscout_customize_register_news_page( $wp_customize ) {
     $wp_customize->add_setting(
         'news_newsletter_btn_text',
         array(
-            'default'           => 'ĐĂNG KÝ',
+            'default'           => 'SUBSCRIBE',
             'sanitize_callback' => 'sanitize_text_field',
             'transport'         => 'postMessage',
         )
@@ -718,13 +952,18 @@ function jobscout_sync_customizer_news_posts_to_db() {
     remove_action( 'save_post_post', 'jobscout_sync_db_post_to_customizer', 20 );
 
     foreach ( $news_posts as $post_item ) {
-        $pid       = $post_item->ID;
-        $mod_title = get_theme_mod( 'news_post_title_' . $pid, null );
-        $mod_exc   = get_theme_mod( 'news_post_excerpt_' . $pid, null );
-        $mod_thumb = get_theme_mod( 'news_post_thumb_' . $pid, null );
-        $mod_loc   = get_theme_mod( 'news_post_location_' . $pid, null );
+        $pid         = $post_item->ID;
+        $mod_title   = get_theme_mod( 'news_post_title_' . $pid, null );
+        $mod_exc     = get_theme_mod( 'news_post_excerpt_' . $pid, null );
+        $mod_content = get_theme_mod( 'news_post_content_' . $pid, null );
+        $mod_thumb   = get_theme_mod( 'news_post_thumb_' . $pid, null );
+        $mod_cat     = get_theme_mod( 'news_post_category_' . $pid, null );
+        $mod_loc     = get_theme_mod( 'news_post_location_' . $pid, null );
+        $mod_date    = get_theme_mod( 'news_post_date_' . $pid, null );
+        $mod_img1    = get_theme_mod( 'news_post_content_img1_' . $pid, null );
+        $mod_img2    = get_theme_mod( 'news_post_content_img2_' . $pid, null );
 
-        $update_args = array( 'ID' => $pid );
+        $update_args  = array( 'ID' => $pid );
         $needs_update = false;
 
         if ( null !== $mod_title && '' !== trim( $mod_title ) && $mod_title !== $post_item->post_title ) {
@@ -734,6 +973,11 @@ function jobscout_sync_customizer_news_posts_to_db() {
 
         if ( null !== $mod_exc && '' !== trim( $mod_exc ) && $mod_exc !== $post_item->post_excerpt ) {
             $update_args['post_excerpt'] = sanitize_textarea_field( $mod_exc );
+            $needs_update = true;
+        }
+
+        if ( null !== $mod_content && '' !== trim( $mod_content ) && $mod_content !== $post_item->post_content ) {
+            $update_args['post_content'] = wp_kses_post( $mod_content );
             $needs_update = true;
         }
 
@@ -749,8 +993,34 @@ function jobscout_sync_customizer_news_posts_to_db() {
             }
         }
 
+        if ( null !== $mod_cat && '' !== trim( $mod_cat ) ) {
+            $clean_cat = sanitize_text_field( $mod_cat );
+            update_post_meta( $pid, '_news_category_label', $clean_cat );
+            if ( 'Category Name' !== $clean_cat ) {
+                $term = term_exists( $clean_cat, 'category' );
+                if ( ! $term ) {
+                    $term = wp_insert_term( $clean_cat, 'category' );
+                }
+                if ( ! is_wp_error( $term ) && isset( $term['term_id'] ) ) {
+                    wp_set_post_categories( $pid, array( (int) $term['term_id'] ), false );
+                }
+            }
+        }
+
         if ( null !== $mod_loc && '' !== trim( $mod_loc ) ) {
             update_post_meta( $pid, 'location', sanitize_text_field( $mod_loc ) );
+        }
+
+        if ( null !== $mod_date && '' !== trim( $mod_date ) ) {
+            update_post_meta( $pid, '_news_display_date', sanitize_text_field( $mod_date ) );
+        }
+
+        if ( null !== $mod_img1 ) {
+            update_post_meta( $pid, '_news_content_img1', esc_url_raw( $mod_img1 ) );
+        }
+
+        if ( null !== $mod_img2 ) {
+            update_post_meta( $pid, '_news_content_img2', esc_url_raw( $mod_img2 ) );
         }
     }
 
@@ -772,6 +1042,7 @@ function jobscout_sync_db_post_to_customizer( $post_id, $post, $update ) {
     }
 
     set_theme_mod( 'news_post_title_' . $post_id, $post->post_title );
+    set_theme_mod( 'news_post_content_' . $post_id, $post->post_content );
 
     if ( ! empty( $post->post_excerpt ) ) {
         set_theme_mod( 'news_post_excerpt_' . $post_id, $post->post_excerpt );
@@ -785,6 +1056,21 @@ function jobscout_sync_db_post_to_customizer( $post_id, $post, $update ) {
         set_theme_mod( 'news_post_thumb_' . $post_id, $meta_thumb );
     } elseif ( ! empty( $feat_thumb ) && strpos( $feat_thumb, 'banner-image.jpg' ) === false ) {
         set_theme_mod( 'news_post_thumb_' . $post_id, $feat_thumb );
+    }
+
+    $meta_cat = get_post_meta( $post_id, '_news_category_label', true );
+    if ( ! empty( $meta_cat ) ) {
+        set_theme_mod( 'news_post_category_' . $post_id, $meta_cat );
+    } else {
+        $cats = get_the_category( $post_id );
+        if ( ! empty( $cats ) ) {
+            foreach ( $cats as $c ) {
+                if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                    set_theme_mod( 'news_post_category_' . $post_id, $c->name );
+                    break;
+                }
+            }
+        }
     }
 }
 endif;

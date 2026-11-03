@@ -3,8 +3,8 @@
  * Template part: Orange Newsletter Section (powered by Contact Form 7).
  *
  * Automatically ensures the Contact Form 7 "newsletter" form exists with the exact
- * PDS design markup (envelope icon, Vietnamese placeholder "Nhập địa chỉ email của bạn",
- * and "ĐĂNG KÝ" button), configures valid mail/messages/additional_settings so
+ * PDS design markup (envelope icon, English placeholder "Input your email address",
+ * and "SUBSCRIBE" button), configures valid mail/messages/additional_settings so
  * submissions succeed on localhost/Docker, and renders it via Contact Form 7 shortcode.
  *
  * Usage: get_template_part( 'template-parts/newsletter-cf7' );
@@ -18,18 +18,18 @@ if ( ! function_exists( 'jobscout_get_newsletter_cf7_template' ) ) :
  */
 function jobscout_get_newsletter_cf7_template( $placeholder = '', $btn_text = '' ) {
     if ( '' === $placeholder ) {
-        $placeholder = get_theme_mod( 'news_newsletter_placeholder', 'Nhập địa chỉ email của bạn' );
+        $placeholder = get_theme_mod( 'news_newsletter_placeholder', 'Input your email address' );
     }
     if ( '' === $btn_text ) {
-        $btn_text = get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' );
+        $btn_text = get_theme_mod( 'news_newsletter_btn_text', 'SUBSCRIBE' );
     }
 
-    // Normalize legacy English defaults to match the Vietnamese PDS design
-    if ( 'Input your email address' === $placeholder ) {
-        $placeholder = 'Nhập địa chỉ email của bạn';
+    // Normalize legacy Vietnamese defaults to English PDS design
+    if ( 'Nhập địa chỉ email của bạn' === $placeholder ) {
+        $placeholder = 'Input your email address';
     }
-    if ( 'SUBSCRIBE' === strtoupper( trim( $btn_text ) ) ) {
-        $btn_text = 'ĐĂNG KÝ';
+    if ( 'ĐĂNG KÝ' === mb_strtoupper( trim( $btn_text ), 'UTF-8' ) ) {
+        $btn_text = 'SUBSCRIBE';
     }
 
     $placeholder = str_replace( '"', "'", $placeholder );
@@ -72,10 +72,10 @@ function jobscout_configure_newsletter_cf7_meta( $form_id, $desired_template ) {
     }
     $mail_meta = array(
         'active'             => true,
-        'subject'            => 'Đăng ký nhận bản tin mới từ [newsletter-email]',
+        'subject'            => 'New Newsletter Subscription from [newsletter-email]',
         'sender'             => 'PDS Newsletter <noreply@plando-see.com>',
         'recipient'          => $admin_email,
-        'body'               => "Có người dùng mới đăng ký nhận bản tin (Newsletter):\nEmail: [newsletter-email]\n",
+        'body'               => "New user subscribed to the newsletter:\nEmail: [newsletter-email]\n",
         'additional_headers' => 'Reply-To: [newsletter-email]',
         'attachments'        => '',
         'use_html'           => false,
@@ -83,16 +83,16 @@ function jobscout_configure_newsletter_cf7_meta( $form_id, $desired_template ) {
     );
     update_post_meta( $form_id, '_mail', $mail_meta );
 
-    // Configure user-friendly Vietnamese messages
+    // Configure user-friendly English messages
     $messages = get_post_meta( $form_id, '_messages', true );
     if ( ! is_array( $messages ) ) {
         $messages = array();
     }
-    $messages['mail_sent_ok']     = 'Cảm ơn bạn đã đăng ký nhận bản tin thành công!';
-    $messages['mail_sent_ng']     = 'Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại.';
-    $messages['validation_error'] = 'Vui lòng kiểm tra lại địa chỉ email và thử lại.';
-    $messages['invalid_required'] = 'Vui lòng nhập địa chỉ email của bạn.';
-    $messages['invalid_email']    = 'Địa chỉ email bạn nhập không hợp lệ.';
+    $messages['mail_sent_ok']     = 'Thank you for subscribing to our newsletter!';
+    $messages['mail_sent_ng']     = 'An error occurred while sending your request. Please try again.';
+    $messages['validation_error'] = 'Please check your email address and try again.';
+    $messages['invalid_required'] = 'Please enter your email address.';
+    $messages['invalid_email']    = 'The email address entered is invalid.';
     update_post_meta( $form_id, '_messages', $messages );
 }
 endif;
@@ -148,11 +148,13 @@ function jobscout_get_or_create_newsletter_cf7_form() {
             $cf7_form = wpcf7_contact_form( $new_form_id );
         }
     } else {
-        // Synchronize existing CF7 form with the PDS `.news-cf7-row` layout & settings
+        // Synchronize existing CF7 form with the English PDS `.news-cf7-row` layout & settings
         $form_id      = (int) $cf7_form->id();
         $current_form = (string) get_post_meta( $form_id, '_form', true );
         $add_settings = (string) get_post_meta( $form_id, '_additional_settings', true );
-        if ( trim( $current_form ) !== trim( $desired_template ) || strpos( $add_settings, 'skip_mail' ) === false ) {
+        $messages     = get_post_meta( $form_id, '_messages', true );
+        $sent_ok_msg  = is_array( $messages ) && isset( $messages['mail_sent_ok'] ) ? $messages['mail_sent_ok'] : '';
+        if ( trim( $current_form ) !== trim( $desired_template ) || strpos( $add_settings, 'skip_mail' ) === false || 'Thank you for subscribing to our newsletter!' !== $sent_ok_msg ) {
             jobscout_configure_newsletter_cf7_meta( $form_id, $desired_template );
             wp_update_post( array(
                 'ID'           => $form_id,
@@ -172,14 +174,14 @@ add_filter( 'wpcf7_autop_or_not', '__return_false' );
 $jobscout_cf7_form = jobscout_get_or_create_newsletter_cf7_form();
 $line1_text        = get_theme_mod( 'news_newsletter_line1', __( 'Subscribe To', 'jobscout' ) );
 $line2_text        = get_theme_mod( 'news_newsletter_line2', __( 'Our Newsletter', 'jobscout' ) );
-$placeholder_text  = get_theme_mod( 'news_newsletter_placeholder', 'Nhập địa chỉ email của bạn' );
-$btn_text          = get_theme_mod( 'news_newsletter_btn_text', 'ĐĂNG KÝ' );
+$placeholder_text  = get_theme_mod( 'news_newsletter_placeholder', 'Input your email address' );
+$btn_text          = get_theme_mod( 'news_newsletter_btn_text', 'SUBSCRIBE' );
 
-if ( 'Input your email address' === $placeholder_text ) {
-    $placeholder_text = 'Nhập địa chỉ email của bạn';
+if ( 'Nhập địa chỉ email của bạn' === $placeholder_text ) {
+    $placeholder_text = 'Input your email address';
 }
-if ( 'SUBSCRIBE' === strtoupper( trim( $btn_text ) ) ) {
-    $btn_text = 'ĐĂNG KÝ';
+if ( 'ĐĂNG KÝ' === mb_strtoupper( trim( $btn_text ), 'UTF-8' ) ) {
+    $btn_text = 'SUBSCRIBE';
 }
 ?>
 <!-- Orange Newsletter Section (Contact Form 7) -->
@@ -204,7 +206,7 @@ if ( 'SUBSCRIBE' === strtoupper( trim( $btn_text ) ) ) {
                     // Fallback if Contact Form 7 plugin is deactivated
                     ?>
                     <div class="wpcf7">
-                        <form class="wpcf7-form news-newsletter-form-cf7" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký nhận bản tin thành công!');">
+                        <form class="wpcf7-form news-newsletter-form-cf7" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');">
                             <div class="news-cf7-row">
                                 <div class="news-input-group">
                                     <span class="news-input-icon news-cf7-icon"></span>

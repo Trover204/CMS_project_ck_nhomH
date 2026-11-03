@@ -2,6 +2,9 @@
 /**
  * The template for displaying all single posts (News Detail Page)
  *
+ * Supports full customization via WordPress Customizer (with blue pencil icons)
+ * and two-way synchronization with WP Admin -> Posts.
+ *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
  * @package JobScout
@@ -19,17 +22,15 @@ if ( ! $news_page ) {
 }
 $news_page_url = $news_page ? get_permalink( $news_page->ID ) : home_url( '/index.php/news/' );
 
-$upload_dir       = wp_get_upload_dir();
-$content_img_1    = $upload_dir['baseurl'] . '/2026/10/project-development.jpg';
-$content_img_2    = $upload_dir['baseurl'] . '/2026/10/restaurant-hotel-management-and-operations.jpg';
-$fallback_img_1   = get_template_directory_uri() . '/images/view-tokyo-cityscape-night-japan.jpg';
-$fallback_img_2   = get_template_directory_uri() . '/images/tokyonight.jpg';
-
 $breadcrumb_home   = get_theme_mod( 'news_breadcrumb_home', __( 'Home', 'jobscout' ) );
 $breadcrumb_all    = get_theme_mod( 'news_breadcrumb_all', __( 'All News', 'jobscout' ) );
 $breadcrumb_detail = get_theme_mod( 'news_breadcrumb_detail', __( 'News Detail', 'jobscout' ) );
 $share_label       = get_theme_mod( 'news_detail_share_label', __( 'SHARE', 'jobscout' ) );
 $readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobscout' ) );
+$newest_count      = absint( get_theme_mod( 'news_detail_newest_count', 6 ) );
+if ( $newest_count < 1 ) {
+    $newest_count = 6;
+}
 ?>
 
 <section class="news-detail-section">
@@ -42,24 +43,9 @@ $readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobs
                 $thumb_url = get_template_directory_uri() . '/images/banner-image.jpg';
             }
             $display_title   = function_exists( 'jobscout_get_news_post_title' ) ? jobscout_get_news_post_title( $current_post_id ) : get_the_title();
-
-            // Category badge
-            $categories     = get_the_category( $current_post_id );
-            $category_label = 'Category Name';
-            if ( ! empty( $categories ) ) {
-                foreach ( $categories as $cat ) {
-                    if ( ! in_array( $cat->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
-                        $category_label = $cat->name;
-                        break;
-                    }
-                }
-            }
-
-            // Location badge
-            $location_label = get_theme_mod( 'news_post_location_' . $current_post_id, get_post_meta( $current_post_id, 'location', true ) );
-            if ( empty( $location_label ) ) {
-                $location_label = 'Ho Chi Minh City';
-            }
+            $category_label  = function_exists( 'jobscout_get_news_post_category' ) ? jobscout_get_news_post_category( $current_post_id ) : 'Category Name';
+            $location_label  = function_exists( 'jobscout_get_news_post_location' ) ? jobscout_get_news_post_location( $current_post_id ) : 'Ho Chi Minh City';
+            $date_display    = function_exists( 'jobscout_get_news_post_date_display' ) ? jobscout_get_news_post_date_display( $current_post_id ) : ( 'Posted: ' . get_the_date( 'M d, Y' ) );
             ?>
 
             <!-- Breadcrumb -->
@@ -79,47 +65,37 @@ $readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobs
                     </div>
                     <div class="news-detail-header-info">
                         <h1 class="news-detail-title post-id-<?php echo esc_attr( $current_post_id ); ?>-detail-title"><?php echo esc_html( $display_title ); ?></h1>
-                        <div class="news-detail-date">
-                            <?php echo esc_html( 'Posted: ' . get_the_date( 'M d, Y' ) ); ?>
+                        <div class="news-detail-date post-id-<?php echo esc_attr( $current_post_id ); ?>-detail-date">
+                            <?php echo esc_html( $date_display ); ?>
                         </div>
                         <div class="news-detail-badges">
-                            <span class="news-detail-badge"><?php echo esc_html( $category_label ); ?></span>
+                            <span class="news-detail-badge post-id-<?php echo esc_attr( $current_post_id ); ?>-category-badge"><?php echo esc_html( $category_label ); ?></span>
                             <span class="news-detail-badge post-id-<?php echo esc_attr( $current_post_id ); ?>-location-badge"><?php echo esc_html( $location_label ); ?></span>
                         </div>
                     </div>
                 </div>
-                <div class="news-detail-header-right">
-                    <button type="button" class="news-detail-share-btn" onclick="if(event.target.closest('.customize-partial-edit-shortcut'))return;if(navigator.share){navigator.share({title:document.title,url:window.location.href});}else if(navigator.clipboard){navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!');}">
-                        <?php echo esc_html( $share_label ); ?>
+                <div class="news-detail-header-right news-detail-share-wrap">
+                    <button type="button" class="news-detail-share-btn" onclick="if(event.target.closest('.customize-partial-edit-shortcut'))return;if(window.jobscoutOpenNewsShareModal){window.jobscoutOpenNewsShareModal();}">
+                        <span class="news-detail-share-text"><?php echo esc_html( $share_label ); ?></span>
                     </button>
                 </div>
             </div>
 
             <!-- Main Article Content Card (Left 2/3 Column) -->
             <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-detail-body-card' ); ?>>
-                <div class="news-detail-entry-content">
+                <div class="news-detail-entry-content post-id-<?php echo esc_attr( $current_post_id ); ?>-detail-content">
                     <?php
-                    $raw_content = get_the_content();
-                    if ( strpos( $raw_content, '<img' ) !== false ) :
+                    if ( function_exists( 'jobscout_get_news_post_content' ) ) {
+                        echo jobscout_get_news_post_content( $current_post_id );
+                    } else {
                         the_content();
-                    else :
-                        ?>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, et. Vivamus volutpat in nunc, porttitor dui. Ut placerat aenean accumsan a, aenean leo, a eu. Aliquet urna, habitasse elit lorem id aenean quam. Eu varius nulla auctor dignissim massa tempus, massa tortor. Eget auctor nulla maecenas ac tortor.</p>
-                        <p>Ornare faucibus sed vitae dolor eu, eu faucibus in enim. Tinciduntoulque sed netus nibh pharetra. Gravida venenatis, lobortis id mi. Metus, ultrices duis pellentesque aliquet amet cras blandit. Aliquet purus quam laoreet ipsum penibus. Odio cursus, nunc, diam habitant nunc massa sed. Placerat arcu quis est, magna facilisis amet. Dignissim vel adipiscing, elit, facilisi praesent platea. Nulla posuere feugiat turpis magna etiam. Non cras felis eu praesent cras.</p>
+                    }
 
-                        <figure class="news-detail-inline-figure">
-                            <img src="<?php echo esc_url( $content_img_1 ); ?>" onerror="this.onerror=null;this.src='<?php echo esc_url( $fallback_img_1 ); ?>';" alt="<?php echo esc_attr( $display_title ); ?>" />
-                        </figure>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, et. Vivamus volutpat in nunc, porttitor dui. Ut placerat aenean accumsan a, aenean leo, a eu. Aliquet urna, habitasse elit lorem id aenean quam. Eu varius nulla auctor dignissim massa tempus, massa tortor. Eget auctor nulla maecenas ac tortor.</p>
-                        <p>Ornare faucibus sed vitae dolor eu, eu faucibus in enim. Tinciduntoulque sed netus nibh pharetra. Gravida venenatis, lobortis id mi. Metus, ultrices duis pellentesque aliquet amet cras blandit. Aliquet purus quam laoreet ipsum penibus. Odio cursus, nunc, diam habitant nunc massa sed. Placerat arcu quis est, magna facilisis amet. Dignissim vel adipiscing, elit, facilisi praesent platea. Nulla posuere feugiat turpis magna etiam. Non cras felis eu praesent cras.</p>
-
-                        <figure class="news-detail-inline-figure">
-                            <img src="<?php echo esc_url( $content_img_2 ); ?>" onerror="this.onerror=null;this.src='<?php echo esc_url( $fallback_img_2 ); ?>';" alt="<?php echo esc_attr( $display_title ); ?>" />
-                        </figure>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus lectus tristique massa gravida vel elementum, mi. Sit scelerisque at amet leo. In volutpat turpis dolor, et. Vivamus volutpat in nunc, porttitor dui. Ut placerat aenean accumsan a, aenean leo, a eu. Aliquet urna, habitasse elit lorem id aenean quam. Eu varius nulla auctor dignissim massa tempus, massa tortor. Eget auctor nulla maecenas ac tortor.</p>
-                    <?php endif; ?>
+                    wp_link_pages( array(
+                        'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'jobscout' ),
+                        'after'  => '</div>',
+                    ) );
+                    ?>
                 </div>
             </article>
 
@@ -129,6 +105,7 @@ $readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobs
         <div class="news-detail-newest-section">
             <div class="news-header">
                 <h2 class="news-section-title"><?php echo esc_html( get_theme_mod( 'news_section_heading', 'NEWEST BLOG ENTRIES' ) ); ?></h2>
+                <span class="news-detail-newest-grid-shortcut" aria-hidden="true"></span>
             </div>
 
             <div class="news-grid">
@@ -136,7 +113,7 @@ $readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobs
                 $newest_query = new WP_Query( array(
                     'post_type'           => 'post',
                     'post_status'         => 'publish',
-                    'posts_per_page'      => 6,
+                    'posts_per_page'      => $newest_count,
                     'ignore_sticky_posts' => 1,
                 ) );
 
@@ -181,6 +158,9 @@ $readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobs
         </div>
     </div>
 </section>
+
+<?php // Share News Modal (Facebook, X, Pinterest) ?>
+<?php get_template_part( 'template-parts/share-news-modal' ); ?>
 
 <?php // Orange Newsletter Section (Contact Form 7) ?>
 <?php get_template_part( 'template-parts/newsletter-cf7' ); ?>

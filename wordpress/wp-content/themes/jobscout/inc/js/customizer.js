@@ -103,7 +103,11 @@
 
 	wp.customize( 'news_detail_share_label', function( value ) {
 		value.bind( function( to ) {
-			$( '.news-detail-share-btn' ).text( to );
+			if ( $( '.news-detail-share-text' ).length ) {
+				$( '.news-detail-share-text' ).text( to );
+			} else {
+				$( '.news-detail-share-btn' ).text( to );
+			}
 		} );
 	} );
 
