@@ -36,6 +36,9 @@ if( ! function_exists( 'jobscout_responsive_header' ) ) :
 */
 function jobscout_responsive_header(){ 
     $post_job_label  = get_theme_mod( 'post_job_label', __( 'Post Jobs', 'jobscout' ) );
+    if ( ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) || is_customize_preview() ) && '??ng Tin Tuy?n D?ng' === trim( (string) $post_job_label ) ) {
+        $post_job_label = 'Post Jobs';
+    }
     $post_job_url    = get_theme_mod( 'post_job_url', '#' );
     ?>
     <div class="responsive-nav">

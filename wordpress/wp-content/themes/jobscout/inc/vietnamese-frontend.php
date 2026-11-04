@@ -1,7 +1,8 @@
 <?php
 /**
  * Frontend Vietnamese Translation for Nhom H Website
- * Only applied to non-News frontend pages, keeping wp-admin and News pages/blocks in English.
+ * Only applied to non-News frontend pages after the main WP query is parsed,
+ * keeping wp-admin, Customizer preview/registration, and News/News Detail pages completely in English.
  *
  * @package JobScout
  */
@@ -10,9 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-add_action( 'init', function() {
-    // Only apply on frontend requests, never in admin or ajax admin
-    if ( is_admin() && ! wp_doing_ajax() ) {
+add_action( 'wp', function() {
+    // Only apply on frontend requests after main query is set up, never in admin or Customizer preview
+    if ( is_admin() || is_customize_preview() ) {
+        return;
+    }
+
+    // Keep News page and News Detail page (single post) completely in English
+    if ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) ) {
         return;
     }
 
@@ -116,6 +122,11 @@ function nhomh_get_translation_dictionary() {
 
 function nhomh_translate_frontend_strings( $translation, $text, $domain ) {
     if ( is_admin() && ! wp_doing_ajax() ) {
+        return $translation;
+    }
+
+    // Never translate in Customizer preview or before main WP query is parsed (e.g. during customize_register on wp_loaded)
+    if ( ! did_action( 'wp' ) || doing_action( 'customize_register' ) || ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) ) {
         return $translation;
     }
 
