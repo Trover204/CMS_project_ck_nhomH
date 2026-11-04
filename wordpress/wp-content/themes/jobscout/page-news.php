@@ -8,8 +8,6 @@
  * @package JobScout
  */
 
-get_header();
-
 $banner_bg_url  = function_exists( 'jobscout_get_news_banner_bg_url' ) ? jobscout_get_news_banner_bg_url() : get_template_directory_uri() . '/images/view-tokyo-cityscape-night-japan.jpg';
 $banner_title   = get_theme_mod( 'news_banner_title', __( 'PDS NEWS', 'jobscout' ) );
 $section_title  = get_theme_mod( 'news_section_heading', __( 'NEWEST BLOG ENTRIES', 'jobscout' ) );
@@ -32,6 +30,26 @@ if ( 'date-asc' === $sort_mode ) {
     $orderby = 'title';
     $order   = 'DESC';
 }
+
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : ( ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1 );
+$news_query = new WP_Query( array(
+    'post_type'           => 'post',
+    'post_status'         => 'publish',
+    'posts_per_page'      => $posts_per_page,
+    'paged'               => $paged,
+    'orderby'             => $orderby,
+    'order'               => $order,
+    'ignore_sticky_posts' => 1,
+) );
+
+// No posts (or out-of-range page): respond with a real 404 status
+$news_is_empty = ! $news_query->have_posts();
+if ( $news_is_empty && ! is_customize_preview() ) {
+    status_header( 404 );
+    nocache_headers();
+}
+
+get_header();
 ?>
 
 <!-- News Page Hero Banner -->
@@ -51,19 +69,8 @@ if ( 'date-asc' === $sort_mode ) {
             <span class="news-grid-shortcut" aria-hidden="true"></span>
         </div>
 
-        <div class="news-grid">
+        <div class="news-grid<?php echo $news_is_empty ? ' news-grid--empty' : ''; ?>">
             <?php
-            $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : ( ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1 );
-            $news_query = new WP_Query( array(
-                'post_type'           => 'post',
-                'post_status'         => 'publish',
-                'posts_per_page'      => $posts_per_page,
-                'paged'               => $paged,
-                'orderby'             => $orderby,
-                'order'               => $order,
-                'ignore_sticky_posts' => 1,
-            ) );
-
             if ( $news_query->have_posts() ) :
                 while ( $news_query->have_posts() ) : $news_query->the_post();
                     $pid       = get_the_ID();
@@ -106,9 +113,7 @@ if ( 'date-asc' === $sort_mode ) {
                 endwhile;
                 wp_reset_postdata();
             else :
-                ?>
-                <p class="news-no-posts"><?php esc_html_e( 'No posts found.', 'jobscout' ); ?></p>
-                <?php
+                get_template_part( 'template-parts/news-empty-404', null, array( 'context' => 'page' ) );
             endif;
             ?>
         </div>

@@ -44,7 +44,7 @@ if ( $newest_count < 1 ) {
 
 <section class="news-detail-section">
     <div class="container">
-        <?php while ( have_posts() ) : the_post(); ?>
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
             <?php
             $current_post_id = get_the_ID();
             $thumb_url       = get_the_post_thumbnail_url( $current_post_id, 'jobscout-blog' );
@@ -114,7 +114,7 @@ if ( $newest_count < 1 ) {
                 </div>
             </article>
 
-        <?php endwhile; ?>
+        <?php endwhile; else : get_template_part( 'template-parts/news-empty-404', null, array( 'context' => '404' ) ); endif; ?>
 
         <!-- Newest Blog Entries Section -->
         <div class="news-detail-newest-section">
@@ -173,6 +173,8 @@ if ( $newest_count < 1 ) {
                         <?php
                     endwhile;
                     wp_reset_postdata();
+                else :
+                    get_template_part( 'template-parts/news-empty-404', null, array( 'context' => 'detail' ) );
                 endif;
                 ?>
             </div>

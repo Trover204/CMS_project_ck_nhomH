@@ -85,9 +85,7 @@ if( $ed_blog ){ ?>
                 endwhile;
                 wp_reset_postdata();
             else :
-                ?>
-                <p class="news-no-posts"><?php esc_html_e( 'No posts found.', 'jobscout' ); ?></p>
-                <?php
+                get_template_part( 'template-parts/news-empty-404', null, array( 'context' => 'home' ) );
             endif;
             ?>
         </div>
