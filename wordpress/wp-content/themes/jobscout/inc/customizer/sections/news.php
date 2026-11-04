@@ -1111,3 +1111,30 @@ function jobscout_sync_post_terms_to_customizer( $object_id, $terms, $tt_ids, $t
 }
 endif;
 add_action( 'set_object_terms', 'jobscout_sync_post_terms_to_customizer', 20, 4 );
+
+/**
+ * News 404 / Empty State Customizer settings
+ */
+if ( ! function_exists( 'jobscout_customize_register_news_empty' ) ) :
+function jobscout_customize_register_news_empty( $wp_customize ) {
+    $fields = array(
+        'news_empty_title'    => array( 'label' => 'Empty State (404): Title', 'default' => 'No News Found', 'type' => 'text' ),
+        'news_empty_desc'     => array( 'label' => 'Empty State (404): Description', 'default' => 'There are no news posts to display right now. Please check back later for the latest updates from us.', 'type' => 'textarea' ),
+        'news_empty_btn_text' => array( 'label' => 'Empty State (404): Button Text', 'default' => 'Back To Home', 'type' => 'text' ),
+    );
+    foreach ( $fields as $id => $f ) {
+        $wp_customize->add_setting( $id, array(
+            'default'           => $f['default'],
+            'sanitize_callback' => 'textarea' === $f['type'] ? 'sanitize_textarea_field' : 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ) );
+        $wp_customize->add_control( $id, array(
+            'label'       => $f['label'],
+            'description' => 'Shown on the News page when there are no posts.',
+            'section'     => 'news_grid_section',
+            'type'        => $f['type'],
+        ) );
+    }
+}
+endif;
+add_action( 'customize_register', 'jobscout_customize_register_news_empty', 20 );

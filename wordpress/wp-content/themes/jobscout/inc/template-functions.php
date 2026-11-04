@@ -36,7 +36,7 @@ if( ! function_exists( 'jobscout_responsive_header' ) ) :
 */
 function jobscout_responsive_header(){ 
     $post_job_label  = get_theme_mod( 'post_job_label', __( 'Post Jobs', 'jobscout' ) );
-    if ( ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) || is_customize_preview() ) && '??ng Tin Tuy?n D?ng' === trim( (string) $post_job_label ) ) {
+    if ( ( is_singular( 'post' ) || is_404() || is_page_template( 'page-news.php' ) || is_page( 'news' ) || is_customize_preview() ) && '??ng Tin Tuy?n D?ng' === trim( (string) $post_job_label ) ) {
         $post_job_label = 'Post Jobs';
     }
     $post_job_url    = get_theme_mod( 'post_job_url', '#' );
@@ -117,7 +117,7 @@ if( ! function_exists( 'jobscout_breadcrumbs_bar' ) ) :
     function jobscout_breadcrumbs_bar(){
         $ed_breadcrumbs = get_theme_mod( 'ed_breadcrumbs', false );
 
-        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>
+        if( $ed_breadcrumbs && ! is_front_page() && ! is_404() && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_404() && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>
             <section class="breadcrumb-wrap">
                 <div class="container">
                     <?php jobscout_breadcrumbs_cb(); //Breadcrumb ?>
@@ -137,7 +137,7 @@ if( ! function_exists( 'jobscout_content_start' ) ) :
 function jobscout_content_start(){       
     echo '<div id="acc-content"><!-- .site-header -->';
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ //Make necessary adjust for pg template.
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_404() && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ //Make necessary adjust for pg template.
         echo is_404() ? '<div class="error-holder">' : '<div id="content" class="site-content">'; 
 
         if( is_archive() || is_search() || is_page_template( 'templates/portfolio.php' ) ) : ?>
@@ -468,7 +468,7 @@ if( ! function_exists( 'jobscout_content_end' ) ) :
 */
 function jobscout_content_end(){ 
     $home_sections = jobscout_get_home_sections(); 
-    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>            
+    if( ! ( is_front_page() && ! is_home() && $home_sections ) && ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_singular( 'post' ) && ! is_404() && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ){ ?>            
         </div><!-- .container/ -->        
     </div><!-- .error-holder/site-content -->
     <?php
@@ -504,7 +504,7 @@ function jobscout_footer_top(){
     $contact_url   = $contact_page ? get_permalink( $contact_page->ID ) : home_url( '/index.php/contact/' );
 
     // Display the Orange Newsletter Section on Home, Contact, and other pages (News, News Detail, Jobs, and Job Detail already render it before get_footer)
-    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ) :
+    if ( ! is_page_template( 'page-news.php' ) && ! is_page( 'news' ) && ! is_page_template( 'page-jobs.php' ) && ! is_page( 'jobs' ) && ! is_page( 'jobs-2' ) && ! is_page_template( 'page-about.php' ) && ! is_page( 'about' ) && ! is_page_template( 'page-contact.php' ) && ! is_page( 'contact' ) && ! is_singular( 'post' ) && ! is_404() && ! is_singular( 'job_listing' ) && ! is_page_template( 'page-job-detail.php' ) && ! is_page( 'job-detail' ) ) :
         ?>
         <section class="news-newsletter-section">
             <div class="container">
@@ -579,7 +579,7 @@ function jobscout_news_menu_active_class( $classes, $item ) {
     $title = strtolower( trim( strip_tags( $item->title ) ) );
     $url   = strtolower( $item->url );
 
-    if ( is_singular( 'post' ) ) {
+    if ( is_singular( 'post' ) || is_404() ) {
         if ( 'news' === $title || 'blog' === $title || strpos( $url, '/news' ) !== false ) {
             $classes[] = 'current-menu-item';
         }

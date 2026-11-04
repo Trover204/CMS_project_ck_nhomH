@@ -18,7 +18,7 @@ add_action( 'wp', function() {
     }
 
     // Keep News page and News Detail page (single post) completely in English
-    if ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) ) {
+    if ( is_singular( 'post' ) || is_404() || is_page_template( 'page-news.php' ) || is_page( 'news' ) ) {
         return;
     }
 
@@ -131,7 +131,7 @@ function nhomh_translate_frontend_strings( $translation, $text, $domain ) {
     }
 
     // Keep News page and News Detail page (single post) completely in English
-    if ( function_exists( 'is_singular' ) && ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) ) ) {
+    if ( function_exists( 'is_singular' ) && ( is_singular( 'post' ) || is_404() || is_page_template( 'page-news.php' ) || is_page( 'news' ) ) ) {
         return $translation;
     }
 
