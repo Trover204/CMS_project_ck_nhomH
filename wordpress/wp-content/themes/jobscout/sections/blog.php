@@ -8,31 +8,40 @@
 
 $blog_heading   = get_theme_mod( 'blog_section_title', __( 'NEWEST BLOG ENTRIES', 'jobscout' ) );
 $ed_blog        = get_theme_mod( 'ed_blog', true );
+$sort_mode      = get_theme_mod( 'news_posts_orderby', 'date-desc' );
 $readmore_label = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobscout' ) );
+
+$orderby = 'date';
+$order   = 'DESC';
+if ( 'date-asc' === $sort_mode ) {
+    $orderby = 'date';
+    $order   = 'ASC';
+} elseif ( 'title-asc' === $sort_mode ) {
+    $orderby = 'title';
+    $order   = 'ASC';
+} elseif ( 'title-desc' === $sort_mode ) {
+    $orderby = 'title';
+    $order   = 'DESC';
+}
 
 if( $ed_blog ){ ?>
 <section id="blog-section" class="news-main-section home-news-section">
     <div class="container">
         <div class="news-header">
             <h2 class="news-section-title"><?php echo esc_html( $blog_heading ); ?></h2>
+            <span class="news-grid-shortcut" aria-hidden="true"></span>
         </div>
 
         <div class="news-grid">
             <?php
-            $target_ids = array( 977, 979, 981, 982 );
-            $args = array(
+            $news_query = new WP_Query( array(
                 'post_type'           => 'post',
                 'post_status'         => 'publish',
                 'posts_per_page'      => 4,
+                'orderby'             => $orderby,
+                'order'               => $order,
                 'ignore_sticky_posts' => 1,
-            );
-            $check_targets = get_posts( array( 'post__in' => $target_ids, 'numberposts' => 4, 'post_type' => 'post' ) );
-            if ( count( $check_targets ) === 4 ) {
-                $args['post__in'] = $target_ids;
-                $args['orderby']  = 'post__in';
-            }
-
-            $news_query = new WP_Query( $args );
+            ) );
 
             if ( $news_query->have_posts() ) :
                 while ( $news_query->have_posts() ) : $news_query->the_post();
@@ -75,6 +84,10 @@ if( $ed_blog ){ ?>
                     <?php
                 endwhile;
                 wp_reset_postdata();
+            else :
+                ?>
+                <p class="news-no-posts"><?php esc_html_e( 'No posts found.', 'jobscout' ); ?></p>
+                <?php
             endif;
             ?>
         </div>
