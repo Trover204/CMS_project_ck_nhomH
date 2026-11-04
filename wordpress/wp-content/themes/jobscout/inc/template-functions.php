@@ -661,7 +661,7 @@ function jobscout_job_open_graph_meta_tags() {
         $desc = get_the_excerpt( $job_id );
     }
     if ( empty( $desc ) ) {
-        $desc = sprintf( __( 'Tin tuyển dụng vị trí %s tại %s. Đăng ký ứng tuyển ngay hôm nay!', 'jobscout' ), $job_title, $site_name );
+        $desc = sprintf( __( 'Job opening for %s at %s. Apply today!', 'jobscout' ), $job_title, $site_name );
     }
     $desc = wp_strip_all_tags( $desc );
     $desc = mb_substr( $desc, 0, 160, 'UTF-8' );

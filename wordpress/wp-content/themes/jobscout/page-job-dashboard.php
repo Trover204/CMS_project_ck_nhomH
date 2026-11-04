@@ -90,7 +90,7 @@ $demo_dashboard_jobs = array(
         'date'        => 'Oct 20, 2022',
         'expires'     => 'Nov 20, 2026',
         'status'      => 'active',
-        'status_text' => 'Đang tuyển',
+        'status_text' => 'Active',
     ),
     array(
         'id'          => 102,
@@ -100,7 +100,7 @@ $demo_dashboard_jobs = array(
         'date'        => 'Oct 18, 2022',
         'expires'     => 'Nov 18, 2026',
         'status'      => 'active',
-        'status_text' => 'Đang tuyển',
+        'status_text' => 'Active',
     ),
     array(
         'id'          => 103,
@@ -110,7 +110,7 @@ $demo_dashboard_jobs = array(
         'date'        => 'Oct 15, 2022',
         'expires'     => 'Nov 15, 2026',
         'status'      => 'filled',
-        'status_text' => 'Đã tuyển',
+        'status_text' => 'Filled',
     ),
     array(
         'id'          => 104,
@@ -120,7 +120,7 @@ $demo_dashboard_jobs = array(
         'date'        => 'Oct 12, 2022',
         'expires'     => 'Nov 12, 2026',
         'status'      => 'active',
-        'status_text' => 'Đang tuyển',
+        'status_text' => 'Active',
     ),
     array(
         'id'          => 105,
@@ -130,7 +130,7 @@ $demo_dashboard_jobs = array(
         'date'        => 'Oct 10, 2022',
         'expires'     => 'Nov 10, 2026',
         'status'      => 'pending',
-        'status_text' => 'Chờ duyệt',
+        'status_text' => 'Pending',
     ),
     array(
         'id'          => 106,
@@ -140,7 +140,7 @@ $demo_dashboard_jobs = array(
         'date'        => 'Oct 05, 2022',
         'expires'     => 'Nov 05, 2026',
         'status'      => 'active',
-        'status_text' => 'Đang tuyển',
+        'status_text' => 'Active',
     ),
 );
 ?>
@@ -150,7 +150,7 @@ $demo_dashboard_jobs = array(
     <div class="jobs-banner-overlay"></div>
     <div class="container jobs-banner-container">
         <h1 class="jobs-banner-title"><?php echo esc_html( get_theme_mod( 'dashboard_banner_title', 'JOB DASHBOARD' ) ); ?></h1>
-        <p class="dashboard-banner-subtitle"><?php esc_html_e( 'Quản lý tin tuyển dụng và theo dõi hồ sơ ứng viên', 'jobscout' ); ?></p>
+        <p class="dashboard-banner-subtitle"><?php esc_html_e( 'Manage your job listings and track applicants', 'jobscout' ); ?></p>
     </div>
 </section>
 
@@ -185,7 +185,7 @@ $demo_dashboard_jobs = array(
                 </div>
                 <div class="stat-card-content">
                     <span class="stat-number"><?php echo esc_html( $total_jobs ); ?></span>
-                    <span class="stat-label"><?php esc_html_e( 'TỔNG TIN ĐĂNG', 'jobscout' ); ?></span>
+                    <span class="stat-label"><?php esc_html_e( 'TOTAL JOBS', 'jobscout' ); ?></span>
                 </div>
             </div>
 
@@ -199,7 +199,7 @@ $demo_dashboard_jobs = array(
                 </div>
                 <div class="stat-card-content">
                     <span class="stat-number"><?php echo esc_html( $active_jobs ); ?></span>
-                    <span class="stat-label"><?php esc_html_e( 'ĐANG TUYỂN DỤNG', 'jobscout' ); ?></span>
+                    <span class="stat-label"><?php esc_html_e( 'ACTIVE JOBS', 'jobscout' ); ?></span>
                 </div>
             </div>
 
@@ -213,7 +213,7 @@ $demo_dashboard_jobs = array(
                 </div>
                 <div class="stat-card-content">
                     <span class="stat-number"><?php echo esc_html( $filled_jobs ); ?></span>
-                    <span class="stat-label"><?php esc_html_e( 'ĐÃ TUYỂN XONG', 'jobscout' ); ?></span>
+                    <span class="stat-label"><?php esc_html_e( 'FILLED', 'jobscout' ); ?></span>
                 </div>
             </div>
 
@@ -228,7 +228,7 @@ $demo_dashboard_jobs = array(
                 </div>
                 <div class="stat-card-content">
                     <span class="stat-number"><?php echo esc_html( $pending_jobs ); ?></span>
-                    <span class="stat-label"><?php esc_html_e( 'CHỜ DUYỆT', 'jobscout' ); ?></span>
+                    <span class="stat-label"><?php esc_html_e( 'PENDING', 'jobscout' ); ?></span>
                 </div>
             </div>
 
@@ -243,7 +243,7 @@ $demo_dashboard_jobs = array(
                 </div>
                 <div class="stat-card-content">
                     <span class="stat-number"><?php echo esc_html( $expired_jobs ); ?></span>
-                    <span class="stat-label"><?php esc_html_e( 'HẾT HẠN', 'jobscout' ); ?></span>
+                    <span class="stat-label"><?php esc_html_e( 'EXPIRED', 'jobscout' ); ?></span>
                 </div>
             </div>
         </div>
@@ -261,7 +261,7 @@ $demo_dashboard_jobs = array(
                 <div class="demo-dashboard-header">
                     <div class="demo-badge-notice">
                         <span class="demo-dot"></span>
-                        <span><?php esc_html_e( 'BẢNG QUẢN LÝ VIỆC LÀM (CHẾ ĐỘ XEM TRƯỚC THEO DESIGN SYSTEM PDS)', 'jobscout' ); ?></span>
+                        <span><?php esc_html_e( 'JOB DASHBOARD (DESIGN SYSTEM PREVIEW MODE)', 'jobscout' ); ?></span>
                     </div>
                 </div>
 
@@ -276,17 +276,17 @@ $demo_dashboard_jobs = array(
                                 </svg>
                             </span>
                             <input type="text" id="pdsDemoSearchInput" class="dashboard-search-input"
-                                placeholder="<?php esc_attr_e( 'Tìm kiếm theo chức danh, địa điểm...', 'jobscout' ); ?>"
+                                placeholder="<?php esc_attr_e( 'Search by job title, location...', 'jobscout' ); ?>"
                                 onkeyup="pdsFilterDemoJobs()" />
                         </div>
                     </div>
 
                     <div class="dashboard-filter-wrap">
                         <select id="pdsDemoStatusFilter" class="jobs-sort-select dashboard-status-filter" onchange="pdsFilterDemoJobs()">
-                            <option value="all"><?php esc_html_e( 'Tất cả trạng thái', 'jobscout' ); ?></option>
-                            <option value="active"><?php esc_html_e( 'Đang tuyển (Active)', 'jobscout' ); ?></option>
-                            <option value="filled"><?php esc_html_e( 'Đã tuyển (Filled)', 'jobscout' ); ?></option>
-                            <option value="pending"><?php esc_html_e( 'Chờ duyệt (Pending)', 'jobscout' ); ?></option>
+                            <option value="all"><?php esc_html_e( 'All Statuses', 'jobscout' ); ?></option>
+                            <option value="active"><?php esc_html_e( 'Active', 'jobscout' ); ?></option>
+                            <option value="filled"><?php esc_html_e( 'Filled', 'jobscout' ); ?></option>
+                            <option value="pending"><?php esc_html_e( 'Pending', 'jobscout' ); ?></option>
                         </select>
                     </div>
 
@@ -296,7 +296,7 @@ $demo_dashboard_jobs = array(
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
-                            <span><?php esc_html_e( 'ĐĂNG TIN MỚI', 'jobscout' ); ?></span>
+                            <span><?php esc_html_e( 'POST A JOB', 'jobscout' ); ?></span>
                         </a>
                     </div>
                 </div>
@@ -307,11 +307,11 @@ $demo_dashboard_jobs = array(
                         <table class="pds-dashboard-table" id="pdsDemoJobsTable">
                             <thead>
                                 <tr>
-                                    <th class="col-title"><?php esc_html_e( 'VIỆC LÀM', 'jobscout' ); ?></th>
-                                    <th class="col-date"><?php esc_html_e( 'NGÀY ĐĂNG', 'jobscout' ); ?></th>
-                                    <th class="col-expires"><?php esc_html_e( 'HẾT HẠN', 'jobscout' ); ?></th>
-                                    <th class="col-status"><?php esc_html_e( 'TRẠNG THÁI', 'jobscout' ); ?></th>
-                                    <th class="col-actions"><?php esc_html_e( 'THAO TÁC', 'jobscout' ); ?></th>
+                                    <th class="col-title"><?php esc_html_e( 'JOB TITLE', 'jobscout' ); ?></th>
+                                    <th class="col-date"><?php esc_html_e( 'DATE POSTED', 'jobscout' ); ?></th>
+                                    <th class="col-expires"><?php esc_html_e( 'EXPIRED', 'jobscout' ); ?></th>
+                                    <th class="col-status"><?php esc_html_e( 'STATUS', 'jobscout' ); ?></th>
+                                    <th class="col-actions"><?php esc_html_e( 'ACTIONS', 'jobscout' ); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -354,19 +354,19 @@ $demo_dashboard_jobs = array(
                                         </td>
                                         <td class="col-actions">
                                             <div class="dashboard-row-actions">
-                                                <button type="button" class="dashboard-action-btn btn-action-edit" onclick="alert('Chỉnh sửa tin: <?php echo esc_js( $job['title'] ); ?>')" title="<?php esc_attr_e( 'Chỉnh sửa', 'jobscout' ); ?>">
+                                                <button type="button" class="dashboard-action-btn btn-action-edit" onclick="alert('Edit job: <?php echo esc_js( $job['title'] ); ?>')" title="<?php esc_attr_e( 'Edit', 'jobscout' ); ?>">
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                                                    <span><?php esc_html_e( 'Sửa', 'jobscout' ); ?></span>
+                                                    <span><?php esc_html_e( 'Edit', 'jobscout' ); ?></span>
                                                 </button>
                                                 <?php if ( 'active' === $job['status'] ) : ?>
-                                                    <button type="button" class="dashboard-action-btn btn-action-filled" onclick="alert('Đã chuyển trạng thái sang Đã tuyển!')" title="<?php esc_attr_e( 'Đánh dấu đã tuyển', 'jobscout' ); ?>">
+                                                    <button type="button" class="dashboard-action-btn btn-action-filled" onclick="alert('Status updated to Filled!')" title="<?php esc_attr_e( 'Mark Filled', 'jobscout' ); ?>">
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                                        <span><?php esc_html_e( 'Đã tuyển', 'jobscout' ); ?></span>
+                                                        <span><?php esc_html_e( 'Filled', 'jobscout' ); ?></span>
                                                     </button>
                                                 <?php endif; ?>
-                                                <button type="button" class="dashboard-action-btn action-danger" onclick="if(confirm('Bạn có chắc muốn xóa tin tuyển dụng này?')) { this.closest('tr').remove(); }" title="<?php esc_attr_e( 'Xóa tin', 'jobscout' ); ?>">
+                                                <button type="button" class="dashboard-action-btn action-danger" onclick="if(confirm('Are you sure you want to delete this job listing?')) { this.closest('tr').remove(); }" title="<?php esc_attr_e( 'Delete Job', 'jobscout' ); ?>">
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                                    <span><?php esc_html_e( 'Xóa', 'jobscout' ); ?></span>
+                                                    <span><?php esc_html_e( 'Delete', 'jobscout' ); ?></span>
                                                 </button>
                                             </div>
                                         </td>
@@ -374,9 +374,9 @@ $demo_dashboard_jobs = array(
                                 <?php endforeach; ?>
                                 <tr id="pdsDemoNoResultsRow" class="no-results-row" style="display:none;">
                                     <td colspan="5" style="text-align:center; padding:40px 20px; color:#64748b;">
-                                        <p style="font-size:14px; margin-bottom:8px;"><?php esc_html_e( 'Không tìm thấy tin tuyển dụng nào phù hợp với từ khóa hoặc bộ lọc.', 'jobscout' ); ?></p>
+                                        <p style="font-size:14px; margin-bottom:8px;"><?php esc_html_e( 'No jobs found matching your keyword or filter.', 'jobscout' ); ?></p>
                                         <button type="button" onclick="pdsResetDemoSearch()" class="pds-btn pds-btn-outline" style="height:34px; padding:0 16px; font-size:11.5px;">
-                                            &larr; <?php esc_html_e( 'XÓA BỘ LỌC TÌM KIẾM', 'jobscout' ); ?>
+                                            &larr; <?php esc_html_e( 'CLEAR SEARCH FILTERS', 'jobscout' ); ?>
                                         </button>
                                     </td>
                                 </tr>

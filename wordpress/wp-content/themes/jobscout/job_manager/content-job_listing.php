@@ -6,23 +6,23 @@
  */
 
 if (!defined('ABSPATH')) {
-    exit; // Chống truy cập trực tiếp
+    exit;
 }
 
 global $post;
 
-// 1. Chốt cứng lấy đúng ID của công việc hiện tại trong vòng lặp, tuyệt đối KHÔNG dùng get_the_ID() ở đây
+// 1. Get exact post ID in loop
 $job_id = $post->ID;
 
-// 2. Lấy đường dẫn chuẩn của Job
+// 2. Get canonical job permalink
 $job_permalink = get_permalink($job_id);
 
-// Ưu tiên dùng hàm riêng của WP Job Manager nếu có
+// Prefer WP Job Manager function if available
 if (function_exists('get_the_job_permalink')) {
     $job_permalink = get_the_job_permalink();
 }
 
-// 2. Lấy Logo công ty từ DB (Nếu trống thì lấy Ảnh đại diện / Featured Image của bài viết)
+// 2. Get company logo from DB or featured image
 $company_logo = '';
 if (function_exists('get_the_company_logo')) {
     $company_logo = get_the_company_logo($job_id);
@@ -33,33 +33,33 @@ if (empty($company_logo)) {
 if (empty($company_logo) && has_post_thumbnail($job_id)) {
     $company_logo = get_the_post_thumbnail_url($job_id, 'thumbnail');
 }
-// Nếu vẫn trống thì dùng ảnh mặc định của theme
+// Fallback to default theme logo
 if (empty($company_logo)) {
     $company_logo = get_template_directory_uri() . '/images/job-logos/logo-sodoh.png';
 }
 
-// 3. Lấy Loại công việc (Job Type) đồng bộ theo Taxonomy của WP
+// 3. Get Job Type from taxonomy
 $types = get_the_terms($job_id, 'job_listing_type');
-$type_label = (!empty($types) && !is_wp_error($types)) ? implode(', ', wp_list_pluck($types, 'name')) : 'Chưa phân loại';
+$type_label = (!empty($types) && !is_wp_error($types)) ? implode(', ', wp_list_pluck($types, 'name')) : 'Uncategorized';
 
-// 4. Lấy Danh mục công việc (Job Category) đồng bộ theo Taxonomy của WP
+// 4. Get Job Category from taxonomy
 $cats = get_the_terms($job_id, 'job_listing_category');
-$cat_label = (!empty($cats) && !is_wp_error($cats)) ? implode(', ', wp_list_pluck($cats, 'name')) : 'Ngành nghề';
+$cat_label = (!empty($cats) && !is_wp_error($cats)) ? implode(', ', wp_list_pluck($cats, 'name')) : 'Category';
 
-// 5. Lấy Địa điểm (Location) thực tế từ Meta Data
+// 5. Get location from post meta
 $loc = get_post_meta($job_id, '_job_location', true);
 if (empty($loc)) {
     $loc = get_post_meta($job_id, 'location', true);
 }
 if (empty($loc)) {
-    $loc = 'Toàn quốc'; // Fallback tiếng Việt linh hoạt
+    $loc = 'Nationwide'; // Fallback location
 }
 
-// 6. Xử lý Nội dung/Mô tả (Đồng bộ linh hoạt từ bài viết thực tế)
+// 6. Content / description parsing
 $content = get_the_content();
 $bullets = array();
 
-// Cách A: Quét các thẻ <li> nếu có
+// Method A: Extract <li> tags
 if (preg_match_all('/<li[^>]*>(.*?)<\/li>/is', $content, $matches)) {
     foreach ($matches[1] as $m) {
         $clean_bullet = trim(wp_strip_all_tags($m));
@@ -71,7 +71,7 @@ if (preg_match_all('/<li[^>]*>(.*?)<\/li>/is', $content, $matches)) {
     }
 }
 
-// Cách B: Nếu không có thẻ <li>, tự động lấy Tóm tắt (Excerpt) hoặc câu đầu bài viết
+// Method B: Fallback to excerpt or first sentence
 if (empty($bullets)) {
     $excerpt = get_the_excerpt($job_id);
     if (!empty($excerpt)) {
@@ -81,7 +81,7 @@ if (empty($bullets)) {
         if (!empty($clean_content)) {
             $bullets[] = mb_substr($clean_content, 0, 120) . '...';
         } else {
-            $bullets[] = 'Xem chi tiết thông tin tuyển dụng và yêu cầu công việc.';
+            $bullets[] = 'View job details and requirements.';
         }
     }
 }
@@ -94,7 +94,7 @@ $job_title = get_the_title();
     onclick="window.location.href='<?php echo esc_url($job_permalink); ?>';"
     style="cursor: pointer; position: relative;">
 
-    <!-- Link bao phủ toàn bộ thẻ card -->
+    <!-- Card full link overlay -->
     <a href="<?php echo esc_url($job_permalink); ?>" class="job-card-stretched-link"
         aria-label="<?php echo esc_attr($job_title); ?>"></a>
 
@@ -112,7 +112,7 @@ $job_title = get_the_title();
                     </a>
                 </h3>
                 <div class="job-card-date">
-                    <?php printf(esc_html__('Ngày đăng: %s', 'jobscout'), esc_html(get_the_date('d/m/Y'))); ?>
+                    <?php printf(esc_html__('Posted: %s', 'jobscout'), esc_html(get_the_date('M j, Y'))); ?>
                 </div>
                 <div class="job-card-badges">
                     <span class="job-badge job-badge-type"><?php echo esc_html($type_label); ?></span>

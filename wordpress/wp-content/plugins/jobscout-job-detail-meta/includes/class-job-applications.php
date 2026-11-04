@@ -78,19 +78,19 @@ class JobScout_Job_Applications {
      */
     public function register_post_type() {
         $labels = array(
-            'name'               => __( 'Hồ sơ ứng tuyển', 'jobscout' ),
-            'singular_name'      => __( 'Hồ sơ ứng tuyển', 'jobscout' ),
-            'menu_name'          => __( 'Hồ sơ ứng tuyển', 'jobscout' ),
-            'name_admin_bar'     => __( 'Hồ sơ ứng tuyển', 'jobscout' ),
-            'add_new'            => __( 'Thêm hồ sơ', 'jobscout' ),
-            'add_new_item'       => __( 'Thêm hồ sơ mới', 'jobscout' ),
-            'new_item'           => __( 'Hồ sơ mới', 'jobscout' ),
-            'edit_item'          => __( 'Chi tiết hồ sơ ứng tuyển', 'jobscout' ),
-            'view_item'          => __( 'Xem hồ sơ', 'jobscout' ),
-            'all_items'          => __( 'Hồ sơ ứng tuyển', 'jobscout' ),
-            'search_items'       => __( 'Tìm kiếm hồ sơ ứng viên...', 'jobscout' ),
-            'not_found'          => __( 'Chưa có hồ sơ ứng tuyển nào.', 'jobscout' ),
-            'not_found_in_trash' => __( 'Thùng rác trống.', 'jobscout' ),
+            'name'               => __( 'Job Applications', 'jobscout' ),
+            'singular_name'      => __( 'Job Application', 'jobscout' ),
+            'menu_name'          => __( 'Job Applications', 'jobscout' ),
+            'name_admin_bar'     => __( 'Job Application', 'jobscout' ),
+            'add_new'            => __( 'Add New', 'jobscout' ),
+            'add_new_item'       => __( 'Add New Application', 'jobscout' ),
+            'new_item'           => __( 'New Application', 'jobscout' ),
+            'edit_item'          => __( 'Edit Job Application', 'jobscout' ),
+            'view_item'          => __( 'View Application', 'jobscout' ),
+            'all_items'          => __( 'All Applications', 'jobscout' ),
+            'search_items'       => __( 'Search applicants...', 'jobscout' ),
+            'not_found'          => __( 'No job applications found.', 'jobscout' ),
+            'not_found_in_trash' => __( 'No applications found in Trash.', 'jobscout' ),
         );
 
         $args = array(
@@ -117,27 +117,27 @@ class JobScout_Job_Applications {
     public static function get_statuses() {
         return array(
             'new'        => array(
-                'label' => __( 'Mới tiếp nhận', 'jobscout' ),
+                'label' => __( 'New', 'jobscout' ),
                 'color' => '#2563eb',
                 'bg'    => '#eff6ff',
             ),
             'contacted'  => array(
-                'label' => __( 'Đã liên hệ', 'jobscout' ),
+                'label' => __( 'Contacted', 'jobscout' ),
                 'color' => '#7c3aed',
                 'bg'    => '#f5f3ff',
             ),
             'interview'  => array(
-                'label' => __( 'Hẹn phỏng vấn', 'jobscout' ),
+                'label' => __( 'Interview Scheduled', 'jobscout' ),
                 'color' => '#d97706',
                 'bg'    => '#fffbeb',
             ),
             'accepted'   => array(
-                'label' => __( 'Trúng tuyển', 'jobscout' ),
+                'label' => __( 'Accepted', 'jobscout' ),
                 'color' => '#059669',
                 'bg'    => '#ecfdf5',
             ),
             'rejected'   => array(
-                'label' => __( 'Không phù hợp', 'jobscout' ),
+                'label' => __( 'Rejected', 'jobscout' ),
                 'color' => '#dc2626',
                 'bg'    => '#fef2f2',
             ),
@@ -150,12 +150,12 @@ class JobScout_Job_Applications {
     public function register_columns( $columns ) {
         $new_columns = array(
             'cb'                => $columns['cb'],
-            'title'             => __( 'Ứng viên (Họ và tên)', 'jobscout' ),
-            'applied_job'       => __( 'Vị trí ứng tuyển', 'jobscout' ),
-            'applicant_contact' => __( 'Liên hệ (Email & SĐT)', 'jobscout' ),
-            'applicant_cv'      => __( 'CV / Hồ sơ', 'jobscout' ),
-            'app_status'        => __( 'Trạng thái & Duyệt', 'jobscout' ),
-            'date'              => __( 'Ngày nộp', 'jobscout' ),
+            'title'             => __( 'Applicant (Full Name)', 'jobscout' ),
+            'applied_job'       => __( 'Applied Position', 'jobscout' ),
+            'applicant_contact' => __( 'Contact (Email & Phone)', 'jobscout' ),
+            'applicant_cv'      => __( 'Resume / CV', 'jobscout' ),
+            'app_status'        => __( 'Status & Action', 'jobscout' ),
+            'date'              => __( 'Submitted Date', 'jobscout' ),
         );
         return $new_columns;
     }
@@ -176,7 +176,7 @@ class JobScout_Job_Applications {
                 }
                 if ( ! empty( $job_id ) && get_post( $job_id ) ) {
                     echo '<strong><a href="' . esc_url( get_edit_post_link( $job_id ) ) . '">' . esc_html( $job_title ) . '</a></strong>';
-                    echo '<br><a href="' . esc_url( get_permalink( $job_id ) ) . '" target="_blank" style="font-size:11.5px;color:#64748b;text-decoration:none;">' . esc_html__( 'Xem bài đăng ↗', 'jobscout' ) . '</a>';
+                    echo '<br><a href="' . esc_url( get_permalink( $job_id ) ) . '" target="_blank" style="font-size:11.5px;color:#64748b;text-decoration:none;">' . esc_html__( 'View Job Listing ↗', 'jobscout' ) . '</a>';
                 } elseif ( ! empty( $job_title ) ) {
                     echo '<strong>' . esc_html( $job_title ) . '</strong>';
                 } else {
@@ -210,10 +210,10 @@ class JobScout_Job_Applications {
                     $ext_label = $ext ? '(' . $ext . ')' : '';
                     echo '<a href="' . esc_url( $cv_url ) . '" target="_blank" class="button button-small jobscout-cv-btn" title="' . esc_attr( $cv_name ) . '">';
                     echo '<span class="dashicons dashicons-media-document" style="font-size:14px;color:#ea580c;line-height:1.2;"></span> ';
-                    echo '<span>' . esc_html__( 'Xem CV', 'jobscout' ) . ' ' . esc_html( $ext_label ) . '</span>';
+                    echo '<span>' . esc_html__( 'View CV', 'jobscout' ) . ' ' . esc_html( $ext_label ) . '</span>';
                     echo '</a>';
                 } else {
-                    echo '<span style="color:#94a3b8;font-size:12px;">' . esc_html__( 'Không có CV', 'jobscout' ) . '</span>';
+                    echo '<span style="color:#94a3b8;font-size:12px;">' . esc_html__( 'No CV attached', 'jobscout' ) . '</span>';
                 }
                 break;
 
@@ -233,7 +233,7 @@ class JobScout_Job_Applications {
                 // Quick Status Change Dropdown
                 echo '<div style="margin-top:6px;">';
                 echo '<select class="jobscout-quick-status-dropdown" onchange="if(this.value){window.location.href=this.value;}">';
-                echo '<option value="" selected disabled>' . esc_html__( '⚡ Đổi trạng thái...', 'jobscout' ) . '</option>';
+                echo '<option value="" selected disabled>' . esc_html__( '⚡ Change status...', 'jobscout' ) . '</option>';
                 foreach ( $statuses as $key => $st ) {
                     if ( $key === $status ) {
                         continue;
@@ -281,7 +281,7 @@ class JobScout_Job_Applications {
             $selected = isset( $_GET['filter_job_id'] ) ? (int) $_GET['filter_job_id'] : 0;
             ?>
             <select name="filter_job_id">
-                <option value=""><?php esc_html_e( '— Tất cả vị trí tuyển dụng —', 'jobscout' ); ?></option>
+                <option value=""><?php esc_html_e( '— All Job Positions —', 'jobscout' ); ?></option>
                 <?php foreach ( $jobs as $job ) : ?>
                     <option value="<?php echo esc_attr( $job->ID ); ?>" <?php selected( $selected, $job->ID ); ?>>
                         <?php echo esc_html( $job->post_title ); ?>
@@ -306,7 +306,7 @@ class JobScout_Job_Applications {
     public function register_meta_boxes() {
         add_meta_box(
             'jobscout_application_details',
-            __( '👤 Chi tiết ứng viên & Thư giới thiệu', 'jobscout' ),
+            __( '👤 Applicant Details & Cover Letter', 'jobscout' ),
             array( $this, 'render_details_meta_box' ),
             'job_application',
             'normal',
@@ -315,7 +315,7 @@ class JobScout_Job_Applications {
 
         add_meta_box(
             'jobscout_application_recruitment',
-            __( '📌 Đánh giá & Trạng thái tuyển dụng', 'jobscout' ),
+            __( '📌 Recruitment Status & Evaluation', 'jobscout' ),
             array( $this, 'render_recruitment_meta_box' ),
             'job_application',
             'side',
@@ -340,7 +340,7 @@ class JobScout_Job_Applications {
         ?>
         <table class="form-table" style="margin-top:0;">
             <tr>
-                <th style="width:180px;"><label><?php esc_html_e( 'Vị trí ứng tuyển:', 'jobscout' ); ?></label></th>
+                <th style="width:180px;"><label><?php esc_html_e( 'Applied Position:', 'jobscout' ); ?></label></th>
                 <td>
                     <?php if ( $job_id && get_post( $job_id ) ) : ?>
                         <strong style="font-size:15px;color:#1e293b;"><?php echo esc_html( $job_title ); ?></strong>
@@ -351,7 +351,7 @@ class JobScout_Job_Applications {
                 </td>
             </tr>
             <tr>
-                <th><label><?php esc_html_e( 'Họ và tên:', 'jobscout' ); ?></label></th>
+                <th><label><?php esc_html_e( 'Full Name:', 'jobscout' ); ?></label></th>
                 <td><strong style="font-size:15px;"><?php echo esc_html( $name ? $name : $post->post_title ); ?></strong></td>
             </tr>
             <tr>
@@ -371,15 +371,15 @@ class JobScout_Job_Applications {
                 </td>
             </tr>
             <tr>
-                <th><label><?php esc_html_e( 'File CV đính kèm:', 'jobscout' ); ?></label></th>
+                <th><label><?php esc_html_e( 'Attached CV / Resume:', 'jobscout' ); ?></label></th>
                 <td>
                     <?php if ( ! empty( $cv_url ) ) : ?>
                         <a href="<?php echo esc_url( $cv_url ); ?>" target="_blank" class="button button-primary" style="display:inline-flex;align-items:center;gap:6px;">
                             <span class="dashicons dashicons-download" style="line-height:1.4;"></span>
-                            <?php echo esc_html( $cv_name ? $cv_name : __( 'Mở / Tải file CV', 'jobscout' ) ); ?>
+                            <?php echo esc_html( $cv_name ? $cv_name : __( 'Download / Open CV', 'jobscout' ) ); ?>
                         </a>
                     <?php else : ?>
-                        <span style="color:#94a3b8;"><?php esc_html_e( 'Không có file CV đính kèm.', 'jobscout' ); ?></span>
+                        <span style="color:#94a3b8;"><?php esc_html_e( 'No CV attached.', 'jobscout' ); ?></span>
                     <?php endif; ?>
                 </td>
             </tr>
@@ -387,7 +387,7 @@ class JobScout_Job_Applications {
                 <th><label><?php esc_html_e( 'Thư giới thiệu / Lời nhắn:', 'jobscout' ); ?></label></th>
                 <td>
                     <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:14px;white-space:pre-wrap;font-size:13.5px;color:#334155;line-height:1.6;max-height:220px;overflow-y:auto;">
-                        <?php echo esc_html( $message ? $message : __( '(Ứng viên không để lại lời nhắn)', 'jobscout' ) ); ?>
+                        <?php echo esc_html( $message ? $message : __( '(No message provided by applicant)', 'jobscout' ) ); ?>
                     </div>
                 </td>
             </tr>
@@ -405,7 +405,7 @@ class JobScout_Job_Applications {
         ?>
         <div style="margin-bottom:14px;">
             <label for="app_status_select" style="font-weight:600;display:block;margin-bottom:6px;">
-                <?php esc_html_e( 'Trạng thái ứng viên:', 'jobscout' ); ?>
+                <?php esc_html_e( 'Applicant Status:', 'jobscout' ); ?>
             </label>
             <select name="_application_status" id="app_status_select" class="widefat" style="font-size:13px;padding:6px 8px;">
                 <?php foreach ( $statuses as $key => $st ) : ?>
@@ -418,17 +418,17 @@ class JobScout_Job_Applications {
 
         <div>
             <label for="app_notes_textarea" style="font-weight:600;display:block;margin-bottom:6px;">
-                <?php esc_html_e( 'Ghi chú nội bộ (Nhà tuyển dụng):', 'jobscout' ); ?>
+                <?php esc_html_e( 'Internal Notes (Recruiter):', 'jobscout' ); ?>
             </label>
             <textarea
                 name="_application_notes"
                 id="app_notes_textarea"
                 class="widefat"
                 rows="5"
-                placeholder="<?php esc_attr_e( 'Ví dụ: Đã gọi điện hẹn phỏng vấn 10h thứ 3 tới; Tiếng Anh tốt; Đạt vòng 1...', 'jobscout' ); ?>"
+                placeholder="<?php esc_attr_e( 'e.g. Interview scheduled for Tuesday 10am; Strong English; Passed round 1...', 'jobscout' ); ?>"
             ><?php echo esc_textarea( $notes ); ?></textarea>
             <span style="font-size:11.5px;color:#64748b;display:block;margin-top:4px;">
-                <?php esc_html_e( 'Chỉ quản trị viên & nhà tuyển dụng mới xem được ghi chú này.', 'jobscout' ); ?>
+                <?php esc_html_e( 'Only administrators and hiring managers can view this note.', 'jobscout' ); ?>
             </span>
         </div>
         <?php
@@ -475,7 +475,7 @@ class JobScout_Job_Applications {
             ! isset( $_POST['jobscout_apply_nonce'] ) ||
             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['jobscout_apply_nonce'] ) ), 'jobscout_apply_nonce_action' )
         ) {
-            wp_send_json_error( array( 'message' => __( 'Lỗi bảo mật (Token không hợp lệ). Vui lòng tải lại trang.', 'jobscout' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Security error (Invalid token). Please refresh the page.', 'jobscout' ) ) );
         }
 
         // Validate required fields
@@ -484,11 +484,11 @@ class JobScout_Job_Applications {
         $phone = isset( $_POST['applicant_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['applicant_phone'] ) ) : '';
 
         if ( empty( $name ) || empty( $email ) || empty( $phone ) ) {
-            wp_send_json_error( array( 'message' => __( 'Vui lòng điền đầy đủ Họ tên, Email và Số điện thoại.', 'jobscout' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Please fill in your Full Name, Email, and Phone Number.', 'jobscout' ) ) );
         }
 
         if ( ! is_email( $email ) ) {
-            wp_send_json_error( array( 'message' => __( 'Địa chỉ email không đúng định dạng.', 'jobscout' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Invalid email address format.', 'jobscout' ) ) );
         }
 
         $job_id    = isset( $_POST['job_id'] ) ? (int) $_POST['job_id'] : 0;
@@ -510,12 +510,12 @@ class JobScout_Job_Applications {
             $file_ext     = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
 
             if ( ! in_array( $file_ext, $allowed_exts, true ) ) {
-                wp_send_json_error( array( 'message' => __( 'File CV không đúng định dạng. Chỉ chấp nhận tệp PDF, DOC hoặc DOCX.', 'jobscout' ) ) );
+                wp_send_json_error( array( 'message' => __( 'Invalid CV format. Only PDF, DOC, or DOCX files are accepted.', 'jobscout' ) ) );
             }
 
             // Max file size: 5MB
             if ( $file['size'] > ( 5 * 1024 * 1024 ) ) {
-                wp_send_json_error( array( 'message' => __( 'Dung lượng file CV vượt quá giới hạn (tối đa 5MB).', 'jobscout' ) ) );
+                wp_send_json_error( array( 'message' => __( 'CV file size exceeds the limit (maximum 5MB).', 'jobscout' ) ) );
             }
 
             // Use WordPress wp_handle_upload for secure upload
@@ -538,7 +538,7 @@ class JobScout_Job_Applications {
                 $cv_url  = $moved_file['url'];
                 $cv_name = sanitize_text_field( $file['name'] );
             } else {
-                wp_send_json_error( array( 'message' => __( 'Không thể tải lên file CV: ', 'jobscout' ) . ( $moved_file['error'] ?? '' ) ) );
+                wp_send_json_error( array( 'message' => __( 'Could not upload CV file: ', 'jobscout' ) . ( $moved_file['error'] ?? '' ) ) );
             }
         }
 
@@ -551,7 +551,7 @@ class JobScout_Job_Applications {
         ) );
 
         if ( is_wp_error( $app_id ) || ! $app_id ) {
-            wp_send_json_error( array( 'message' => __( 'Không thể lưu hồ sơ ứng tuyển. Vui lòng thử lại.', 'jobscout' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Could not save job application. Please try again.', 'jobscout' ) ) );
         }
 
         // Save application meta
@@ -568,22 +568,22 @@ class JobScout_Job_Applications {
         // Send email alert to admin
         $admin_email = get_option( 'admin_email' );
         if ( ! empty( $admin_email ) ) {
-            $subject = sprintf( __( '[Hồ Sơ Mới] %s ứng tuyển vị trí %s', 'jobscout' ), $name, $job_title );
+            $subject = sprintf( __( '[New Application] %s applied for %s', 'jobscout' ), $name, $job_title );
             $body    = sprintf(
-                __( "Chào bạn,\n\nBạn vừa nhận được một hồ sơ ứng tuyển mới trên website:\n\n- Vị trí: %s\n- Họ tên: %s\n- Email: %s\n- Số điện thoại: %s\n- File CV: %s\n- Lời nhắn: %s\n\nXem chi tiết trong wp-admin: %s\n\nTrân trọng.", 'jobscout' ),
+                __( "Hello,\n\nYou have received a new job application on your website:\n\n- Position: %s\n- Full Name: %s\n- Email: %s\n- Phone: %s\n- CV / Resume: %s\n- Message: %s\n\nView details in wp-admin: %s\n\nBest regards.", 'jobscout' ),
                 $job_title,
                 $name,
                 $email,
                 $phone,
-                $cv_url ? $cv_url : 'Không đính kèm',
-                $message ? $message : 'Không có',
+                $cv_url ? $cv_url : 'Not attached',
+                $message ? $message : 'None',
                 admin_url( 'post.php?post=' . $app_id . '&action=edit' )
             );
             @wp_mail( $admin_email, $subject, $body );
         }
 
         wp_send_json_success( array(
-            'message'   => sprintf( __( 'Ứng tuyển thành công! Hồ sơ của bạn cho vị trí "%s" đã được ghi nhận. Nhà tuyển dụng sẽ sớm liên hệ qua email hoặc số điện thoại của bạn.', 'jobscout' ), $job_title ),
+            'message'   => sprintf( __( 'Application submitted successfully! Your application for "%s" has been received. The employer will contact you soon.', 'jobscout' ), $job_title ),
             'job_title' => $job_title,
         ) );
     }
@@ -638,7 +638,7 @@ class JobScout_Job_Applications {
      */
     public function handle_quick_status_change() {
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_die( esc_html__( 'Bạn không có quyền thực hiện thao tác này.', 'jobscout' ) );
+            wp_die( esc_html__( 'You do not have permission to perform this action.', 'jobscout' ) );
         }
 
         $post_id    = isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : 0;
@@ -679,9 +679,9 @@ class JobScout_Job_Applications {
 
             echo '<div class="notice notice-success is-dismissible"><p>';
             if ( $name ) {
-                printf( esc_html__( 'Đã cập nhật trạng thái hồ sơ của ứng viên "%1$s" thành "%2$s".', 'jobscout' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . esc_html( $st_label ) . '</strong>' );
+                printf( esc_html__( 'Updated application status for applicant "%1$s" to "%2$s".', 'jobscout' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . esc_html( $st_label ) . '</strong>' );
             } else {
-                esc_html_e( 'Đã cập nhật trạng thái hồ sơ ứng tuyển thành công.', 'jobscout' );
+                esc_html_e( 'Application status updated successfully.', 'jobscout' );
             }
             echo '</p></div>';
         }

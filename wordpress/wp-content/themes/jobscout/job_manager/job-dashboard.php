@@ -74,7 +74,7 @@ $search_input = isset( $search_input ) && is_string( $search_input )
 						type="search"
 						name="search"
 						class="dashboard-search-input"
-						placeholder="<?php esc_attr_e( 'Tìm kiếm tin tuyển dụng...', 'jobscout' ); ?>"
+						placeholder="<?php esc_attr_e( 'Search job listings...', 'jobscout' ); ?>"
 						value="<?php echo esc_attr( $search_input ); ?>"
 						aria-label="<?php esc_attr_e( 'Search Jobs', 'jobscout' ); ?>"
 					/>
@@ -82,7 +82,7 @@ $search_input = isset( $search_input ) && is_string( $search_input )
 						<a
 							href="<?php echo esc_url( remove_query_arg( 'search' ) ); ?>"
 							class="dashboard-search-clear-btn"
-							title="<?php esc_attr_e( 'Xóa tìm kiếm', 'jobscout' ); ?>"
+							title="<?php esc_attr_e( 'Clear search', 'jobscout' ); ?>"
 						>
 							&times;
 						</a>
@@ -100,7 +100,7 @@ $search_input = isset( $search_input ) && is_string( $search_input )
 						<line x1="12" y1="5" x2="12" y2="19"></line>
 						<line x1="5" y1="12" x2="19" y2="12"></line>
 					</svg>
-					<span><?php esc_html_e( 'ĐĂNG TIN MỚI', 'jobscout' ); ?></span>
+					<span><?php esc_html_e( 'POST A JOB', 'jobscout' ); ?></span>
 				</a>
 			<?php endif; ?>
 		</div>
@@ -134,30 +134,30 @@ $search_input = isset( $search_input ) && is_string( $search_input )
 						<?php
 						printf(
 							/* translators: %s: search keyword */
-							esc_html__( 'Không tìm thấy tin tuyển dụng nào phù hợp với từ khóa "%s".', 'jobscout' ),
+							esc_html__( 'No job listings found matching keyword "%s".', 'jobscout' ),
 							esc_html( $search_input )
 						);
 						?>
 					</h4>
 					<p class="empty-state-desc">
-						<?php esc_html_e( 'Hãy thử từ khóa khác hoặc xóa bộ lọc để xem lại toàn bộ danh sách.', 'jobscout' ); ?>
+						<?php esc_html_e( 'Try another search term or clear the filter to view all listings.', 'jobscout' ); ?>
 					</p>
 					<div class="empty-state-actions">
 						<a
 							href="<?php echo esc_url( remove_query_arg( 'search' ) ); ?>"
 							class="pds-btn pds-btn-outline empty-state-clear-btn"
 						>
-							&larr; <?php esc_html_e( 'XEM TẤT CẢ TIN ĐĂNG', 'jobscout' ); ?>
+							&larr; <?php esc_html_e( 'VIEW ALL JOBS', 'jobscout' ); ?>
 						</a>
 					</div>
 
 				<?php else : ?>
 					<!-- Case A: user has not posted any jobs yet -->
 					<h4 class="empty-state-title">
-						<?php esc_html_e( 'Bạn chưa có tin tuyển dụng nào được đăng.', 'jobscout' ); ?>
+						<?php esc_html_e( 'You have not posted any jobs yet.', 'jobscout' ); ?>
 					</h4>
 					<p class="empty-state-desc">
-						<?php esc_html_e( 'Hãy bắt đầu tạo tin tuyển dụng đầu tiên của bạn để tiếp cận hàng ngàn ứng viên tiềm năng.', 'jobscout' ); ?>
+						<?php esc_html_e( 'Create your first job listing to reach thousands of potential applicants.', 'jobscout' ); ?>
 					</p>
 					<?php if ( job_manager_user_can_submit_job_listing() ) : ?>
 						<div class="empty-state-actions">
@@ -165,7 +165,7 @@ $search_input = isset( $search_input ) && is_string( $search_input )
 								href="<?php echo esc_url( $submit_job_url ); ?>"
 								class="pds-btn pds-btn-primary empty-state-submit-btn"
 							>
-								+ <?php esc_html_e( 'ĐĂNG TIN MỚI', 'jobscout' ); ?>
+								+ <?php esc_html_e( 'POST A JOB', 'jobscout' ); ?>
 							</a>
 						</div>
 					<?php endif; ?>
@@ -181,11 +181,11 @@ $search_input = isset( $search_input ) && is_string( $search_input )
 				<table class="pds-dashboard-table">
 					<thead>
 						<tr>
-							<th class="col-title"><?php esc_html_e( 'VIỆC LÀM', 'jobscout' ); ?></th>
-							<th class="col-date"><?php esc_html_e( 'NGÀY ĐĂNG', 'jobscout' ); ?></th>
-							<th class="col-expires"><?php esc_html_e( 'HẾT HẠN', 'jobscout' ); ?></th>
-							<th class="col-status"><?php esc_html_e( 'TRẠNG THÁI', 'jobscout' ); ?></th>
-							<th class="col-actions"><?php esc_html_e( 'THAO TÁC', 'jobscout' ); ?></th>
+							<th class="col-title"><?php esc_html_e( 'JOB TITLE', 'jobscout' ); ?></th>
+							<th class="col-date"><?php esc_html_e( 'DATE POSTED', 'jobscout' ); ?></th>
+							<th class="col-expires"><?php esc_html_e( 'EXPIRES', 'jobscout' ); ?></th>
+							<th class="col-status"><?php esc_html_e( 'STATUS', 'jobscout' ); ?></th>
+							<th class="col-actions"><?php esc_html_e( 'ACTIONS', 'jobscout' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>

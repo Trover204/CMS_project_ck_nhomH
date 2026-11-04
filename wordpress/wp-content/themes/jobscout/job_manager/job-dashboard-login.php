@@ -21,9 +21,9 @@ $register_url = wp_registration_url();
 			<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
 		</svg>
 	</div>
-	<h3 class="auth-card-title"><?php esc_html_e( 'YÊU CẦU ĐĂNG NHẬP', 'jobscout' ); ?></h3>
+	<h3 class="auth-card-title"><?php esc_html_e( 'SIGN IN REQUIRED', 'jobscout' ); ?></h3>
 	<p class="auth-card-desc">
-		<?php esc_html_e( 'Bạn cần đăng nhập vào tài khoản Nhà tuyển dụng để truy cập Bảng điều khiển, xem thống kê và quản lý các tin đăng tuyển dụng của mình.', 'jobscout' ); ?>
+		<?php esc_html_e( 'You must be signed in as an Employer to access the Job Dashboard, view statistics, and manage your job listings.', 'jobscout' ); ?>
 	</p>
 	<div class="auth-card-actions">
 		<a href="<?php echo esc_url( $login_url ); ?>" class="pds-btn pds-btn-primary">
@@ -32,11 +32,11 @@ $register_url = wp_registration_url();
 				<polyline points="10 17 15 12 10 7"></polyline>
 				<line x1="15" y1="12" x2="3" y2="12"></line>
 			</svg>
-			<?php esc_html_e( 'ĐĂNG NHẬP (SIGN IN)', 'jobscout' ); ?>
+			<?php esc_html_e( 'SIGN IN', 'jobscout' ); ?>
 		</a>
 		<?php if ( get_option( 'users_can_register' ) ) : ?>
 			<a href="<?php echo esc_url( $register_url ); ?>" class="pds-btn pds-btn-outline">
-				<?php esc_html_e( 'ĐĂNG KÝ TÀI KHOẢN', 'jobscout' ); ?>
+				<?php esc_html_e( 'REGISTER', 'jobscout' ); ?>
 			</a>
 		<?php endif; ?>
 	</div>
@@ -47,7 +47,7 @@ $register_url = wp_registration_url();
 				<line x1="12" y1="16" x2="12" y2="12"></line>
 				<line x1="12" y1="8" x2="12.01" y2="8"></line>
 			</svg>
-			<span><?php esc_html_e( 'Xem giao diện bảng quản lý việc làm (Chế độ xem trước)', 'jobscout' ); ?></span>
+			<span><?php esc_html_e( 'Preview Job Dashboard interface', 'jobscout' ); ?></span>
 		</button>
 	</div>
 </div>

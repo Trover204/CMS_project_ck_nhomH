@@ -51,7 +51,7 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
         'jobs_banner_title',
         array(
             'label'       => __( 'Banner Title', 'jobscout' ),
-            'description' => __( 'Tiêu đề hiển thị giữa banner trang Jobs', 'jobscout' ),
+            'description' => __( 'Title displayed in the Jobs page banner', 'jobscout' ),
             'section'     => 'jobs_banner_section',
             'type'        => 'text',
         )
@@ -73,7 +73,7 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
             'jobs_banner_bg',
             array(
                 'label'       => __( 'Banner Background Image', 'jobscout' ),
-                'description' => __( 'Chọn hình nền cho Banner trang Jobs', 'jobscout' ),
+                'description' => __( 'Select background image for the Jobs banner', 'jobscout' ),
                 'section'     => 'jobs_banner_section',
             )
         )
@@ -105,7 +105,7 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
         'jobs_section_heading',
         array(
             'label'       => __( 'Section Heading', 'jobscout' ),
-            'description' => __( 'Tiêu đề danh sách việc làm (mặc định: ALL JOBS)', 'jobscout' ),
+            'description' => __( 'Job listing section heading (default: ALL JOBS)', 'jobscout' ),
             'section'     => 'jobs_content_section',
             'type'        => 'text',
         )
@@ -120,7 +120,7 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
             'title'       => __( '3. Apply Form Settings', 'jobscout' ),
             'priority'    => 30,
             'panel'       => 'jobs_page_panel',
-            'description' => __( 'Cấu hình Form ứng tuyển hiển thị trong Popup Modal khi bấm nút "ỨNG TUYỂN NGAY".', 'jobscout' ),
+            'description' => __( 'Configure the application form displayed in the modal popup when clicking "APPLY JOB".', 'jobscout' ),
         )
     );
 
@@ -136,18 +136,18 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
     $wp_customize->add_control(
         'jobscout_apply_form_shortcode',
         array(
-            'label'       => __( 'Mã Shortcode Form Ứng Tuyển Mặc Định', 'jobscout' ),
-            'description' => __( 'Nhập mã shortcode của Contact Form 7, WPForms hoặc Fluent Forms. Ví dụ: [contact-form-7 id="123" title="Form ứng tuyển"]. Quản trị viên cũng có thể nhập shortcode riêng cho từng Job trong trang chỉnh sửa bài viết.', 'jobscout' ),
+            'label'       => __( 'Default Apply Form Shortcode', 'jobscout' ),
+            'description' => __( 'Enter shortcode from Contact Form 7, WPForms, or Fluent Forms. e.g. [contact-form-7 id="123" title="Apply Form"]. Admins can also set a specific shortcode per job on its edit page.', 'jobscout' ),
             'section'     => 'jobs_apply_modal_section',
             'type'        => 'text',
         )
     );
 
     /* ==========================================================
-     * Selective Refresh Partials (Hiển thị icon bút chì xanh)
+     * Selective Refresh Partials
      * ========================================================== */
     if ( isset( $wp_customize->selective_refresh ) ) {
-        // Icon bút chì cho tiêu đề Banner "CAREER WITH US"
+        // Pencil icon for Banner title "CAREER WITH US"
         $wp_customize->selective_refresh->add_partial(
             'jobs_banner_title',
             array(
@@ -158,7 +158,7 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
             )
         );
 
-        // Icon bút chì cho ảnh nền Banner
+        // Pencil icon for Banner background image
         $wp_customize->selective_refresh->add_partial(
             'jobs_banner_bg',
             array(
@@ -169,7 +169,7 @@ function jobscout_customize_register_jobs_page( $wp_customize ) {
             )
         );
 
-        // Icon bút chì cho tiêu đề "ALL JOBS"
+        // Pencil icon for "ALL JOBS" title
         $wp_customize->selective_refresh->add_partial(
             'jobs_section_heading',
             array(

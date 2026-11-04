@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: JobScout Job Detail Meta Boxes
- * Description: Thêm các meta box vào trang chỉnh sửa Job Listing trong wp-admin để quản lý nội dung trang chi tiết: mô tả công ty, kỹ năng, phúc lợi, địa điểm, đánh giá nhân viên và ảnh công ty.
+ * Description: Adds meta boxes to the Job Listing edit screen in wp-admin to manage job details: company overview, key skills, benefits, location, staff rating, and company photos.
  * Version: 1.0.0
  * Author: JobScout Dev
  * Text Domain: jobscout
@@ -49,7 +49,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_company_overview',
-        __( '📝 Tổng quan về công ty (Overview about Company)', 'jobscout' ),
+        __( '📝 Overview about Company', 'jobscout' ),
         'jobscout_render_company_overview_meta_box',
         $screens,
         'normal',
@@ -58,7 +58,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_key_skills',
-        __( '🎯 Kỹ năng yêu cầu (Our Key Skills)', 'jobscout' ),
+        __( '🎯 Our Key Skills', 'jobscout' ),
         'jobscout_render_key_skills_meta_box',
         $screens,
         'normal',
@@ -67,7 +67,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_why_work_here',
-        __( '❤️ Vì sao nên làm việc ở đây (Why You\'ll Love Working Here)', 'jobscout' ),
+        __( '❤️ Why You\'ll Love Working Here', 'jobscout' ),
         'jobscout_render_why_work_meta_box',
         $screens,
         'normal',
@@ -76,7 +76,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_job_location_detail',
-        __( '📍 Mô tả địa điểm (Location Detail)', 'jobscout' ),
+        __( '📍 Location Detail', 'jobscout' ),
         'jobscout_render_location_detail_meta_box',
         $screens,
         'normal',
@@ -85,7 +85,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_staff_rating',
-        __( '⭐ Đánh giá nhân viên (Staff Rating)', 'jobscout' ),
+        __( '⭐ Staff Rating', 'jobscout' ),
         'jobscout_render_staff_rating_meta_box',
         $screens,
         'side',
@@ -94,7 +94,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_company_photos',
-        __( '🖼️ Ảnh công ty (Company Photos)', 'jobscout' ),
+        __( '🖼️ Company Photos', 'jobscout' ),
         'jobscout_render_company_photos_meta_box',
         $screens,
         'normal',
@@ -103,7 +103,7 @@ add_action( 'add_meta_boxes', function () {
 
     add_meta_box(
         'jobscout_apply_form_shortcode',
-        __( '📋 Form ứng tuyển (Apply Form Shortcode)', 'jobscout' ),
+        __( '📋 Apply Form Shortcode', 'jobscout' ),
         'jobscout_render_apply_form_meta_box',
         $screens,
         'side',
@@ -118,7 +118,7 @@ function jobscout_render_company_overview_meta_box( $post ) {
     wp_nonce_field( 'jobscout_job_detail_save', 'jobscout_job_detail_nonce' );
     $value = get_post_meta( $post->ID, '_company_overview', true );
     ?>
-    <p class="jsmb-desc"><?php esc_html_e( 'Nội dung hiển thị trong phần "Overview about Company" trên trang chi tiết job.', 'jobscout' ); ?></p>
+    <p class="jsmb-desc"><?php esc_html_e( 'Content displayed in the "Overview about Company" section on the job detail page.', 'jobscout' ); ?></p>
     <?php
     wp_editor(
         wp_kses_post( $value ),
@@ -138,7 +138,7 @@ function jobscout_render_company_overview_meta_box( $post ) {
 function jobscout_render_key_skills_meta_box( $post ) {
     $value = get_post_meta( $post->ID, '_key_skills', true );
     ?>
-    <p class="jsmb-desc"><?php esc_html_e( 'Nội dung hiển thị trong phần "Our Key Skills".', 'jobscout' ); ?></p>
+    <p class="jsmb-desc"><?php esc_html_e( 'Content displayed in the "Our Key Skills" section.', 'jobscout' ); ?></p>
     <?php
     wp_editor(
         wp_kses_post( $value ),
@@ -178,7 +178,7 @@ function jobscout_render_why_work_meta_box( $post ) {
 function jobscout_render_location_detail_meta_box( $post ) {
     $value = get_post_meta( $post->ID, '_location_detail', true );
     ?>
-    <p class="jsmb-desc"><?php esc_html_e( 'Mô tả chi tiết địa điểm làm việc (khác với địa chỉ ngắn trong _job_location).', 'jobscout' ); ?></p>
+    <p class="jsmb-desc"><?php esc_html_e( 'Detailed location description (separate from the short address in _job_location).', 'jobscout' ); ?></p>
     <?php
     wp_editor(
         wp_kses_post( $value ),
@@ -201,9 +201,9 @@ function jobscout_render_staff_rating_meta_box( $post ) {
         $rating = '4.0';
     }
     ?>
-    <p class="jsmb-desc"><?php esc_html_e( 'Điểm đánh giá nhân viên (0.0 – 5.0).', 'jobscout' ); ?></p>
+    <p class="jsmb-desc"><?php esc_html_e( 'Staff rating score (0.0 – 5.0).', 'jobscout' ); ?></p>
     <div class="jsmb-field">
-        <label for="jsmb_staff_rating"><?php esc_html_e( 'Điểm đánh giá:', 'jobscout' ); ?></label>
+        <label for="jsmb_staff_rating"><?php esc_html_e( 'Rating score:', 'jobscout' ); ?></label>
         <input
             type="number"
             id="jsmb_staff_rating"
@@ -249,14 +249,14 @@ function jobscout_render_company_photos_meta_box( $post ) {
     }
     ?>
     <p class="jsmb-desc">
-        <?php esc_html_e( 'Ảnh hiển thị trong widget "Company Photos" và lightbox trên trang chi tiết job. Ảnh đầu tiên là ảnh đại diện.', 'jobscout' ); ?>
+        <?php esc_html_e( 'Photos displayed in the "Company Photos" widget and lightbox. The first photo is the cover photo.', 'jobscout' ); ?>
     </p>
 
     <div id="jsmb_photos_preview" class="jsmb-photos-grid">
         <?php foreach ( $photos as $url ) : ?>
             <div class="jsmb-photo-item" data-url="<?php echo esc_attr( $url ); ?>">
                 <img src="<?php echo esc_url( $url ); ?>" alt="" />
-                <button type="button" class="jsmb-photo-remove" title="<?php esc_attr_e( 'Xóa ảnh', 'jobscout' ); ?>">×</button>
+                <button type="button" class="jsmb-photo-remove" title="<?php esc_attr_e( 'Remove photo', 'jobscout' ); ?>">×</button>
             </div>
         <?php endforeach; ?>
     </div>
@@ -264,7 +264,7 @@ function jobscout_render_company_photos_meta_box( $post ) {
     <input type="hidden" id="jsmb_photos_data" name="_company_photos_json" value="<?php echo esc_attr( wp_json_encode( $photos ) ); ?>" />
 
     <button type="button" id="jsmb_add_photos_btn" class="button button-primary" style="margin-top:10px;">
-        <?php esc_html_e( '+ Thêm ảnh', 'jobscout' ); ?>
+        <?php esc_html_e( '+ Add Photos', 'jobscout' ); ?>
     </button>
     <?php
 }
@@ -276,7 +276,7 @@ function jobscout_render_apply_form_meta_box( $post ) {
     $shortcode = get_post_meta( $post->ID, '_apply_form_shortcode', true );
     ?>
     <p class="jsmb-desc">
-        <?php esc_html_e( 'Nhập shortcode form ứng tuyển (Contact Form 7). Để trống sẽ dùng form mặc định từ Customizer.', 'jobscout' ); ?>
+        <?php esc_html_e( 'Enter apply form shortcode (Contact Form 7). Leave empty to use default form from Customizer.', 'jobscout' ); ?>
     </p>
     <div class="jsmb-field">
         <input
@@ -289,7 +289,7 @@ function jobscout_render_apply_form_meta_box( $post ) {
         />
     </div>
     <p class="jsmb-hint" style="margin-top:6px;color:#666;font-size:12px;">
-        <?php esc_html_e( 'Ví dụ: [contact-form-7 id="123" title="Ứng tuyển"]', 'jobscout' ); ?>
+        <?php esc_html_e( 'e.g. [contact-form-7 id="123" title="Apply Form"]', 'jobscout' ); ?>
     </p>
     <?php
 }
