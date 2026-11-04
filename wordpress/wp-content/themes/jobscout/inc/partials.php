@@ -38,6 +38,9 @@ function jobscout_customize_partial_blogdescription() {
  */
 function jobscout_get_header_post_job_label(){
     $btn_label = get_theme_mod( 'post_job_label', __( 'Post Jobs', 'jobscout' ) );
+    if ( ( is_singular( 'post' ) || is_page_template( 'page-news.php' ) || is_page( 'news' ) || is_customize_preview() ) && 'Đăng Tin Tuyển Dụng' === trim( (string) $btn_label ) ) {
+        $btn_label = 'Post Jobs';
+    }
 
     if ( $btn_label ){
         return esc_html( $btn_label );
@@ -325,16 +328,15 @@ if ( ! function_exists( 'jobscout_get_news_post_category' ) ) :
 function jobscout_get_news_post_category( $post_id ) {
     $post_id = absint( $post_id );
 
-    $mod_cat = get_theme_mod( 'news_post_category_' . $post_id, '' );
-    if ( '' !== trim( (string) $mod_cat ) ) {
-        return $mod_cat;
+    // 1. In Customizer preview, allow live preview of non-placeholder category edits
+    if ( is_customize_preview() ) {
+        $mod_cat = trim( (string) get_theme_mod( 'news_post_category_' . $post_id, '' ) );
+        if ( '' !== $mod_cat && 'Category Name' !== $mod_cat ) {
+            return $mod_cat;
+        }
     }
 
-    $meta_cat = get_post_meta( $post_id, '_news_category_label', true );
-    if ( ! empty( $meta_cat ) ) {
-        return $meta_cat;
-    }
-
+    // 2. Prioritize actual WordPress Categories assigned to the post
     $categories = get_the_category( $post_id );
     if ( ! empty( $categories ) ) {
         foreach ( $categories as $cat ) {
@@ -342,6 +344,18 @@ function jobscout_get_news_post_category( $post_id ) {
                 return $cat->name;
             }
         }
+    }
+
+    // 3. Check Customizer theme_mod override (ignoring placeholder 'Category Name')
+    $mod_cat = trim( (string) get_theme_mod( 'news_post_category_' . $post_id, '' ) );
+    if ( '' !== $mod_cat && 'Category Name' !== $mod_cat ) {
+        return $mod_cat;
+    }
+
+    // 4. Check post meta override (ignoring placeholder 'Category Name')
+    $meta_cat = trim( (string) get_post_meta( $post_id, '_news_category_label', true ) );
+    if ( '' !== $meta_cat && 'Category Name' !== $meta_cat ) {
+        return $meta_cat;
     }
 
     return 'Category Name';
@@ -442,31 +456,31 @@ endif;
 
 if ( ! function_exists( 'jobscout_get_news_banner_title' ) ) :
 function jobscout_get_news_banner_title() {
-    return esc_html( get_theme_mod( 'news_banner_title', __( 'PDS NEWS', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_banner_title', 'PDS NEWS' ) );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_section_heading' ) ) :
 function jobscout_get_news_section_heading() {
-    return esc_html( get_theme_mod( 'news_section_heading', __( 'NEWEST BLOG ENTRIES', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_section_heading', 'NEWEST BLOG ENTRIES' ) );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_readmore_text' ) ) :
 function jobscout_get_news_readmore_text() {
-    return esc_html( get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_readmore_text', 'Read More' ) );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_newsletter_line1' ) ) :
 function jobscout_get_news_newsletter_line1() {
-    return esc_html( get_theme_mod( 'news_newsletter_line1', __( 'Subscribe To', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_newsletter_line1', 'Subscribe To' ) );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_newsletter_line2' ) ) :
 function jobscout_get_news_newsletter_line2() {
-    return esc_html( get_theme_mod( 'news_newsletter_line2', __( 'Our Newsletter', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_newsletter_line2', 'Our Newsletter' ) );
 }
 endif;
 
@@ -478,25 +492,33 @@ endif;
 
 if ( ! function_exists( 'jobscout_get_news_breadcrumb_home' ) ) :
 function jobscout_get_news_breadcrumb_home() {
-    return esc_html( get_theme_mod( 'news_breadcrumb_home', __( 'Home', 'jobscout' ) ) );
+    $val = get_theme_mod( 'news_breadcrumb_home', 'Home' );
+    if ( 'Trang Chủ' === trim( (string) $val ) ) {
+        $val = 'Home';
+    }
+    return esc_html( $val );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_breadcrumb_all' ) ) :
 function jobscout_get_news_breadcrumb_all() {
-    return esc_html( get_theme_mod( 'news_breadcrumb_all', __( 'All News', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_breadcrumb_all', 'All News' ) );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_breadcrumb_detail' ) ) :
 function jobscout_get_news_breadcrumb_detail() {
-    return esc_html( get_theme_mod( 'news_breadcrumb_detail', __( 'News Detail', 'jobscout' ) ) );
+    return esc_html( get_theme_mod( 'news_breadcrumb_detail', 'News Detail' ) );
 }
 endif;
 
 if ( ! function_exists( 'jobscout_get_news_detail_share_label' ) ) :
 function jobscout_get_news_detail_share_label() {
-    return esc_html( get_theme_mod( 'news_detail_share_label', __( 'SHARE', 'jobscout' ) ) );
+    $val = get_theme_mod( 'news_detail_share_label', 'SHARE' );
+    if ( 'CHIA SẺ' === mb_strtoupper( trim( (string) $val ), 'UTF-8' ) ) {
+        $val = 'SHARE';
+    }
+    return esc_html( $val );
 }
 endif;
 

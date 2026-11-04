@@ -544,6 +544,9 @@ function jobscout_news_post_card_metabox_callback( $post ) {
 
     $pid          = $post->ID;
     $category_lbl = function_exists( 'jobscout_get_news_post_category' ) ? jobscout_get_news_post_category( $pid ) : get_post_meta( $pid, '_news_category_label', true );
+    if ( 'Category Name' === trim( (string) $category_lbl ) ) {
+        $category_lbl = '';
+    }
     $location     = function_exists( 'jobscout_get_news_post_location' ) ? jobscout_get_news_post_location( $pid ) : get_post_meta( $pid, 'location', true );
     $display_date = get_post_meta( $pid, '_news_display_date', true );
     if ( empty( $display_date ) ) {
@@ -683,9 +686,31 @@ function jobscout_save_news_post_card_metabox( $post_id ) {
     }
 
     if ( isset( $_POST['news_post_category'] ) ) {
-        $cat = sanitize_text_field( wp_unslash( $_POST['news_post_category'] ) );
-        update_post_meta( $post_id, '_news_category_label', $cat );
-        set_theme_mod( 'news_post_category_' . $post_id, $cat );
+        $cat = trim( sanitize_text_field( wp_unslash( $_POST['news_post_category'] ) ) );
+        if ( 'Category Name' === $cat ) {
+            $cat = '';
+        }
+        $wp_cat_name = '';
+        $cats = get_the_category( $post_id );
+        if ( ! empty( $cats ) ) {
+            foreach ( $cats as $c ) {
+                if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                    $wp_cat_name = $c->name;
+                    break;
+                }
+            }
+        }
+        // In Gutenberg (meta-box-loader) or when metabox input is empty, sync from the assigned WP Category
+        if ( ( isset( $_GET['meta-box-loader'] ) && '' !== $wp_cat_name ) || ( '' === $cat && '' !== $wp_cat_name ) ) {
+            $cat = $wp_cat_name;
+        }
+        if ( '' !== $cat ) {
+            update_post_meta( $post_id, '_news_category_label', $cat );
+            set_theme_mod( 'news_post_category_' . $post_id, $cat );
+        } else {
+            delete_post_meta( $post_id, '_news_category_label' );
+            remove_theme_mod( 'news_post_category_' . $post_id );
+        }
     }
 
     if ( isset( $_POST['news_post_location'] ) ) {

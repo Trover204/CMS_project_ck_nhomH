@@ -291,19 +291,20 @@ function jobscout_customize_register_news_page( $wp_customize ) {
         }
         $raw_excerpt = has_excerpt( $pid ) ? $post_item->post_excerpt : wp_trim_words( strip_shortcodes( wp_strip_all_tags( $post_item->post_content ) ), 18, '...' );
 
-        // Default Category Badge
-        $def_cat    = get_post_meta( $pid, '_news_category_label', true );
-        if ( empty( $def_cat ) ) {
-            $def_cat = 'Category Name';
-            $cats    = get_the_category( $pid );
-            if ( ! empty( $cats ) ) {
-                foreach ( $cats as $c ) {
-                    if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
-                        $def_cat = $c->name;
-                        break;
-                    }
+        // Default Category Badge (prioritize assigned WordPress Category)
+        $def_cat = '';
+        $cats    = get_the_category( $pid );
+        if ( ! empty( $cats ) ) {
+            foreach ( $cats as $c ) {
+                if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                    $def_cat = $c->name;
+                    break;
                 }
             }
+        }
+        if ( empty( $def_cat ) ) {
+            $meta_cat = trim( (string) get_post_meta( $pid, '_news_category_label', true ) );
+            $def_cat  = ( '' !== $meta_cat && 'Category Name' !== $meta_cat ) ? $meta_cat : 'Category Name';
         }
 
         // Default Location Badge
@@ -1061,20 +1062,52 @@ function jobscout_sync_db_post_to_customizer( $post_id, $post, $update ) {
         set_theme_mod( 'news_post_thumb_' . $post_id, $meta_thumb );
     }
 
-    $meta_cat = get_post_meta( $post_id, '_news_category_label', true );
-    if ( ! empty( $meta_cat ) ) {
-        set_theme_mod( 'news_post_category_' . $post_id, $meta_cat );
-    } else {
-        $cats = get_the_category( $post_id );
-        if ( ! empty( $cats ) ) {
-            foreach ( $cats as $c ) {
-                if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
-                    set_theme_mod( 'news_post_category_' . $post_id, $c->name );
-                    break;
-                }
+    $wp_cat = '';
+    $cats   = get_the_category( $post_id );
+    if ( ! empty( $cats ) ) {
+        foreach ( $cats as $c ) {
+            if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                $wp_cat = $c->name;
+                break;
             }
+        }
+    }
+    if ( '' !== $wp_cat ) {
+        update_post_meta( $post_id, '_news_category_label', $wp_cat );
+        set_theme_mod( 'news_post_category_' . $post_id, $wp_cat );
+    } else {
+        $meta_cat = trim( (string) get_post_meta( $post_id, '_news_category_label', true ) );
+        if ( '' !== $meta_cat && 'Category Name' !== $meta_cat ) {
+            set_theme_mod( 'news_post_category_' . $post_id, $meta_cat );
+        } else {
+            delete_post_meta( $post_id, '_news_category_label' );
+            remove_theme_mod( 'news_post_category_' . $post_id );
         }
     }
 }
 endif;
 add_action( 'save_post_post', 'jobscout_sync_db_post_to_customizer', 20, 3 );
+
+/**
+ * Sync category assignment (including Gutenberg REST API & Quick Edit) to Customizer & post meta
+ */
+if ( ! function_exists( 'jobscout_sync_post_terms_to_customizer' ) ) :
+function jobscout_sync_post_terms_to_customizer( $object_id, $terms, $tt_ids, $taxonomy ) {
+    if ( 'category' !== $taxonomy || 'post' !== get_post_type( $object_id ) ) {
+        return;
+    }
+    $cats = get_the_category( $object_id );
+    if ( ! empty( $cats ) ) {
+        foreach ( $cats as $c ) {
+            if ( ! in_array( $c->slug, array( 'uncategorized', 'chua-phan-loai' ), true ) ) {
+                update_post_meta( $object_id, '_news_category_label', $c->name );
+                set_theme_mod( 'news_post_category_' . $object_id, $c->name );
+                return;
+            }
+        }
+    }
+    delete_post_meta( $object_id, '_news_category_label' );
+    remove_theme_mod( 'news_post_category_' . $object_id );
+}
+endif;
+add_action( 'set_object_terms', 'jobscout_sync_post_terms_to_customizer', 20, 4 );

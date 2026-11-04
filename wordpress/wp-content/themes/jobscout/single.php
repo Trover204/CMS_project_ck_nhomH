@@ -22,11 +22,20 @@ if ( ! $news_page ) {
 }
 $news_page_url = $news_page ? get_permalink( $news_page->ID ) : home_url( '/index.php/news/' );
 
-$breadcrumb_home   = get_theme_mod( 'news_breadcrumb_home', __( 'Home', 'jobscout' ) );
-$breadcrumb_all    = get_theme_mod( 'news_breadcrumb_all', __( 'All News', 'jobscout' ) );
-$breadcrumb_detail = get_theme_mod( 'news_breadcrumb_detail', __( 'News Detail', 'jobscout' ) );
-$share_label       = get_theme_mod( 'news_detail_share_label', __( 'SHARE', 'jobscout' ) );
-$readmore_label    = get_theme_mod( 'news_readmore_text', __( 'Read More', 'jobscout' ) );
+$breadcrumb_home   = get_theme_mod( 'news_breadcrumb_home', 'Home' );
+$breadcrumb_all    = get_theme_mod( 'news_breadcrumb_all', 'All News' );
+$breadcrumb_detail = get_theme_mod( 'news_breadcrumb_detail', 'News Detail' );
+$share_label       = get_theme_mod( 'news_detail_share_label', 'SHARE' );
+$readmore_label    = get_theme_mod( 'news_readmore_text', 'Read More' );
+
+// Normalize any legacy Vietnamese defaults back to English on News Detail
+if ( 'Trang Chủ' === trim( (string) $breadcrumb_home ) ) {
+    $breadcrumb_home = 'Home';
+}
+if ( 'CHIA SẺ' === mb_strtoupper( trim( (string) $share_label ), 'UTF-8' ) ) {
+    $share_label = 'SHARE';
+}
+
 $newest_count      = absint( get_theme_mod( 'news_detail_newest_count', 6 ) );
 if ( $newest_count < 1 ) {
     $newest_count = 6;
