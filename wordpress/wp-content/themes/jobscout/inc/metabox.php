@@ -139,7 +139,7 @@ function jobscout_add_company_photos_metabox() {
     foreach ( $screens as $screen ) {
         add_meta_box(
             'jobscout_company_photos_box',
-            __( 'Company Photos (Bộ sưu tập ảnh công ty)', 'jobscout' ),
+            __( 'Company Photos Gallery', 'jobscout' ),
             'jobscout_company_photos_metabox_callback',
             $screen,
             'normal',
@@ -160,32 +160,32 @@ function jobscout_company_photos_metabox_callback( $post ) {
     ?>
     <div id="jobscout-company-photos-wrapper" style="padding: 10px 0;">
         <p style="margin-bottom: 12px; color: #555; font-size: 13px;">
-            <?php esc_html_e( 'Quản lý bộ sưu tập ảnh công ty hiển thị trong trang chi tiết Job. Ảnh đầu tiên sẽ làm ảnh bìa của widget, toàn bộ ảnh sẽ hiển thị trong cửa sổ xem ảnh Lightbox.', 'jobscout' ); ?>
+            <?php esc_html_e( 'Manage the company photo gallery displayed on the job detail page. The first photo will serve as the widget cover, and all photos will appear in the Lightbox viewer.', 'jobscout' ); ?>
         </p>
 
         <div style="margin-bottom: 15px;">
             <button type="button" class="button button-primary" id="jobscout_upload_company_photos_btn">
                 <span class="dashicons dashicons-images-alt2" style="vertical-align: middle; margin-top: -2px; margin-right: 4px;"></span>
-                <?php esc_html_e( 'Chọn / Tải ảnh từ thư viện Media', 'jobscout' ); ?>
+                <?php esc_html_e( 'Upload / Select from Media Library', 'jobscout' ); ?>
             </button>
             <button type="button" class="button button-secondary" id="jobscout_clear_company_photos_btn" style="margin-left: 8px; <?php echo empty( $photos ) ? 'display:none;' : ''; ?>">
-                <?php esc_html_e( 'Xóa toàn bộ ảnh', 'jobscout' ); ?>
+                <?php esc_html_e( 'Clear All Photos', 'jobscout' ); ?>
             </button>
         </div>
 
         <div id="jobscout-photos-preview-grid" style="display: flex; flex-wrap: wrap; gap: 12px; min-height: 50px; padding: 10px; background: #f9f9f9; border: 1px dashed #ccd0d4; border-radius: 4px;">
             <?php if ( empty( $photos ) ) : ?>
                 <span class="jobscout-no-photos-hint" style="color: #999; font-style: italic; line-height: 40px; padding-left: 5px;">
-                    <?php esc_html_e( 'Chưa có ảnh nào được chọn. Nhấp nút trên để thêm ảnh từ máy tính hoặc thư viện.', 'jobscout' ); ?>
+                    <?php esc_html_e( 'No photos selected yet. Click the button above to add photos from your computer or media library.', 'jobscout' ); ?>
                 </span>
             <?php else : ?>
                 <?php foreach ( $photos as $idx => $photo_url ) : ?>
                     <div class="jobscout-photo-item" style="position: relative; width: 120px; height: 90px; border: 1px solid #ccd0d4; border-radius: 4px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
                         <img src="<?php echo esc_url( $photo_url ); ?>" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                         <input type="hidden" name="jobscout_company_photos[]" value="<?php echo esc_url( $photo_url ); ?>" />
-                        <button type="button" class="jobscout-remove-photo-btn" title="<?php esc_attr_e( 'Xóa ảnh này', 'jobscout' ); ?>" style="position: absolute; top: 3px; right: 3px; background: rgba(220, 53, 69, 0.9); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; line-height: 20px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; padding: 0;">&times;</button>
+                        <button type="button" class="jobscout-remove-photo-btn" title="<?php esc_attr_e( 'Remove photo', 'jobscout' ); ?>" style="position: absolute; top: 3px; right: 3px; background: rgba(220, 53, 69, 0.9); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; line-height: 20px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; padding: 0;">&times;</button>
                         <?php if ( 0 === $idx ) : ?>
-                            <span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(234, 117, 30, 0.9); color: #fff; font-size: 10px; font-weight: bold; text-align: center; padding: 2px 0; text-transform: uppercase;">Ảnh bìa</span>
+                            <span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(234, 117, 30, 0.9); color: #fff; font-size: 10px; font-weight: bold; text-align: center; padding: 2px 0; text-transform: uppercase;">Cover Photo</span>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
@@ -203,8 +203,8 @@ function jobscout_company_photos_metabox_callback( $post ) {
                 return;
             }
             mediaFrame = wp.media({
-                title: '<?php echo esc_js( __( 'Chọn ảnh công ty cho Job này', 'jobscout' ) ); ?>',
-                button: { text: '<?php echo esc_js( __( 'Sử dụng các ảnh đã chọn', 'jobscout' ) ); ?>' },
+                title: '<?php echo esc_js( __( 'Select company photos for this job', 'jobscout' ) ); ?>',
+                button: { text: '<?php echo esc_js( __( 'Use selected photos', 'jobscout' ) ); ?>' },
                 multiple: true
             });
 
@@ -218,12 +218,12 @@ function jobscout_company_photos_metabox_callback( $post ) {
                         var imgUrl = attachment.url;
                         var thumbUrl = (attachment.sizes && attachment.sizes.thumbnail) ? attachment.sizes.thumbnail.url : imgUrl;
                         var isFirst = $('#jobscout-photos-preview-grid .jobscout-photo-item').length === 0;
-                        var badgeHtml = isFirst ? '<span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(234, 117, 30, 0.9); color: #fff; font-size: 10px; font-weight: bold; text-align: center; padding: 2px 0; text-transform: uppercase;">Ảnh bìa</span>' : '';
+                        var badgeHtml = isFirst ? '<span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(234, 117, 30, 0.9); color: #fff; font-size: 10px; font-weight: bold; text-align: center; padding: 2px 0; text-transform: uppercase;">Cover Photo</span>' : '';
 
                         var itemHtml = '<div class="jobscout-photo-item" style="position: relative; width: 120px; height: 90px; border: 1px solid #ccd0d4; border-radius: 4px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">' +
                             '<img src="' + thumbUrl + '" style="width: 100%; height: 100%; object-fit: cover; display: block;" />' +
                             '<input type="hidden" name="jobscout_company_photos[]" value="' + imgUrl + '" />' +
-                            '<button type="button" class="jobscout-remove-photo-btn" title="Xóa ảnh này" style="position: absolute; top: 3px; right: 3px; background: rgba(220, 53, 69, 0.9); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; line-height: 20px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; padding: 0;">&times;</button>' +
+                            '<button type="button" class="jobscout-remove-photo-btn" title="Remove photo" style="position: absolute; top: 3px; right: 3px; background: rgba(220, 53, 69, 0.9); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; line-height: 20px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; padding: 0;">&times;</button>' +
                             badgeHtml +
                             '</div>';
 
@@ -235,21 +235,21 @@ function jobscout_company_photos_metabox_callback( $post ) {
             mediaFrame.open();
         });
 
-        // Xóa 1 ảnh
+        // Remove 1 photo
         $(document).on('click', '.jobscout-remove-photo-btn', function(e) {
             e.preventDefault();
             $(this).closest('.jobscout-photo-item').remove();
             if ($('#jobscout-photos-preview-grid .jobscout-photo-item').length === 0) {
-                $('#jobscout-photos-preview-grid').html('<span class="jobscout-no-photos-hint" style="color: #999; font-style: italic; line-height: 40px; padding-left: 5px;">Chưa có ảnh nào được chọn. Nhấp nút trên để thêm ảnh.</span>');
+                $('#jobscout-photos-preview-grid').html('<span class="jobscout-no-photos-hint" style="color: #999; font-style: italic; line-height: 40px; padding-left: 5px;">No photos selected yet. Click the button above to add photos.</span>');
                 $('#jobscout_clear_company_photos_btn').hide();
             }
         });
 
-        // Xóa toàn bộ
+        // Clear all photos
         $('#jobscout_clear_company_photos_btn').on('click', function(e) {
             e.preventDefault();
-            if (confirm('<?php echo esc_js( __( 'Bạn có chắc chắn muốn xóa toàn bộ ảnh trong bộ sưu tập này?', 'jobscout' ) ); ?>')) {
-                $('#jobscout-photos-preview-grid').html('<span class="jobscout-no-photos-hint" style="color: #999; font-style: italic; line-height: 40px; padding-left: 5px;">Chưa có ảnh nào được chọn. Nhấp nút trên để thêm ảnh.</span>');
+            if (confirm('<?php echo esc_js( __( 'Are you sure you want to remove all photos in this gallery?', 'jobscout' ) ); ?>')) {
+                $('#jobscout-photos-preview-grid').html('<span class="jobscout-no-photos-hint" style="color: #999; font-style: italic; line-height: 40px; padding-left: 5px;">No photos selected yet. Click the button above to add photos.</span>');
                 $(this).hide();
             }
         });

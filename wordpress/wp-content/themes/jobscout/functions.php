@@ -90,4 +90,4 @@ endif;
 /**
  * Frontend Vietnamese Translation
  */
-require get_template_directory() . '/inc/vietnamese-frontend.php';
+// require get_template_directory() . '/inc/vietnamese-frontend.php';

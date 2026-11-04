@@ -342,7 +342,7 @@ $share_links = array(
         <div class="job-share-modal-header">
             <div>
                 <h3 id="jobShareModalTitle" class="job-share-modal-title">
-                    <?php esc_html_e( 'Chia Sẻ Tin Tuyển Dụng', 'jobscout' ); ?>
+                    <?php esc_html_e( 'Share Job Listing', 'jobscout' ); ?>
                 </h3>
                 <span class="job-share-modal-subtitle"><?php echo esc_html( $share_job_title ); ?></span>
             </div>
@@ -350,7 +350,7 @@ $share_links = array(
                 type="button"
                 class="job-share-modal-close"
                 onclick="window.jobscoutCloseShareModal()"
-                aria-label="<?php esc_attr_e( 'Đóng', 'jobscout' ); ?>"
+                aria-label="<?php esc_attr_e( 'Close', 'jobscout' ); ?>"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -367,7 +367,7 @@ $share_links = array(
                         href="<?php echo esc_url( $social['url'] ); ?>"
                         class="job-share-btn job-share-btn-<?php echo esc_attr( $key ); ?>"
                         onclick="window.jobscoutOpenShareWindow(event, '<?php echo esc_url( $social['url'] ); ?>', '<?php echo esc_attr( $social['name'] ); ?>')"
-                        aria-label="<?php echo esc_attr( sprintf( __( 'Chia sẻ lên %s', 'jobscout' ), $social['name'] ) ); ?>"
+                        aria-label="<?php echo esc_attr( sprintf( __( 'Share on %s', 'jobscout' ), $social['name'] ) ); ?>"
                     >
                         <div class="job-share-icon-wrap" style="color:<?php echo esc_attr( $social['color'] ); ?>;background:<?php echo esc_attr( $social['bg'] ); ?>;">
                             <?php echo $social['svg']; // SVG is safe markup ?>
@@ -380,7 +380,7 @@ $share_links = array(
             <!-- Copy Link Box -->
             <div class="job-share-copy-box">
                 <label for="jobscoutShareLinkInput" class="job-share-copy-label">
-                    <?php esc_html_e( 'Hoặc sao chép đường dẫn bài đăng:', 'jobscout' ); ?>
+                    <?php esc_html_e( 'Or copy the job link:', 'jobscout' ); ?>
                 </label>
                 <div class="job-share-copy-row">
                     <input
@@ -401,7 +401,7 @@ $share_links = array(
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span id="jobscoutCopyBtnText"><?php esc_html_e( 'Sao chép', 'jobscout' ); ?></span>
+                        <span id="jobscoutCopyBtnText"><?php esc_html_e( 'Copy', 'jobscout' ); ?></span>
                     </button>
                 </div>
             </div>
@@ -414,7 +414,7 @@ $share_links = array(
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
-    <span><?php esc_html_e( 'Đã sao chép liên kết vào bộ nhớ tạm!', 'jobscout' ); ?></span>
+    <span><?php esc_html_e( 'Link copied to clipboard!', 'jobscout' ); ?></span>
 </div>
 
 <script>
@@ -494,7 +494,7 @@ window.jobscoutCopyShareLink = function() {
     const onSuccess = function() {
         if (btn) {
             btn.classList.add('copied');
-            if (btnText) btnText.textContent = '<?php echo esc_js( __( 'Đã chép! ✓', 'jobscout' ) ); ?>';
+            if (btnText) btnText.textContent = '<?php echo esc_js( __( 'Copied! ✓', 'jobscout' ) ); ?>';
         }
         if (toast) {
             toast.classList.add('is-shown');
@@ -505,7 +505,7 @@ window.jobscoutCopyShareLink = function() {
         setTimeout(function() {
             if (btn) {
                 btn.classList.remove('copied');
-                if (btnText) btnText.textContent = '<?php echo esc_js( __( 'Sao chép', 'jobscout' ) ); ?>';
+                if (btnText) btnText.textContent = '<?php echo esc_js( __( 'Copy', 'jobscout' ) ); ?>';
             }
         }, 2500);
     };

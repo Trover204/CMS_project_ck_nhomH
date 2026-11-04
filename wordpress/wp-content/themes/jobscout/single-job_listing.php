@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * The template for displaying all single job posts (Job Detail Page)
  * Matching PDS Design
@@ -117,10 +117,10 @@ $_staff_rating      = ( '' !== $_staff_rating_raw ) ? (float) $_staff_rating_raw
 $_staff_rating      = max( 0, min( 5, $_staff_rating ) );
 
 // Fallback placeholder text when field is empty
-$_overview_fallback = '<p>' . esc_html__( 'Thông tin tổng quan về công ty chưa được cập nhật. Vui lòng bổ sung trong mục chỉnh sửa tin tuyển dụng.', 'jobscout' ) . '</p>';
-$_skills_fallback   = '<p>' . esc_html__( 'Thông tin kỹ năng yêu cầu chưa được cập nhật.', 'jobscout' ) . '</p>';
-$_why_fallback      = '<p>' . esc_html__( 'Thông tin phúc lợi và môi trường làm việc chưa được cập nhật.', 'jobscout' ) . '</p>';
-$_loc_fallback      = '<p>' . esc_html__( 'Thông tin địa điểm chi tiết chưa được cập nhật.', 'jobscout' ) . '</p>';
+$_overview_fallback = '<p>' . esc_html__( 'Company overview information has not been updated yet. Please add it in the job edit page.', 'jobscout' ) . '</p>';
+$_skills_fallback   = '<p>' . esc_html__( 'Key skills and requirements have not been updated yet.', 'jobscout' ) . '</p>';
+$_why_fallback      = '<p>' . esc_html__( 'Benefits and working environment information have not been updated yet.', 'jobscout' ) . '</p>';
+$_loc_fallback      = '<p>' . esc_html__( 'Detailed location information has not been updated yet.', 'jobscout' ) . '</p>';
 
 // Other jobs data (6 cards for OTHER JOBS section)
 $demo_jobs = array(
@@ -324,10 +324,10 @@ if ( count( $other_jobs ) < 6 ) {
             </div>
             <div class="job-detail-actions">
                 <button type="button" class="job-btn-share" onclick="jobscoutShareJob()">
-                    <?php esc_html_e( 'CHIA SẺ', 'jobscout' ); ?>
+                    <?php esc_html_e( 'SHARE', 'jobscout' ); ?>
                 </button>
                 <button type="button" class="job-btn-apply" onclick="jobscoutApplyJob()">
-                    <?php esc_html_e( 'ỨNG TUYỂN NGAY', 'jobscout' ); ?>
+                    <?php esc_html_e( 'APPLY JOB', 'jobscout' ); ?>
                 </button>
             </div>
         </div>

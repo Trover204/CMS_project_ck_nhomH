@@ -386,7 +386,7 @@ function jobscout_get_news_post_date_display( $post_id ) {
 
     $mod_date = get_theme_mod( 'news_post_date_' . $post_id, '' );
     if ( '' !== trim( (string) $mod_date ) ) {
-        if ( stripos( $mod_date, 'Posted' ) === 0 || stripos( $mod_date, 'Ngày' ) === 0 ) {
+        if ( stripos( $mod_date, 'Posted' ) === 0 || stripos( $mod_date, 'Date' ) === 0 ) {
             return $mod_date;
         }
         return $prefix . $mod_date;
@@ -394,7 +394,7 @@ function jobscout_get_news_post_date_display( $post_id ) {
 
     $meta_date = get_post_meta( $post_id, '_news_display_date', true );
     if ( ! empty( $meta_date ) ) {
-        if ( stripos( $meta_date, 'Posted' ) === 0 || stripos( $meta_date, 'Ngày' ) === 0 ) {
+        if ( stripos( $meta_date, 'Posted' ) === 0 || stripos( $meta_date, 'Date' ) === 0 ) {
             return $meta_date;
         }
         return $prefix . $meta_date;

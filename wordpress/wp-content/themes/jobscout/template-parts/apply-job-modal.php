@@ -392,12 +392,12 @@ body.job-apply-modal-open {
         <!-- Modal Header -->
         <div class="job-apply-modal-header">
             <div class="job-apply-modal-header-content">
-                <span class="job-apply-modal-badge"><?php esc_html_e( 'ỨNG TUYỂN TRỰC TUYẾN', 'jobscout' ); ?></span>
+                <span class="job-apply-modal-badge"><?php esc_html_e( 'ONLINE APPLICATION', 'jobscout' ); ?></span>
                 <h3 id="jobApplyModalTitle" class="job-apply-modal-title">
-                    <?php esc_html_e( 'Nộp Hồ Sơ Ứng Tuyển', 'jobscout' ); ?>
+                    <?php esc_html_e( 'Submit Your Application', 'jobscout' ); ?>
                 </h3>
                 <div class="job-apply-target-info">
-                    <span class="job-apply-target-label"><?php esc_html_e( 'Vị trí:', 'jobscout' ); ?></span>
+                    <span class="job-apply-target-label"><?php esc_html_e( 'Position:', 'jobscout' ); ?></span>
                     <strong class="job-apply-target-title"><?php echo esc_html( $current_job_title ); ?></strong>
                     <?php if ( ! empty( $company_name ) ) : ?>
                         <span class="job-apply-target-sep">•</span>
@@ -409,7 +409,7 @@ body.job-apply-modal-open {
                 type="button"
                 class="job-apply-modal-close"
                 onclick="window.jobscoutCloseApplyModal()"
-                aria-label="<?php esc_attr_e( 'Đóng cửa sổ', 'jobscout' ); ?>"
+                aria-label="<?php esc_attr_e( 'Close window', 'jobscout' ); ?>"
             >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -434,14 +434,14 @@ body.job-apply-modal-open {
 
                     <div class="job-apply-form-group">
                         <label for="apply_fullname" class="job-apply-label">
-                            <?php esc_html_e( 'Họ và tên', 'jobscout' ); ?> <span class="required">*</span>
+                            <?php esc_html_e( 'Full Name', 'jobscout' ); ?> <span class="required">*</span>
                         </label>
                         <input
                             type="text"
                             id="apply_fullname"
                             name="applicant_name"
                             class="job-apply-input"
-                            placeholder="<?php esc_attr_e( 'Ví dụ: Nguyễn Văn A', 'jobscout' ); ?>"
+                            placeholder="<?php esc_attr_e( 'e.g. John Doe', 'jobscout' ); ?>"
                             required
                         />
                     </div>
@@ -449,7 +449,7 @@ body.job-apply-modal-open {
                     <div class="job-apply-form-row">
                         <div class="job-apply-form-group">
                             <label for="apply_email" class="job-apply-label">
-                                <?php esc_html_e( 'Email liên hệ', 'jobscout' ); ?> <span class="required">*</span>
+                                <?php esc_html_e( 'Email Address', 'jobscout' ); ?> <span class="required">*</span>
                             </label>
                             <input
                                 type="email"
@@ -462,7 +462,7 @@ body.job-apply-modal-open {
                         </div>
                         <div class="job-apply-form-group">
                             <label for="apply_phone" class="job-apply-label">
-                                <?php esc_html_e( 'Số điện thoại', 'jobscout' ); ?> <span class="required">*</span>
+                                <?php esc_html_e( 'Phone Number', 'jobscout' ); ?> <span class="required">*</span>
                             </label>
                             <input
                                 type="tel"
@@ -477,7 +477,7 @@ body.job-apply-modal-open {
 
                     <div class="job-apply-form-group">
                         <label for="apply_cv_file" class="job-apply-label">
-                            <?php esc_html_e( 'Đính kèm CV (PDF, DOC, DOCX)', 'jobscout' ); ?>
+                            <?php esc_html_e( 'Attach Resume / CV (PDF, DOC, DOCX)', 'jobscout' ); ?>
                         </label>
                         <div class="job-apply-file-wrap">
                             <input
@@ -487,26 +487,26 @@ body.job-apply-modal-open {
                                 class="job-apply-file-input"
                                 accept=".pdf,.doc,.docx"
                             />
-                            <span class="job-apply-file-hint"><?php esc_html_e( 'Tối đa 5MB. Định dạng hỗ trợ: PDF, DOC, DOCX', 'jobscout' ); ?></span>
+                            <span class="job-apply-file-hint"><?php esc_html_e( 'Max 5MB. Supported formats: PDF, DOC, DOCX', 'jobscout' ); ?></span>
                         </div>
                     </div>
 
                     <div class="job-apply-form-group">
                         <label for="apply_cover_letter" class="job-apply-label">
-                            <?php esc_html_e( 'Thư giới thiệu / Lời nhắn', 'jobscout' ); ?>
+                            <?php esc_html_e( 'Cover Letter / Message', 'jobscout' ); ?>
                         </label>
                         <textarea
                             id="apply_cover_letter"
                             name="applicant_message"
                             class="job-apply-textarea"
                             rows="4"
-                            placeholder="<?php esc_attr_e( 'Giới thiệu ngắn gọn kinh nghiệm và lý do bạn phù hợp với vị trí này...', 'jobscout' ); ?>"
+                            placeholder="<?php esc_attr_e( 'Briefly introduce your experience and why you are a great fit...', 'jobscout' ); ?>"
                         ></textarea>
                     </div>
 
                     <div class="job-apply-form-actions">
                         <button type="submit" class="job-apply-submit-btn" id="jobApplySubmitBtn">
-                            <span><?php esc_html_e( 'GỬI HỒ SƠ ỨNG TUYỂN', 'jobscout' ); ?></span>
+                            <span><?php esc_html_e( 'SUBMIT APPLICATION', 'jobscout' ); ?></span>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -521,10 +521,10 @@ body.job-apply-modal-open {
                     <div class="job-apply-admin-hint">
                         <span class="dashicons dashicons-admin-generic"></span>
                         <div class="job-apply-admin-hint-text">
-                            <strong><?php esc_html_e( 'Dành cho Quản trị viên:', 'jobscout' ); ?></strong>
-                            <?php esc_html_e( 'Bạn có thể thay thế form này bằng shortcode Contact Form 7 hoặc WPForms trong', 'jobscout' ); ?>
-                            <em><?php esc_html_e( 'Tùy biến → Jobs Page Settings → 3. Apply Form Settings', 'jobscout' ); ?></em>
-                            <?php esc_html_e( 'hoặc trong khung "Form ứng tuyển" khi chỉnh sửa tin này.', 'jobscout' ); ?>
+                            <strong><?php esc_html_e( 'Admin Notice:', 'jobscout' ); ?></strong>
+                            <?php esc_html_e( 'You can replace this form with Contact Form 7 or WPForms shortcode in', 'jobscout' ); ?>
+                            <em><?php esc_html_e( 'Customizer → Jobs Page Settings → 3. Apply Form Settings', 'jobscout' ); ?></em>
+                            <?php esc_html_e( 'or in the "Apply Form Shortcode" box when editing this job listing.', 'jobscout' ); ?>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -656,7 +656,7 @@ window.jobscoutHandleNativeApply = function(event) {
 
     if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span><?php echo esc_js( __( 'ĐANG GỬI HỒ SƠ...', 'jobscout' ) ); ?></span>';
+        btn.innerHTML = '<span><?php echo esc_js( __( 'SUBMITTING APPLICATION...', 'jobscout' ) ); ?></span>';
     }
     if (notice) {
         notice.style.display = 'none';
@@ -679,10 +679,10 @@ window.jobscoutHandleNativeApply = function(event) {
             if (notice) {
                 notice.style.display = 'block';
                 notice.className = 'job-apply-notice job-apply-notice-success';
-                notice.innerHTML = '<strong>' + (result.data && result.data.message ? result.data.message : '<?php echo esc_js( __( 'Ứng tuyển thành công!', 'jobscout' ) ); ?>') + '</strong>';
+                notice.innerHTML = '<strong>' + (result.data && result.data.message ? result.data.message : '<?php echo esc_js( __( 'Application submitted successfully!', 'jobscout' ) ); ?>') + '</strong>';
             }
             if (btn) {
-                btn.innerHTML = '<span><?php echo esc_js( __( 'ĐÃ GỬI THÀNH CÔNG', 'jobscout' ) ); ?> ✓</span>';
+                btn.innerHTML = '<span><?php echo esc_js( __( 'SUBMITTED SUCCESSFULLY', 'jobscout' ) ); ?> ✓</span>';
                 btn.style.backgroundColor = '#10b981';
             }
             form.reset();
@@ -691,14 +691,14 @@ window.jobscoutHandleNativeApply = function(event) {
                 if (btn) {
                     btn.disabled = false;
                     btn.style.backgroundColor = '';
-                    btn.innerHTML = '<span><?php echo esc_js( __( 'GỬI HỒ SƠ ỨNG TUYỂN', 'jobscout' ) ); ?></span>';
+                    btn.innerHTML = '<span><?php echo esc_js( __( 'SUBMIT APPLICATION', 'jobscout' ) ); ?></span>';
                 }
                 if (notice) {
                     notice.style.display = 'none';
                 }
             }, 2500);
         } else {
-            const errorMsg = (result && result.data && result.data.message) ? result.data.message : '<?php echo esc_js( __( 'Có lỗi xảy ra khi nộp hồ sơ. Vui lòng kiểm tra lại.', 'jobscout' ) ); ?>';
+            const errorMsg = (result && result.data && result.data.message) ? result.data.message : '<?php echo esc_js( __( 'An error occurred while submitting your application. Please check and try again.', 'jobscout' ) ); ?>';
             if (notice) {
                 notice.style.display = 'block';
                 notice.className = 'job-apply-notice job-apply-notice-error';
@@ -706,7 +706,7 @@ window.jobscoutHandleNativeApply = function(event) {
             }
             if (btn) {
                 btn.disabled = false;
-                btn.innerHTML = '<span><?php echo esc_js( __( 'THỬ LẠI', 'jobscout' ) ); ?></span>';
+                btn.innerHTML = '<span><?php echo esc_js( __( 'TRY AGAIN', 'jobscout' ) ); ?></span>';
             }
         }
     })
@@ -714,11 +714,11 @@ window.jobscoutHandleNativeApply = function(event) {
         if (notice) {
             notice.style.display = 'block';
             notice.className = 'job-apply-notice job-apply-notice-error';
-            notice.innerHTML = '<strong><?php echo esc_js( __( 'Không thể kết nối đến máy chủ. Vui lòng thử lại.', 'jobscout' ) ); ?></strong>';
+            notice.innerHTML = '<strong><?php echo esc_js( __( 'Could not connect to server. Please try again.', 'jobscout' ) ); ?></strong>';
         }
         if (btn) {
             btn.disabled = false;
-            btn.innerHTML = '<span><?php echo esc_js( __( 'THỬ LẠI', 'jobscout' ) ); ?></span>';
+            btn.innerHTML = '<span><?php echo esc_js( __( 'TRY AGAIN', 'jobscout' ) ); ?></span>';
         }
     });
 };

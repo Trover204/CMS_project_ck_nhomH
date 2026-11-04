@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Template Name: About Page
  *
@@ -25,7 +25,7 @@ $company_img = $theme_img_dir . 'photo-1536098561742-ca998e48cbcc.jpg';
 <section class="contact-banner-section about-banner-section" style="background-image: url('<?php echo esc_url( $banner_img ); ?>');">
     <div class="contact-banner-overlay about-banner-overlay"></div>
     <div class="container contact-banner-container about-banner-container">
-        <h1 class="contact-banner-title about-banner-title"><?php echo esc_html( get_theme_mod( 'about_banner_title', 'GIỚI THIỆU VỀ CHÚNG TÔI' ) ); ?></h1>
+        <h1 class="contact-banner-title about-banner-title"><?php echo esc_html( get_theme_mod( 'about_banner_title', 'ABOUT US' ) ); ?></h1>
     </div>
 </section>
 
@@ -50,13 +50,13 @@ $company_img = $theme_img_dir . 'photo-1536098561742-ca998e48cbcc.jpg';
                 <div class="about-info-group">
                     <h3 class="about-group-title"><?php esc_html_e( 'Ours Mission', 'jobscout' ); ?></h3>
                     <p class="about-group-text">
-                        <?php esc_html_e( 'Share “Omotenashi” with the world', 'jobscout' ); ?>
+                        <?php esc_html_e( 'Share "Omotenashi" with the world', 'jobscout' ); ?>
                     </p>
                 </div>
 
                 <div class="about-info-group">
                     <h3 class="about-group-title"><?php esc_html_e( 'Our Core Value', 'jobscout' ); ?></h3>
-                    <p class="about-group-subtext">“If I were the guest…”</p>
+                    <p class="about-group-subtext">"If I were the guest..."</p>
                     <p class="about-group-text">
                         <?php esc_html_e( 'To provide guests with the hospitality you would want to receive as a guest.', 'jobscout' ); ?>
                     </p>
@@ -125,3 +125,4 @@ $company_img = $theme_img_dir . 'photo-1536098561742-ca998e48cbcc.jpg';
 
 <?php
 get_footer();
+
