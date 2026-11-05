@@ -233,6 +233,8 @@ body.job-apply-modal-open {
 #jobApplyModal input[type="email"],
 #jobApplyModal input[type="tel"],
 #jobApplyModal input[type="url"],
+#jobApplyModal input[type="number"],
+#jobApplyModal select.job-apply-select,
 #jobApplyModal textarea {
     width: 100% !important;
     padding: 10px 14px !important;
@@ -246,9 +248,50 @@ body.job-apply-modal-open {
     transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
+#jobApplyModal select.job-apply-select {
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 16px !important;
+    padding-right: 38px !important;
+}
+
+#jobApplyModal .job-apply-radio-group {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    padding: 6px 0 !important;
+}
+
+#jobApplyModal .job-apply-radio-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 14px !important;
+    color: #334155 !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+    margin-bottom: 0 !important;
+    user-select: none !important;
+}
+
+#jobApplyModal .job-apply-radio-label input[type="radio"] {
+    width: 18px !important;
+    height: 18px !important;
+    accent-color: #ea751e !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+}
+
 #jobApplyModal input[type="text"]:focus,
 #jobApplyModal input[type="email"]:focus,
 #jobApplyModal input[type="tel"]:focus,
+#jobApplyModal input[type="url"]:focus,
+#jobApplyModal input[type="number"]:focus,
+#jobApplyModal select.job-apply-select:focus,
 #jobApplyModal textarea:focus {
     border-color: #ea751e !important;
     box-shadow: 0 0 0 3px rgba(234, 117, 30, 0.15) !important;
@@ -432,77 +475,93 @@ body.job-apply-modal-open {
                     <input type="hidden" name="job_title" value="<?php echo esc_attr( $current_job_title ); ?>" />
                     <?php wp_nonce_field( 'jobscout_apply_nonce_action', 'jobscout_apply_nonce' ); ?>
 
-                    <div class="job-apply-form-group">
-                        <label for="apply_fullname" class="job-apply-label">
-                            <?php esc_html_e( 'Full Name', 'jobscout' ); ?> <span class="required">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            id="apply_fullname"
-                            name="applicant_name"
-                            class="job-apply-input"
-                            placeholder="<?php esc_attr_e( 'e.g. John Doe', 'jobscout' ); ?>"
-                            required
-                        />
-                    </div>
-
-                    <div class="job-apply-form-row">
+                    <?php
+                    $configured_fields = class_exists( 'JobScout_Job_Applications' ) ? JobScout_Job_Applications::get_form_fields() : array();
+                    foreach ( $configured_fields as $cf ) :
+                        $cf_id   = esc_attr( $cf['id'] );
+                        $cf_lbl  = esc_html( $cf['label'] );
+                        $cf_type = esc_attr( $cf['type'] );
+                        $cf_req  = ! empty( $cf['required'] );
+                        $cf_ph   = esc_attr( $cf['placeholder'] ?? '' );
+                    ?>
                         <div class="job-apply-form-group">
-                            <label for="apply_email" class="job-apply-label">
-                                <?php esc_html_e( 'Email Address', 'jobscout' ); ?> <span class="required">*</span>
+                            <label for="apply_<?php echo $cf_id; ?>" class="job-apply-label">
+                                <?php echo $cf_lbl; ?> <?php if ( $cf_req ) : ?><span class="required">*</span><?php endif; ?>
                             </label>
-                            <input
-                                type="email"
-                                id="apply_email"
-                                name="applicant_email"
-                                class="job-apply-input"
-                                placeholder="<?php esc_attr_e( 'email@example.com', 'jobscout' ); ?>"
-                                required
-                            />
+                            <?php if ( 'textarea' === $cf_type ) : ?>
+                                <textarea
+                                    id="apply_<?php echo $cf_id; ?>"
+                                    name="<?php echo $cf_id; ?>"
+                                    class="job-apply-textarea"
+                                    rows="4"
+                                    placeholder="<?php echo $cf_ph; ?>"
+                                    <?php if ( $cf_req ) echo 'required'; ?>
+                                ></textarea>
+                            <?php elseif ( 'file' === $cf_type ) : ?>
+                                <div class="job-apply-file-wrap">
+                                    <input
+                                        type="file"
+                                        id="apply_<?php echo $cf_id; ?>"
+                                        name="<?php echo $cf_id; ?>"
+                                        class="job-apply-file-input"
+                                        accept=".pdf,.doc,.docx"
+                                        <?php if ( $cf_req ) echo 'required'; ?>
+                                    />
+                                    <span class="job-apply-file-hint"><?php esc_html_e( 'Tối đa 5MB. Định dạng hỗ trợ: PDF, DOC, DOCX', 'jobscout' ); ?></span>
+                                </div>
+                            <?php elseif ( 'select' === $cf_type ) : 
+                                $raw_options = $cf['placeholder'] ?? '';
+                                $options = array_filter( array_map( 'trim', explode( ',', $raw_options ) ) );
+                                if ( empty( $options ) ) {
+                                    $options = array( 'Nam', 'Nữ' );
+                                }
+                            ?>
+                                <select
+                                    id="apply_<?php echo $cf_id; ?>"
+                                    name="<?php echo $cf_id; ?>"
+                                    class="job-apply-input job-apply-select"
+                                    <?php if ( $cf_req ) echo 'required'; ?>
+                                >
+                                    <option value=""><?php echo esc_html( '-- Chọn ' . $cf['label'] . ' --' ); ?></option>
+                                    <?php foreach ( $options as $opt ) : ?>
+                                        <option value="<?php echo esc_attr( $opt ); ?>"><?php echo esc_html( $opt ); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            <?php elseif ( 'radio' === $cf_type ) : 
+                                $raw_options = $cf['placeholder'] ?? '';
+                                $options = array_filter( array_map( 'trim', explode( ',', $raw_options ) ) );
+                                if ( empty( $options ) ) {
+                                    $options = array( 'Nam', 'Nữ' );
+                                }
+                            ?>
+                                <div class="job-apply-radio-group">
+                                    <?php foreach ( $options as $idx => $opt ) : 
+                                        $radio_id = 'apply_' . $cf_id . '_' . $idx;
+                                    ?>
+                                        <label class="job-apply-radio-label" for="<?php echo esc_attr( $radio_id ); ?>">
+                                            <input
+                                                type="radio"
+                                                id="<?php echo esc_attr( $radio_id ); ?>"
+                                                name="<?php echo $cf_id; ?>"
+                                                value="<?php echo esc_attr( $opt ); ?>"
+                                                <?php if ( $cf_req && 0 === $idx ) echo 'required'; ?>
+                                            />
+                                            <span><?php echo esc_html( $opt ); ?></span>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php else : ?>
+                                <input
+                                    type="<?php echo $cf_type; ?>"
+                                    id="apply_<?php echo $cf_id; ?>"
+                                    name="<?php echo $cf_id; ?>"
+                                    class="job-apply-input"
+                                    placeholder="<?php echo $cf_ph; ?>"
+                                    <?php if ( $cf_req ) echo 'required'; ?>
+                                />
+                            <?php endif; ?>
                         </div>
-                        <div class="job-apply-form-group">
-                            <label for="apply_phone" class="job-apply-label">
-                                <?php esc_html_e( 'Phone Number', 'jobscout' ); ?> <span class="required">*</span>
-                            </label>
-                            <input
-                                type="tel"
-                                id="apply_phone"
-                                name="applicant_phone"
-                                class="job-apply-input"
-                                placeholder="<?php esc_attr_e( '0912 345 678', 'jobscout' ); ?>"
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    <div class="job-apply-form-group">
-                        <label for="apply_cv_file" class="job-apply-label">
-                            <?php esc_html_e( 'Attach Resume / CV (PDF, DOC, DOCX)', 'jobscout' ); ?>
-                        </label>
-                        <div class="job-apply-file-wrap">
-                            <input
-                                type="file"
-                                id="apply_cv_file"
-                                name="applicant_cv"
-                                class="job-apply-file-input"
-                                accept=".pdf,.doc,.docx"
-                            />
-                            <span class="job-apply-file-hint"><?php esc_html_e( 'Max 5MB. Supported formats: PDF, DOC, DOCX', 'jobscout' ); ?></span>
-                        </div>
-                    </div>
-
-                    <div class="job-apply-form-group">
-                        <label for="apply_cover_letter" class="job-apply-label">
-                            <?php esc_html_e( 'Cover Letter / Message', 'jobscout' ); ?>
-                        </label>
-                        <textarea
-                            id="apply_cover_letter"
-                            name="applicant_message"
-                            class="job-apply-textarea"
-                            rows="4"
-                            placeholder="<?php esc_attr_e( 'Briefly introduce your experience and why you are a great fit...', 'jobscout' ); ?>"
-                        ></textarea>
-                    </div>
+                    <?php endforeach; ?>
 
                     <div class="job-apply-form-actions">
                         <button type="submit" class="job-apply-submit-btn" id="jobApplySubmitBtn">
