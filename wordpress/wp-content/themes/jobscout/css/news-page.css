@@ -3110,52 +3110,62 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
     gap: 6px;
 }
 
-/* Actions buttons (SHARE & APPLY JOB) */
+/* Actions buttons (SHARE & APPLY JOB stacked vertically as in Spec) */
 .job-detail-actions {
     display: flex;
-    gap: 12px;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 140px;
 }
 
 .job-btn-share {
     background: #ffffff;
-    border: 1px solid #d1d5db;
-    color: #374151;
+    border: 1.5px solid #111827;
+    color: #111827;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    padding: 9px 24px;
-    border-radius: 3px;
+    padding: 8px 16px;
+    border-radius: 2px;
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .job-btn-share:hover {
-    background: #f9fafb;
-    border-color: #9ca3af;
+    background: #111827;
+    color: #ffffff;
 }
 
 .job-btn-apply {
     background: #ffffff;
-    border: 1.5px solid var(--pds-primary-orange);
-    color: var(--pds-primary-orange);
+    border: 1.5px solid var(--pds-primary-orange, #ea751e);
+    color: var(--pds-primary-orange, #ea751e);
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    padding: 9px 24px;
-    border-radius: 3px;
+    padding: 8px 16px;
+    border-radius: 2px;
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none;
     text-decoration: none;
     display: inline-block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .job-btn-apply:hover {
-    background: var(--pds-primary-orange);
+    background: var(--pds-primary-orange, #ea751e);
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(234, 117, 30, 0.25);
 }
@@ -3169,7 +3179,8 @@ body.single-post .main-navigation ul li.current-menu-item > a::after {
     }
     .job-detail-actions {
         width: 100%;
-        justify-content: flex-start;
+        max-width: 160px;
+        flex-direction: column;
     }
 }
 
